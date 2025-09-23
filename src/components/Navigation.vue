@@ -1,79 +1,80 @@
 <template>
   <nav 
     :class="[
-      'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-      isScrolled ? 'bg-navy-dark/95 backdrop-blur-md shadow-lg py-6' : 'bg-transparent py-8'
+      'fixed top-0 left-0 right-0 z-50 transition-all duration-base',
+      isScrolled ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900/95 backdrop-blur shadow-lg py-4' : 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-6'
     ]"
   >
-    <div class="container-custom">
+    <div class="container">
       <div class="flex items-center justify-between">
         <!-- Logo -->
-        <a 
-          href="#home" 
-          @click="scrollToSection('home')"
-          class="flex items-center space-x-4 sm:space-x-6 group"
+        <router-link 
+          to="/" 
+          class="flex items-center space-x-4 group focus-ring-keyboard"
+          aria-label="ECIS Solutions home page"
         >
           <img 
-            src="/src/assets/ecis-logo2.png" 
-            alt="East Coast Investigation Security Logo" 
-            class="h-12 sm:h-14 w-auto group-hover:scale-105 transition-transform duration-300"
+            src="/src/assets/logo.png" 
+            alt="ECIS Solutions Logo" 
+            class="h-16 w-auto group-hover:scale-105 transition-transform duration-base"
           >
-          <div class="flex flex-col space-y-2">
-            <span class="text-white font-heading font-bold text-sm sm:text-lg leading-tight">
-              East Coast Investigation
-            </span>
-            <span class="text-white/70 font-body text-xs font-medium tracking-wider uppercase hidden sm:block">
-              Professional Security Services
-            </span>
-          </div>
-        </a>
+        </router-link>
 
         <!-- Desktop Navigation -->
-        <div class="hidden lg:flex items-center space-x-8">
-          <a 
+        <div class="hidden lg:flex items-center space-x-6">
+          <router-link 
             v-for="item in navItems" 
-            :key="item.id"
-            :href="`#${item.id}`"
-            @click="scrollToSection(item.id)"
+            :key="item.path"
+            :to="item.path"
             :class="[
-              'text-sm font-medium transition-all duration-300 hover:text-electric-blue',
-              activeSection === item.id ? 'text-electric-blue' : 'text-white/90'
+              'text-sm font-medium font-body transition-all duration-base hover:text-action relative',
+              'after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-action after:transition-all after:duration-base',
+              $route.path === item.path 
+                ? 'text-action after:w-full after:scale-x-100' 
+                : 'text-white/90 after:w-0 hover:after:w-full'
             ]"
+            :aria-current="$route.path === item.path ? 'page' : undefined"
           >
             {{ item.label }}
-          </a>
+          </router-link>
           
-          <!-- Call Now Button -->
+          <!-- Emergency Call Button -->
           <a 
-            href="tel:+1234567890" 
-            class="btn-primary text-sm"
+            href="tel:+15166408144" 
+            class="btn btn--premium text-sm"
+            aria-label="Call emergency security line"
           >
-            Call Now
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            Emergency: (516) 640-8144
           </a>
         </div>
 
         <!-- Mobile Menu Button -->
         <button 
-          @click="mobileMenuOpen = !mobileMenuOpen"
-          class="lg:hidden relative w-10 h-10 text-white focus:outline-none"
+          @click="toggleMobileMenu"
+          class="lg:hidden relative w-10 h-10 text-white focus-ring-keyboard"
+          :aria-expanded="mobileMenuOpen"
+          :aria-label="mobileMenuOpen ? 'Close main menu' : 'Open main menu'"
         >
-          <span class="sr-only">Open main menu</span>
+          <span class="sr-only">{{ mobileMenuOpen ? 'Close' : 'Open' }} main menu</span>
           <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             <span 
               :class="[
-                'block absolute h-0.5 w-6 bg-current transform transition duration-300 ease-in-out',
+                'block absolute h-0.5 w-6 bg-current transform transition-all duration-base',
                 mobileMenuOpen ? 'rotate-45' : '-translate-y-2'
               ]"
             ></span>
             <span 
               :class="[
-                'block absolute h-0.5 w-6 bg-current transform transition duration-300 ease-in-out',
+                'block absolute h-0.5 w-6 bg-current transform transition-all duration-base',
                 mobileMenuOpen ? 'opacity-0' : ''
               ]"
             ></span>
             <span 
               :class="[
-                'block absolute h-0.5 w-6 bg-current transform transition duration-300 ease-in-out',
+                'block absolute h-0.5 w-6 bg-current transform transition-all duration-base',
                 mobileMenuOpen ? '-rotate-45' : 'translate-y-2'
               ]"
             ></span>
@@ -83,33 +84,45 @@
 
       <!-- Mobile Navigation -->
       <transition
-        enter-active-class="transition ease-out duration-200"
+        enter-active-class="transition ease-out duration-base"
         enter-from-class="opacity-0 -translate-y-4"
         enter-to-class="opacity-100 translate-y-0"
-        leave-active-class="transition ease-in duration-150"
+        leave-active-class="transition ease-in duration-fast"
         leave-from-class="opacity-100 translate-y-0"
         leave-to-class="opacity-0 -translate-y-4"
       >
         <div 
           v-if="mobileMenuOpen"
-          class="lg:hidden absolute top-full left-0 right-0 bg-navy-dark/95 backdrop-blur-md shadow-xl mt-4"
+          class="lg:hidden absolute top-full left-0 right-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900/95 backdrop-blur border-t border-slate-700/20"
+          role="menu"
         >
-          <div class="container-custom py-8 space-y-6">
-            <a 
+          <div class="container py-6 space-y-1">
+            <router-link 
               v-for="item in navItems" 
-              :key="item.id"
-              :href="`#${item.id}`"
-              @click="closeMobileMenu(); scrollToSection(item.id)"
+              :key="item.path"
+              :to="item.path"
+              @click="closeMobileMenu"
               :class="[
-                'block py-3 px-4 text-base font-medium rounded-lg transition-all duration-300',
-                activeSection === item.id 
-                  ? 'bg-electric-blue/20 text-electric-blue' 
-                  : 'text-white/90 hover:bg-white/10 hover:text-white'
+                'block py-3 px-4 text-base font-medium font-body rounded-lg transition-all duration-base',
+                $route.path === item.path 
+                  ? 'bg-action/20 text-action border-l-2 border-action' 
+                  : 'text-white/90 hover:bg-surface hover:text-white'
               ]"
+              :aria-current="$route.path === item.path ? 'page' : undefined"
+              role="menuitem"
             >
               {{ item.label }}
-            </a>
+            </router-link>
             
+            <!-- Mobile Emergency Call -->
+            <a 
+              href="tel:+15166408144" 
+              class="block py-3 px-4 text-base font-medium font-body text-accent border border-accent/20 rounded-lg mt-4"
+              @click="closeMobileMenu"
+              role="menuitem"
+            >
+              📞 Emergency: (516) 640-8144
+            </a>
           </div>
         </div>
       </transition>
@@ -122,62 +135,43 @@ import { ref, onMounted, onUnmounted } from 'vue'
 
 const isScrolled = ref(false)
 const mobileMenuOpen = ref(false)
-const activeSection = ref('home')
 
 const navItems = [
-  { id: 'home', label: 'Home' },
-  { id: 'services', label: 'Services' },
-  { id: 'training', label: 'Training & Licensing' },
-  { id: 'investigations', label: 'Investigations' },
-  { id: 'about', label: 'About' },
-  { id: 'contact', label: 'Contact' }
+  { path: '/', label: 'Home' },
+  { path: '/services', label: 'Services' },
+  { path: '/training', label: 'Training' },
+  { path: '/about', label: 'About' },
+  { path: '/contact', label: 'Contact' }
 ]
 
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 50
-  
-  // Update active section based on scroll position
-  const sections = navItems.map(item => ({
-    id: item.id,
-    element: document.getElementById(item.id)
-  })).filter(section => section.element)
-  
-  const scrollPosition = window.scrollY + 100
-  
-  for (let i = sections.length - 1; i >= 0; i--) {
-    const section = sections[i]
-    if (section.element.offsetTop <= scrollPosition) {
-      activeSection.value = section.id
-      break
-    }
-  }
 }
 
-const scrollToSection = (sectionId) => {
-  const element = document.getElementById(sectionId)
-  if (element) {
-    // Calculate dynamic offset based on navigation state
-    const navElement = document.querySelector('nav')
-    const navHeight = navElement ? navElement.offsetHeight : 80
-    const offset = navHeight + 20 // Add 20px buffer for better positioning
-    const elementPosition = element.offsetTop - offset
-    window.scrollTo({
-      top: elementPosition,
-      behavior: 'smooth'
-    })
-  }
+const toggleMobileMenu = () => {
+  mobileMenuOpen.value = !mobileMenuOpen.value
 }
 
 const closeMobileMenu = () => {
   mobileMenuOpen.value = false
 }
 
+// Close mobile menu when clicking outside
+const handleClickOutside = (event) => {
+  const nav = event.target.closest('nav')
+  if (!nav && mobileMenuOpen.value) {
+    closeMobileMenu()
+  }
+}
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
-  handleScroll() // Check initial scroll position
+  document.addEventListener('click', handleClickOutside)
+  handleScroll()
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
+  document.removeEventListener('click', handleClickOutside)
 })
 </script>

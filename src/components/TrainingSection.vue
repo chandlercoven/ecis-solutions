@@ -156,9 +156,13 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useLoading } from '../composables/useLoading'
 
-// Animated counter functionality
+// Component loading state
+const { isLoading, setLoading } = useLoading('training-section')
+
+// Animated counter functionality with loading coordination
 const animateCounters = () => {
   const counters = document.querySelectorAll('.counter')
   
@@ -192,8 +196,17 @@ const animateCounters = () => {
   })
 }
 
-onMounted(() => {
+// Initialize component with loading state
+onMounted(async () => {
+  setLoading(true)
+  
+  // Simulate any async initialization
+  await new Promise(resolve => setTimeout(resolve, 100))
+  
+  // Set up animations
   animateCounters()
+  
+  setLoading(false)
 })
 </script>
 

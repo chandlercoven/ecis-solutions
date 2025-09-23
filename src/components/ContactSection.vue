@@ -139,7 +139,7 @@
         <div class="space-y-8">
           <!-- Quick Contact Cards -->
           <div class="grid gap-4">
-            <a href="tel:+13055551234" class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 group">
+            <a href="tel:+15166408144" class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 group">
               <div class="flex items-center space-x-4">
                 <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
                   <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -148,12 +148,12 @@
                 </div>
                 <div>
                   <p class="text-white/70 text-sm">Call Us 24/7</p>
-                  <p class="text-white text-lg font-semibold">(305) 555-1234</p>
+                  <p class="text-white text-lg font-semibold">(516) 640-8144</p>
                 </div>
               </div>
             </a>
 
-            <a href="mailto:info@ecissolutions.com" class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 group">
+            <a href="mailto:michael@ecissolutions.com" class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 group">
               <div class="flex items-center space-x-4">
                 <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
                   <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -162,7 +162,7 @@
                 </div>
                 <div>
                   <p class="text-white/70 text-sm">Email Us</p>
-                  <p class="text-white text-lg font-semibold">info@ecissolutions.com</p>
+                  <p class="text-white text-lg font-semibold">michael@ecissolutions.com</p>
                 </div>
               </div>
             </a>

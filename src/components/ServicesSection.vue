@@ -1,109 +1,100 @@
 <template>
-  <section id="services" class="section-padding bg-navy-900">
-    <div class="container-custom">
+  <section class="section bg-bg animate-on-scroll">
+    <div class="container">
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-        <div class="inline-flex items-center space-x-2 bg-electric-blue/10 rounded-full px-4 py-2">
-          <span class="text-electric-blue text-sm font-semibold uppercase tracking-wider">Our Services</span>
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center space-x-2 bg-action/10 rounded-full px-4 py-2 mb-4">
+          <span class="text-action text-sm font-semibold font-body uppercase tracking-wider">Our Services</span>
         </div>
-        <h2 class="heading-lg text-white">
+        <h2 class="heading-lg text-text mb-4">
           Comprehensive Security Solutions
         </h2>
-        <p class="text-lg text-silver-light">
-          From residential communities to commercial properties, we provide tailored security services 
-          that protect what matters most.
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Professional security services tailored to protect your people, property, and peace of mind.
         </p>
       </div>
 
       <!-- Services Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-responsive">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- HOA/Community Security -->
-        <div class="service-card group" @click="handleServiceClick('hoa')">
+        <div class="service-card" @click="navigateToServices('hoa')">
           <div class="mb-6">
-            <div class="service-icon-container">
-              <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.623 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-                </svg>
-              </div>
+            <div class="w-16 h-16 bg-action/10 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-8 h-8 text-action" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.623 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+              </svg>
             </div>
           </div>
-          <h3 class="heading-sm text-gray-800 mb-3 group-hover:text-blue-600 transition-colors duration-300">HOA & Community Security</h3>
-          <p class="text-gray-600 mb-6 leading-relaxed">
-            24/7 gate management, patrol services, and access control for gated communities and residential complexes.
+          <h3 class="text-lg font-heading font-semibold text-text mb-3">HOA & Community Security</h3>
+          <p class="text-muted mb-6 leading-relaxed text-sm">
+            24/7 patrol services, gate management, and access control for residential communities and homeowner associations.
           </p>
-          <div class="flex items-center text-blue-600 font-semibold group-hover:translate-x-2 transition-all duration-300">
-            <span>Learn More</span>
-            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="flex items-center text-action font-semibold text-sm">
+            <span>Explore Service</span>
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
           </div>
         </div>
 
         <!-- Commercial Property Security -->
-        <div class="service-card group" @click="handleServiceClick('commercial')">
+        <div class="service-card" @click="navigateToServices('commercial')">
           <div class="mb-6">
-            <div class="service-icon-container">
-              <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                </svg>
-              </div>
+            <div class="w-16 h-16 bg-action/10 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-8 h-8 text-action" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+              </svg>
             </div>
           </div>
-          <h3 class="heading-sm text-gray-800 mb-3 group-hover:text-green-600 transition-colors duration-300">Commercial Property Security</h3>
-          <p class="text-gray-600 mb-6 leading-relaxed">
+          <h3 class="text-lg font-heading font-semibold text-text mb-3">Commercial Property Security</h3>
+          <p class="text-muted mb-6 leading-relaxed text-sm">
             Professional security for office buildings, retail centers, warehouses, and industrial facilities.
           </p>
-          <div class="flex items-center text-green-600 font-semibold group-hover:translate-x-2 transition-all duration-300">
-            <span>Learn More</span>
-            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="flex items-center text-action font-semibold text-sm">
+            <span>Explore Service</span>
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
           </div>
         </div>
 
         <!-- Private Investigations -->
-        <div class="service-card group" @click="handleServiceClick('investigations')">
+        <div class="service-card" @click="navigateToServices('investigations')">
           <div class="mb-6">
-            <div class="service-icon-container">
-              <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-              </div>
+            <div class="w-16 h-16 bg-action/10 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-8 h-8 text-action" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+              </svg>
             </div>
           </div>
-          <h3 class="heading-sm text-gray-800 mb-3 group-hover:text-purple-600 transition-colors duration-300">Private Investigations</h3>
-          <p class="text-gray-600 mb-6 leading-relaxed">
+          <h3 class="text-lg font-heading font-semibold text-text mb-3">Private Investigations</h3>
+          <p class="text-muted mb-6 leading-relaxed text-sm">
             Discreet investigations, background checks, surveillance, and corporate fraud investigations.
           </p>
-          <div class="flex items-center text-purple-600 font-semibold group-hover:translate-x-2 transition-all duration-300">
-            <span>Learn More</span>
-            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="flex items-center text-action font-semibold text-sm">
+            <span>Explore Service</span>
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
           </div>
         </div>
 
         <!-- Executive/Event Security -->
-        <div class="service-card group" @click="handleServiceClick('executive')">
+        <div class="service-card" @click="navigateToServices('executive')">
           <div class="mb-6">
-            <div class="service-icon-container">
-              <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 1.5c-1.921 0-3.816.111-5.68.319-1.464.16-2.608 1.304-2.768 2.768-.208 1.864-.319 3.759-.319 5.68 0 1.921.111 3.816.319 5.68.16 1.464 1.304 2.608 2.768 2.768 1.864.208 3.759.319 5.68.319 1.921 0 3.816-.111 5.68-.319 1.464-.16 2.608-1.304 2.768-2.768.208-1.864.319-3.759.319-5.68 0-1.921-.111-3.816-.319-5.68-.16-1.464-1.304-2.608-2.768-2.768-1.864-.208-3.759-.319-5.68-.319zM12 9.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" />
-                </svg>
-              </div>
+            <div class="w-16 h-16 bg-action/10 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-8 h-8 text-action" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
             </div>
           </div>
-          <h3 class="heading-sm text-gray-800 mb-3 group-hover:text-orange-600 transition-colors duration-300">Executive & Event Security</h3>
-          <p class="text-gray-600 mb-6 leading-relaxed">
-            VIP protection, event security management, and crowd control for special occasions.
+          <h3 class="text-lg font-heading font-semibold text-text mb-3">Executive & Event Security</h3>
+          <p class="text-muted mb-6 leading-relaxed text-sm">
+            VIP protection, event security management, and crowd control for special occasions and high-profile clients.
           </p>
-          <div class="flex items-center text-orange-600 font-semibold group-hover:translate-x-2 transition-all duration-300">
-            <span>Learn More</span>
-            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="flex items-center text-action font-semibold text-sm">
+            <span>Explore Service</span>
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
           </div>
@@ -111,39 +102,28 @@
       </div>
 
       <!-- CTA Section -->
-      <div class="text-center mt-16">
-        <p class="text-lg text-silver-light mb-6">
+      <div class="text-center mt-12">
+        <p class="text-lg text-muted mb-6">
           Need a customized security solution for your specific needs?
         </p>
-        <button 
-          @click="scrollToSection('contact')"
-          class="btn-primary glow-effect"
+        <router-link 
+          to="/contact"
+          class="btn btn--primary"
         >
-          Get a Free Security Assessment
-        </button>
+          Get Your Free Security Assessment
+        </router-link>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-const handleServiceClick = (service) => {
-  // In MVP, scroll to contact. In future, route to service detail page
-  scrollToSection('contact')
-}
+import { useRouter } from 'vue-router'
 
-const scrollToSection = (sectionId) => {
-  const element = document.getElementById(sectionId)
-  if (element) {
-    // Calculate dynamic offset based on navigation state
-    const navElement = document.querySelector('nav')
-    const navHeight = navElement ? navElement.offsetHeight : 80
-    const offset = navHeight + 20 // Add 20px buffer for better positioning
-    const elementPosition = element.offsetTop - offset
-    window.scrollTo({
-      top: elementPosition,
-      behavior: 'smooth'
-    })
-  }
+const router = useRouter()
+
+const navigateToServices = (serviceType) => {
+  // Navigate to services page with specific service in focus
+  router.push({ path: '/services', query: { service: serviceType } })
 }
 </script>
