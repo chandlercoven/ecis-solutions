@@ -1,0 +1,42 @@
+---
+alwaysApply: true
+---
+
+# ECIS Solutions Project Overview
+
+## Tech Stack & Architecture
+- **Framework:** Vue.js 3 with Composition API
+- **Styling:** Tailwind CSS with custom design tokens
+- **Build Tool:** Vite ([vite.config.js](mdc:vite.config.js))
+- **Entry Point:** [src/main.js](mdc:src/main.js) → [src/App.vue](mdc:src/App.vue)
+- **Router:** Vue Router in [src/router/index.js](mdc:src/router/index.js)
+- **Config:** [tailwind.config.js](mdc:tailwind.config.js), [postcss.config.js](mdc:postcss.config.js)
+
+## Project Structure Rules
+- **Views:** Page-level components in `src/views/` (Home.vue, Services.vue, etc.)
+- **Components:** Reusable UI components in `src/components/` 
+- **Assets:** Images, logos, and CSS in `src/assets/`
+- **Styles:** Main CSS file at [src/assets/main.css](mdc:src/assets/main.css)
+
+## Brand Identity (Law Enforcement Heritage × Tech-Forward Security)
+- **Positioning:** Authoritative, precise, trustworthy, modern, approachable
+- **Visual Keywords:** Shield, vigilance, integrity, blue hour, metallic gold
+- **Promise:** "We safeguard what matters most—your people, your property, your peace of mind"
+
+## Core Color Rules
+- **Electric Blue (#0077ff):** Interactive elements, primary actions, links
+- **Gold (#d4af37):** Premium highlights ONLY - never for primary buttons (≤10% usage per page)
+- **Navy/Charcoal:** Backgrounds and surfaces
+- **Contrast:** Must meet WCAG AA standards (≥4.5:1 text, ≥3:1 large text)
+
+## File Naming & Organization
+- Vue components: PascalCase (e.g., `HeroSection.vue`, `ContactForm.vue`)
+- Assets: kebab-case (e.g., `ecis-logo.png`, `hero-background.jpg`)
+- CSS classes: Follow Tailwind conventions with custom CSS variables
+
+## Development Principles
+1. **Mobile-first responsive design** (sm: 640px, md: 768px, lg: 1024px, xl: 1280px)
+2. **Accessibility-first** - WCAG 2.1 AA compliance required
+3. **Performance-focused** - Optimize images, lazy load content
+4. **Consistent spacing** - Use 4/8px multiples only (Tailwind spacing scale)
+5. **Component-driven** - Build reusable, documented components

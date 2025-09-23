@@ -1,0 +1,193 @@
+---
+globs: *.vue,src/components/**
+description: Component development standards and patterns for ECIS Solutions
+---
+
+# ECIS Component Development Standards
+
+## Vue Component Architecture
+- Use **Composition API** with `<script setup>` syntax
+- **Props:** Define with TypeScript-style prop definitions
+- **Emits:** Explicitly declare all emitted events
+- **Slots:** Use named slots for flexible layouts
+
+```vue
+<script setup>
+// Example component structure
+defineProps({
+  variant: {
+    type: String,
+    default: 'primary',
+    validator: (value) => ['primary', 'secondary', 'ghost', 'premium'].includes(value)
+  },
+  disabled: Boolean,
+  loading: Boolean
+})
+
+defineEmits(['click', 'focus', 'blur'])
+</script>
+```
+
+## Component Categories & Standards
+
+### 1. Button Component
+**Variants:** `primary` | `secondary` | `ghost` | `premium`
+```vue
+<!-- Primary: Electric blue background -->
+<button class="bg-action text-white hover:bg-action-hover shadow-sm hover:shadow-md">
+
+<!-- Secondary: Electric blue outline -->  
+<button class="border border-action text-text hover:bg-surface-2">
+
+<!-- Ghost: Text only -->
+<button class="text-action hover:underline">
+
+<!-- Premium: Gold outline (never solid gold background) -->
+<button class="border border-accent text-accent hover:bg-accent/10">
+```
+
+### 2. Card Component
+```vue
+<div class="bg-surface rounded-xl shadow-md p-6 border border-border">
+  <!-- Optional accent border for emphasis -->
+  <div class="border-t-2 border-action"></div>
+</div>
+```
+
+### 3. Input/Form Components
+**States:** default | hover | focus | invalid | disabled
+```vue
+<div class="space-y-2">
+  <label class="block text-sm font-medium text-text" :for="inputId">
+    {{ label }}
+  </label>
+  <input 
+    :id="inputId"
+    class="w-full bg-surface-2 border border-border rounded-md px-3 py-3 text-text
+           focus:border-action focus:ring-2 focus:ring-focus 
+           invalid:border-danger disabled:opacity-50"
+    :aria-describedby="helpId"
+    :aria-invalid="hasError"
+  />
+  <p :id="helpId" class="text-sm text-text-muted">{{ helpText }}</p>
+  <p v-if="error" class="text-sm text-danger flex items-center gap-2">
+    <Icon name="alert-circle" class="w-4 h-4" />
+    {{ error }}
+  </p>
+</div>
+```
+
+### 4. Navigation Component  
+```vue
+<!-- Fixed navbar with scroll-triggered background -->
+<nav class="fixed top-0 w-full z-50 transition-colors duration-base"
+     :class="scrolled ? 'bg-bg/95 backdrop-blur' : 'bg-transparent'">
+  <!-- Active link styling -->
+  <a class="relative after:absolute after:bottom-0 after:left-0 after:h-0.5 
+           after:w-full after:bg-action after:scale-x-100"
+     aria-current="page">
+</nav>
+```
+
+## Component State Management
+
+### Interactive States
+```css
+/* Hover: Subtle scale and shadow increase */
+.interactive:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-md);
+}
+
+/* Active: Compress */
+.interactive:active {
+  transform: scale(0.98);
+}
+
+/* Focus: Visible focus ring */
+.interactive:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+```
+
+### Loading States
+```vue
+<button :disabled="loading" :aria-busy="loading">
+  <Icon v-if="loading" name="loader" class="animate-spin" />
+  <span>{{ loading ? 'Processing...' : 'Submit' }}</span>
+</button>
+```
+
+## Icon Usage
+- Use geometric/line icons (Lucide, Heroicons)
+- Colors: `text-action` for interactive, `text-muted` for decorative
+- **Accessibility:** Add `aria-hidden="true"` for decorative icons, `aria-label` for meaningful icons
+
+```vue
+<!-- Decorative icon -->
+<Icon name="shield" class="w-5 h-5 text-action" aria-hidden="true" />
+
+<!-- Meaningful icon -->
+<Icon name="external-link" class="w-4 h-4" aria-label="Opens in new window" />
+```
+
+## Error & Empty States
+```vue
+<!-- Error State -->
+<div class="text-center py-12">
+  <Icon name="alert-triangle" class="w-12 h-12 text-warning mx-auto mb-4" />
+  <h3 class="text-lg font-medium text-text mb-2">Something went wrong</h3>
+  <p class="text-text-muted mb-4">We're working to fix this issue.</p>
+  <button class="btn btn--primary" @click="retry">Try Again</button>
+</div>
+
+<!-- Empty State -->
+<div class="text-center py-12">
+  <Icon name="clipboard" class="w-12 h-12 text-muted mx-auto mb-4" />
+  <h3 class="text-lg font-medium text-text mb-2">No incidents to display</h3>
+  <button class="btn btn--primary" @click="createNew">Report Incident</button>
+</div>
+```
+
+## Modal/Dialog Pattern
+```vue
+<teleport to="body">
+  <div v-if="isOpen" class="fixed inset-0 z-50 overflow-y-auto">
+    <!-- Backdrop -->
+    <div class="fixed inset-0 bg-black/60" @click="close"></div>
+    
+    <!-- Dialog -->
+    <div class="relative min-h-screen flex items-center justify-center p-4">
+      <div class="bg-surface rounded-xl shadow-lg max-w-md w-full p-6 border border-border"
+           role="dialog"
+           :aria-labelledby="titleId"
+           :aria-describedby="descId">
+        <h2 :id="titleId" class="text-lg font-heading font-semibold mb-2">
+          {{ title }}
+        </h2>
+        <p :id="descId" class="text-text-muted mb-4">
+          {{ description }}
+        </p>
+        <!-- Actions -->
+        <div class="flex gap-3 justify-end">
+          <button class="btn btn--secondary" @click="close">Cancel</button>
+          <button class="btn btn--primary" @click="confirm">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</teleport>
+```
+
+## Component Naming & Organization
+- **PascalCase:** Component files (e.g., `ContactForm.vue`, `ServiceCard.vue`)
+- **Descriptive names:** Indicate purpose and section (e.g., `HeroSection.vue`, `TestimonialsCarousel.vue`)
+- **Composition:** Break complex components into smaller, focused ones
+- **Props validation:** Always validate props with appropriate types and defaults
+
+## Performance Guidelines
+- **Lazy loading:** Use `defineAsyncComponent` for heavy components
+- **v-memo:** Cache expensive template parts
+- **Image optimization:** Use appropriate formats and sizes
+- **Bundle splitting:** Keep components modular for better code splitting

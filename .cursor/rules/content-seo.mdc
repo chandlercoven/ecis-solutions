@@ -1,0 +1,292 @@
+---
+globs: *.vue,*.md
+description: Content guidelines, voice & tone, microcopy, and SEO best practices for ECIS Solutions
+---
+
+# ECIS Content & SEO Standards
+
+## Brand Voice & Tone
+**Voice:** Confident, precise, helpful, authoritative yet approachable
+**Tone Pillars:**
+- **Authoritative:** "We secure over 200 properties across the region"
+- **Precise:** Specific metrics, clear processes, definitive statements
+- **Trustworthy:** Professional credentials, transparent communication
+- **Helpful:** Solution-focused, actionable guidance
+
+### Voice Examples
+✅ **Good:** "Our certified officers respond within 3 minutes of alarm activation"
+❌ **Avoid:** "We try to get there pretty quickly when something happens"
+
+✅ **Good:** "Request a comprehensive security assessment"
+❌ **Avoid:** "Get more info about our stuff"
+
+## Microcopy & UI Text
+
+### Button Text (Action-Oriented)
+```vue
+<!-- Use verbs that indicate specific actions -->
+<button>Request Patrol Coverage</button>      <!-- Not "Learn More" -->
+<button>Schedule Site Assessment</button>     <!-- Not "Contact Us" -->
+<button>Book Training Session</button>        <!-- Not "Get Started" -->
+<button>Download Incident Report</button>     <!-- Not "Click Here" -->
+<button>Speak with Security Expert</button>   <!-- Not "Chat Now" -->
+```
+
+### Form Labels & Help Text
+```vue
+<template>
+  <!-- Clear, specific labels -->
+  <label for="property-type">Property Type</label>
+  <select id="property-type">
+    <option value="residential">Residential Community</option>
+    <option value="commercial">Commercial Property</option>
+    <option value="hoa">HOA/Neighborhood</option>
+    <option value="construction">Construction Site</option>
+  </select>
+  
+  <!-- Helpful, reassuring text -->
+  <p class="help-text">
+    This helps us recommend the right security solution for your needs. 
+    All information is confidential.
+  </p>
+  
+  <!-- Error messages that don't blame the user -->
+  <p class="error" v-if="error">
+    Please select your property type to continue.
+  </p>
+</template>
+```
+
+### Status Messages
+```vue
+<!-- Success messages -->
+<div class="success-message">
+  ✅ "Your security assessment has been scheduled for tomorrow at 2 PM"
+  ✅ "Application submitted successfully. We'll contact you within 24 hours"
+</div>
+
+<!-- Error messages (never blame user) -->
+<div class="error-message">
+  ❌ "You didn't fill out the required fields" 
+  ✅ "Please complete all required fields to submit your request"
+  
+  ❌ "Invalid phone number"
+  ✅ "Please enter a valid phone number (e.g., 555-123-4567)"
+</div>
+
+<!-- Loading states -->
+<div class="loading-message">
+  ✅ "Checking officer availability..."
+  ✅ "Securing your session..."
+  ✅ "Generating your report..."
+</div>
+```
+
+## Page Content Structure
+
+### Headlines & Subheadlines
+```vue
+<template>
+  <!-- H1: Clear value proposition -->
+  <h1>Professional Security Services That Protect What Matters Most</h1>
+  
+  <!-- Supporting headline: Specific benefits -->
+  <p class="subheadline">
+    24/7 patrol coverage, rapid emergency response, and comprehensive 
+    security solutions for residential communities and commercial properties.
+  </p>
+  
+  <!-- H2: Problem/solution focused -->
+  <h2>Stop Security Incidents Before They Impact Your Property</h2>
+  
+  <!-- H3: Specific features/services -->
+  <h3>Advanced CCTV Monitoring & Real-Time Alerts</h3>
+</template>
+```
+
+### Service Descriptions
+Follow Problem → Solution → Outcome structure:
+```markdown
+**Problem:** "Property crimes in residential communities increased 15% last year"
+**Solution:** "Our certified patrol officers provide visible deterrence with scheduled and random patrols"
+**Outcome:** "Properties under our protection see 87% fewer security incidents"
+```
+
+### Call-to-Action (CTA) Hierarchy
+1. **Primary CTA:** Main conversion goal (Request Quote, Schedule Assessment)
+2. **Secondary CTA:** Lower commitment (Learn More, Download Guide)
+3. **Tertiary CTA:** Social proof (Read Case Studies, View Testimonials)
+
+```vue
+<template>
+  <div class="cta-section">
+    <!-- Primary CTA -->
+    <button class="btn btn--primary btn--large">
+      Get Your Free Security Assessment
+    </button>
+    
+    <!-- Secondary CTA -->
+    <button class="btn btn--secondary">
+      Download Security Checklist
+    </button>
+    
+    <!-- Tertiary CTA -->
+    <a href="/case-studies" class="link-tertiary">
+      See How We Protected Similar Properties →
+    </a>
+  </div>
+</template>
+```
+
+## SEO Implementation
+
+### Meta Tags & Open Graph
+```vue
+<script setup>
+// In each page component
+import { useSeoMeta } from '@unhead/vue' // or your preferred SEO composable
+
+useSeoMeta({
+  title: 'Professional Security Services | ECIS Solutions',
+  description: '24/7 security patrol, CCTV monitoring, and emergency response for residential communities and commercial properties. Get your free assessment today.',
+  ogTitle: 'Professional Security Services | ECIS Solutions',
+  ogDescription: '24/7 security patrol, CCTV monitoring, and emergency response for residential communities and commercial properties.',
+  ogImage: '/images/ecis-og-image.jpg',
+  ogType: 'website',
+  twitterCard: 'summary_large_image'
+})
+</script>
+
+<template>
+  <!-- Page-specific structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SecurityBusiness",
+    "name": "ECIS Solutions",
+    "description": "Professional security services including patrol, monitoring, and emergency response",
+    "url": "https://ecissolutions.com",
+    "telephone": "+1-555-SECURITY",
+    "areaServed": "Greater Metro Area",
+    "serviceType": ["Security Patrol", "CCTV Monitoring", "Emergency Response"]
+  }
+  </script>
+</template>
+```
+
+### URL Structure
+```
+✅ /services/security-patrol
+✅ /services/hoa-security  
+✅ /training/security-officer-certification
+✅ /case-studies/residential-community-protection
+
+❌ /page1
+❌ /services?id=123
+❌ /training/course-abc-xyz
+```
+
+### Content Hierarchy (H1-H6)
+```vue
+<template>
+  <!-- One H1 per page -->
+  <h1>{{ pageTitle }}</h1>
+  
+  <!-- H2 for main sections -->
+  <section>
+    <h2>Our Security Services</h2>
+    
+    <!-- H3 for subsections -->
+    <article>
+      <h3>24/7 Patrol Coverage</h3>
+      
+      <!-- H4 for features/details -->
+      <div>
+        <h4>Visible Deterrence</h4>
+        <h4>Emergency Response</h4>
+      </div>
+    </article>
+  </section>
+</template>
+```
+
+## Readability Guidelines
+
+### Sentence & Paragraph Length
+- **Sentences:** 15-20 words average, 25 words maximum
+- **Paragraphs:** 2-3 sentences, 50-75 words
+- **Reading level:** Grade 8-10 (use tools like Hemingway Editor)
+
+### Content Formatting
+```vue
+<template>
+  <!-- Use bullet points for features -->
+  <ul>
+    <li>✓ 3-minute average response time</li>
+    <li>✓ GPS-tracked patrol vehicles</li>
+    <li>✓ Real-time incident reporting</li>
+  </ul>
+  
+  <!-- Use numbers and statistics -->
+  <div class="stats-grid">
+    <div class="stat">
+      <span class="stat-number">15+</span>
+      <span class="stat-label">Years Experience</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">200+</span>
+      <span class="stat-label">Properties Protected</span>
+    </div>
+  </div>
+  
+  <!-- Emphasize key points -->
+  <p>
+    Our security officers are <strong>licensed and bonded</strong> with 
+    <em>continuous training</em> in the latest security protocols.
+  </p>
+</template>
+```
+
+### Industry-Specific Terminology
+**Use these terms consistently:**
+- "Security patrol" (not "guard service")
+- "Property protection" (not "watching stuff")
+- "Incident response" (not "emergency handling")
+- "Certified officers" (not "security guards")
+- "Site assessment" (not "property walkthrough")
+
+## Legal & Compliance Content
+Always include:
+```vue
+<template>
+  <!-- Licensing information -->
+  <p class="legal-notice">
+    Licensed by the State Security Board (License #12345). 
+    Fully insured and bonded for your protection.
+  </p>
+  
+  <!-- Privacy/confidentiality -->
+  <p class="privacy-statement">
+    All client information and security assessments are strictly confidential 
+    and protected under attorney-client privilege where applicable.
+  </p>
+  
+  <!-- Equal opportunity -->
+  <p class="eeo-statement">
+    ECIS Solutions is an Equal Opportunity Employer committed to diversity 
+    and inclusion in our workforce.
+  </p>
+</template>
+```
+
+## Content Quality Checklist
+Before publishing any content:
+
+- [ ] **Voice check:** Sounds authoritative yet approachable
+- [ ] **Clarity:** Grade 8-10 reading level
+- [ ] **Specificity:** Includes concrete numbers, timeframes, credentials
+- [ ] **SEO:** Target keywords naturally integrated
+- [ ] **Structure:** H1-H6 hierarchy logical and complete
+- [ ] **CTAs:** Clear, action-oriented button text
+- [ ] **Legal:** Required disclaimers and licensing info included
+- [ ] **Proofread:** Grammar, spelling, and factual accuracy verified

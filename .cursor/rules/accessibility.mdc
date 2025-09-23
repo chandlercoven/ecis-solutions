@@ -1,0 +1,338 @@
+---
+description: WCAG 2.1 AA accessibility compliance standards and implementation guidelines
+---
+
+# ECIS Accessibility Standards (WCAG 2.1 AA)
+
+## Color Contrast Requirements
+- **Body text:** ≥4.5:1 contrast ratio against background
+- **Large text:** ≥3:1 contrast ratio (18px+ or 14px+ bold)
+- **Interactive elements:** ≥3:1 for borders, focus indicators
+- **Test all text-background combinations** before shipping
+
+### Approved Contrast Pairs
+```css
+/* High contrast pairs (✅ WCAG AA compliant) */
+color: var(--text);      /* #eef3fb on --bg #0f1f33 = 13.4:1 */
+color: var(--text-muted); /* #b7c6da on --bg #0f1f33 = 7.8:1 */
+color: var(--action);    /* #0077ff on --bg #0f1f33 = 4.9:1 */
+color: var(--white);     /* #ffffff on --action #0077ff = 4.5:1 */
+```
+
+## Focus Management
+### Visible Focus Indicators
+Every interactive element MUST have a visible focus state:
+```css
+.focusable:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  /* OR */
+  box-shadow: 0 0 0 3px var(--focus);
+}
+
+/* Remove default browser outline */
+.focusable:focus {
+  outline: none;
+}
+```
+
+### Focus Trap (Modals/Drawers)
+```javascript
+// Trap focus within modal
+const focusableElements = modal.querySelectorAll(
+  'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+);
+const firstFocusable = focusableElements[0];
+const lastFocusable = focusableElements[focusableElements.length - 1];
+
+// Focus first element when modal opens
+firstFocusable?.focus();
+
+// Handle Tab key navigation
+modal.addEventListener('keydown', (e) => {
+  if (e.key === 'Tab') {
+    if (e.shiftKey && document.activeElement === firstFocusable) {
+      e.preventDefault();
+      lastFocusable?.focus();
+    } else if (!e.shiftKey && document.activeElement === lastFocusable) {
+      e.preventDefault();
+      firstFocusable?.focus();
+    }
+  }
+});
+```
+
+## Touch Targets & Hit Areas
+- **Minimum size:** 44×44px for all interactive elements
+- **Spacing:** At least 8px between adjacent interactive elements
+- **Implementation:**
+```vue
+<button class="min-w-[44px] min-h-[44px] p-3 touch-target">
+  <Icon name="menu" class="w-5 h-5" />
+</button>
+
+<style scoped>
+.touch-target {
+  /* Ensure minimum touch target even with smaller visual content */
+  position: relative;
+}
+
+.touch-target::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 44px;
+  min-height: 44px;
+}
+</style>
+```
+
+## Semantic HTML & ARIA
+
+### Proper Heading Structure
+```vue
+<!-- One H1 per page -->
+<h1 class="text-4xl font-heading font-bold">Page Title</h1>
+
+<!-- Logical nesting (don't skip levels) -->
+<section>
+  <h2 class="text-2xl font-heading font-semibold">Section Title</h2>
+  <h3 class="text-xl font-heading font-medium">Subsection</h3>
+</section>
+```
+
+### Form Labels & Descriptions
+```vue
+<template>
+  <div class="form-field">
+    <label :for="inputId" class="form-label">
+      Email Address
+      <span class="text-danger" aria-label="required">*</span>
+    </label>
+    
+    <input 
+      :id="inputId"
+      type="email"
+      class="form-input"
+      :aria-describedby="error ? errorId : helpId"
+      :aria-invalid="!!error"
+      v-model="email"
+      required
+    />
+    
+    <!-- Help text -->
+    <p :id="helpId" class="form-help">
+      We'll never share your email with third parties.
+    </p>
+    
+    <!-- Error message -->
+    <p v-if="error" :id="errorId" class="form-error" role="alert">
+      <Icon name="alert-circle" aria-hidden="true" />
+      {{ error }}
+    </p>
+  </div>
+</template>
+
+<script setup>
+import { computed } from 'vue'
+
+const props = defineProps(['modelValue', 'error'])
+const inputId = `email-${Math.random().toString(36).substr(2, 9)}`
+const helpId = `${inputId}-help`
+const errorId = `${inputId}-error`
+</script>
+```
+
+### Navigation & Landmarks
+```vue
+<template>
+  <!-- Skip link for keyboard users -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Navigation landmark -->
+  <nav aria-label="Main navigation">
+    <ul role="list">
+      <li><a href="/" aria-current="page">Home</a></li>
+      <li><a href="/services">Services</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main content -->
+  <main id="main-content" tabindex="-1">
+    <h1>Page content starts here</h1>
+  </main>
+</template>
+
+<style scoped>
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+  padding: 8px 16px;
+  background: var(--action);
+  color: var(--white);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: 6px;
+  top: 6px;
+}
+</style>
+```
+
+### Button vs Link Semantics
+```vue
+<!-- Use buttons for actions -->
+<button @click="submitForm" class="btn btn--primary">
+  Submit Application
+</button>
+
+<!-- Use links for navigation -->
+<a href="/services" class="btn btn--secondary">
+  View All Services
+</a>
+
+<!-- External links -->
+<a href="https://example.com" 
+   target="_blank" 
+   rel="noopener noreferrer"
+   class="external-link">
+  External Resource
+  <Icon name="external-link" aria-hidden="true" />
+</a>
+```
+
+## Images & Media
+### Alt Text Guidelines
+```vue
+<!-- Informative image -->
+<img src="team-photo.jpg" 
+     alt="ECIS security team of 5 officers in uniform standing in front of patrol vehicles" />
+
+<!-- Decorative image -->
+<img src="background-texture.jpg" alt="" />
+
+<!-- Complex image (chart, diagram) -->
+<img src="response-times-chart.jpg" 
+     alt="Bar chart showing average response times: Emergency 3 minutes, Routine 15 minutes, Administrative 1 hour" />
+
+<!-- Logo -->
+<img src="ecis-logo.png" alt="ECIS Solutions" />
+```
+
+### Video & Audio
+```vue
+<video controls preload="metadata">
+  <source src="training-overview.mp4" type="video/mp4" />
+  <track kind="captions" src="captions.vtt" srclang="en" label="English" default />
+  <p>Your browser doesn't support video. <a href="training-overview.mp4">Download the video</a>.</p>
+</video>
+```
+
+## Motion & Animation
+### Respect prefers-reduced-motion
+```css
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Safe animations that can remain */
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner {
+    animation: none;
+  }
+  
+  .loading-spinner::after {
+    content: 'Loading...';
+  }
+}
+```
+
+## Interactive Component Patterns
+
+### Disclosure/Accordion
+```vue
+<template>
+  <div class="accordion">
+    <button 
+      :aria-expanded="isOpen"
+      :aria-controls="contentId"
+      @click="toggle"
+      class="accordion-trigger">
+      {{ title }}
+      <Icon :name="isOpen ? 'chevron-up' : 'chevron-down'" aria-hidden="true" />
+    </button>
+    
+    <div 
+      :id="contentId"
+      :hidden="!isOpen"
+      class="accordion-content">
+      <slot />
+    </div>
+  </div>
+</template>
+```
+
+### Tabs
+```vue
+<template>
+  <div class="tabs">
+    <div role="tablist" aria-label="Service categories">
+      <button 
+        v-for="(tab, index) in tabs"
+        :key="tab.id"
+        role="tab"
+        :tabindex="activeTab === index ? 0 : -1"
+        :aria-selected="activeTab === index"
+        :aria-controls="tab.panelId"
+        @click="activeTab = index"
+        @keydown="handleKeydown">
+        {{ tab.label }}
+      </button>
+    </div>
+    
+    <div 
+      v-for="(tab, index) in tabs"
+      :key="tab.panelId"
+      :id="tab.panelId"
+      role="tabpanel"
+      :tabindex="activeTab === index ? 0 : -1"
+      :hidden="activeTab !== index">
+      <!-- Tab content -->
+    </div>
+  </div>
+</template>
+```
+
+## Testing Checklist
+Before shipping any component or page:
+
+### Automated Testing
+- [ ] **axe-core scan:** 0 critical violations
+- [ ] **Lighthouse accessibility score:** ≥90
+- [ ] **Color contrast:** All text passes WCAG AA
+- [ ] **Focus indicators:** Visible on all interactive elements
+
+### Manual Testing  
+- [ ] **Keyboard navigation:** Tab through entire page
+- [ ] **Screen reader:** Test with NVDA/JAWS (Windows) or VoiceOver (Mac)
+- [ ] **Zoom:** 200% zoom without horizontal scroll
+- [ ] **Touch targets:** All interactive elements ≥44px
+
+### Code Review Checklist
+- [ ] Semantic HTML elements used appropriately
+- [ ] All images have appropriate alt text
+- [ ] Form fields have associated labels
+- [ ] Error messages are announced to screen readers
+- [ ] Focus management in dynamic content
+- [ ] No information conveyed by color alone

@@ -1,0 +1,195 @@
+---
+description: Quality gates and review checklist for ECIS Solutions development
+---
+
+# ECIS Quality Gates & Review Checklist
+
+## Pre-Commit Checklist
+Every component and page must pass these checks:
+
+### Design System Compliance
+- [ ] **Colors:** Only uses CSS variables, no hardcoded hex values
+- [ ] **Typography:** Uses `--font-heading` or `--font-body` from tokens
+- [ ] **Spacing:** Uses 4/8px multiples only (Tailwind spacing scale)
+- [ ] **Border radius:** Uses token values (sm/md/lg/xl/2xl)
+- [ ] **Shadows:** Uses `--shadow-sm/md/lg` variables
+- [ ] **Gold usage:** ≤10% per page, never on primary buttons
+
+### Component Standards  
+- [ ] **Vue 3:** Uses Composition API with `<script setup>`
+- [ ] **Props:** Validated with appropriate types and defaults
+- [ ] **Events:** All emits explicitly declared
+- [ ] **Naming:** PascalCase for components, kebab-case for assets
+- [ ] **States:** Includes hover, focus, active, disabled, loading states
+- [ ] **Error handling:** Graceful error states with retry options
+
+### Accessibility (WCAG 2.1 AA)
+- [ ] **Contrast:** All text ≥4.5:1 ratio (≥3:1 for large text)
+- [ ] **Focus:** Visible focus indicators on all interactive elements
+- [ ] **Touch targets:** Minimum 44×44px interactive areas
+- [ ] **Keyboard nav:** All functionality accessible via keyboard
+- [ ] **Screen readers:** Proper roles, labels, and descriptions
+- [ ] **Images:** Appropriate alt text (empty for decorative)
+- [ ] **Forms:** Associated labels, error descriptions, help text
+- [ ] **Motion:** Respects `prefers-reduced-motion`
+
+### Performance
+- [ ] **Images:** Optimized formats and sizes
+- [ ] **Loading:** Skeleton states for dynamic content
+- [ ] **Lazy loading:** Non-critical images and components
+- [ ] **Bundle size:** No unnecessary dependencies added
+
+### Content Quality
+- [ ] **Voice:** Authoritative, precise, trustworthy tone
+- [ ] **Readability:** Grade 8-10 reading level
+- [ ] **CTAs:** Action-oriented button text (not "Click Here")
+- [ ] **Legal:** Required disclaimers and licensing info
+- [ ] **SEO:** Proper heading hierarchy (H1-H6)
+
+## Automated Testing Requirements
+
+### Lighthouse Scores (Minimum)
+- **Performance:** ≥85
+- **Accessibility:** ≥90
+- **Best Practices:** ≥90
+- **SEO:** ≥90
+
+### axe-core Accessibility Scan
+- **Critical violations:** 0
+- **Serious violations:** 0
+- **Moderate violations:** Address before shipping
+
+### Manual Testing Protocol
+
+#### Keyboard Navigation
+1. Tab through entire page/component
+2. Verify all interactive elements focusable
+3. Test Shift+Tab (reverse navigation)
+4. Verify focus indicators visible
+5. Test Escape key (close modals/dropdowns)
+
+#### Screen Reader Testing
+1. Test with NVDA (Windows) or VoiceOver (Mac)
+2. Verify all content announced correctly
+3. Test form labels and error messages
+4. Verify heading structure logical
+
+#### Responsive Testing
+1. **320px:** Mobile portrait (minimum width)
+2. **768px:** Tablet portrait
+3. **1024px:** Tablet landscape/small desktop
+4. **1440px:** Standard desktop
+5. **1920px:** Large desktop
+
+#### Browser Testing
+- **Chrome:** Latest 2 versions
+- **Firefox:** Latest 2 versions  
+- **Safari:** Latest 2 versions (Mac)
+- **Edge:** Latest version (Windows)
+
+## Code Review Checklist
+
+### Security
+- [ ] No sensitive data in client-side code
+- [ ] External links use `rel="noopener noreferrer"`
+- [ ] User inputs properly validated/sanitized
+- [ ] No eval() or dangerous innerHTML usage
+
+### Vue.js Best Practices
+- [ ] Reactive data properly managed
+- [ ] Computed properties over watchers when possible
+- [ ] Event handlers properly named and scoped
+- [ ] Template refs used correctly
+- [ ] Lifecycle hooks appropriate to component needs
+
+### CSS/Styling
+- [ ] No unused styles
+- [ ] Scoped styles where appropriate
+- [ ] No !important except for utilities
+- [ ] Consistent naming conventions
+- [ ] No magic numbers (use design tokens)
+
+### Documentation
+- [ ] Component props documented
+- [ ] Complex logic commented
+- [ ] Usage examples provided for reusable components
+- [ ] README updated if necessary
+
+## Deployment Checklist
+
+### Pre-Production
+- [ ] All tests passing
+- [ ] Build succeeds without warnings
+- [ ] No console errors or warnings
+- [ ] Performance audit completed
+- [ ] Accessibility scan passed
+- [ ] Cross-browser testing completed
+
+### Production
+- [ ] Meta tags updated (title, description, OG)
+- [ ] Favicon and app icons in place
+- [ ] Analytics tracking implemented
+- [ ] Error monitoring configured
+- [ ] Performance monitoring active
+
+## Emergency/Hotfix Protocol
+For urgent security or business-critical fixes:
+
+1. **Document the emergency** (what, why, impact)
+2. **Implement minimal fix** (don't refactor while fixing)
+3. **Test core functionality** (don't skip accessibility)
+4. **Deploy with monitoring** (watch for new issues)
+5. **Schedule proper fix** (address technical debt created)
+
+## Common Anti-Patterns to Avoid
+
+### CSS/Styling
+❌ `color: #0077ff` → ✅ `color: var(--action)`
+❌ `margin: 15px` → ✅ `margin: 1rem` (16px)
+❌ `background: #d4af37` on buttons → ✅ Gold only for accents
+❌ `font-family: Arial` → ✅ `font-family: var(--font-body)`
+
+### Component Structure
+❌ Hardcoded strings in templates → ✅ Props or composables
+❌ Deep prop drilling → ✅ Provide/inject or composables  
+❌ Massive single components → ✅ Composed smaller components
+❌ No error boundaries → ✅ Error states handled gracefully
+
+### Accessibility
+❌ `<div onclick="">` → ✅ `<button>`
+❌ No alt text → ✅ Descriptive alt text
+❌ Color-only information → ✅ Multiple indicators
+❌ No focus indicators → ✅ Visible focus styling
+
+### Content
+❌ "Click here" → ✅ "Request security assessment"
+❌ "Learn more" → ✅ "View patrol coverage options" 
+❌ "Contact us" → ✅ "Speak with security expert"
+❌ Technical jargon → ✅ Plain language explanations
+
+## Version Control Standards
+
+### Commit Messages
+```
+feat: add emergency contact modal component
+fix: resolve focus trap in navigation menu  
+style: update button hover states per design system
+docs: add accessibility guidelines to README
+perf: optimize hero image loading
+```
+
+### Branch Naming
+- `feature/contact-form-validation`
+- `fix/navigation-mobile-menu`
+- `style/update-color-tokens`
+- `docs/component-library-readme`
+
+### PR Requirements
+- [ ] Descriptive title and summary
+- [ ] Screenshots for UI changes (desktop + mobile)
+- [ ] Accessibility testing results
+- [ ] Performance impact assessment
+- [ ] Breaking changes documented
+- [ ] All checklist items completed
+
+This quality checklist ensures every contribution maintains ECIS brand standards, accessibility compliance, and technical excellence.

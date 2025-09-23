@@ -1,0 +1,99 @@
+---
+globs: *.css,*.vue,tailwind.config.js
+description: ECIS design system tokens, colors, typography, and styling guidelines
+---
+
+# ECIS Design System Tokens & Styling Rules
+
+## Color System (CSS Variables Required)
+Always use CSS variables, never hardcode hex values:
+
+```css
+/* Primary Palette */
+--bg: #0f1f33;           /* Dark navy background */
+--surface: #162840;      /* Card/surface backgrounds */  
+--surface-2: #1c3251;    /* Secondary surfaces */
+--text: #eef3fb;         /* Primary text */
+--text-muted: #b7c6da;   /* Secondary text */
+--border: #2d4f7c;       /* Borders and dividers */
+
+/* Action Colors */
+--action: #0077ff;       /* Electric blue - primary interactive */
+--action-hover: #0066dd; /* Hover state */
+--focus: #4da3ff;        /* Focus rings */
+--accent: #d4af37;       /* Gold - premium highlights only */
+
+/* Status Colors */
+--success: #22c55e;
+--warning: #f59e0b; 
+--danger: #ef4444;
+```
+
+## Typography System
+- **Headings:** `--font-heading: Montserrat, Oswald, system-ui, sans-serif` (weights 600-800)
+- **Body:** `--font-body: Inter, Source Sans Pro, system-ui, sans-serif` (weights 400-500)
+- **Scale:** xs(0.75rem) → sm(0.875rem) → base(1rem) → lg(1.125rem) → xl(1.25rem) → 2xl(1.5rem) → 3xl(1.875rem) → 4xl(2.25rem) → 5xl(3rem)
+- **Line Heights:** tight(1.2), snug(1.35), normal(1.6)
+
+## Spacing & Layout
+- **Grid:** 12-column, max-width 1440px
+- **Gutters:** 24-32px between columns
+- **Page Padding:** 24px mobile, 48px desktop
+- **Spacing Scale:** Use only 4/8px multiples: 0, 4px, 8px, 12px, 16px, 20px, 24px, 32px, 40px, 48px, 64px, 80px, 96px
+- **Border Radius:** sm(6px), md(10px), lg(14px), xl(18px), 2xl(24px)
+
+## Shadow System
+```css
+--shadow-sm: 0 1px 2px rgba(0,0,0,.12);    /* Subtle elements */
+--shadow-md: 0 6px 16px rgba(0,0,0,.2);    /* Cards, buttons */
+--shadow-lg: 0 12px 28px rgba(0,0,0,.28);  /* Modals, overlays */
+```
+
+## Motion & Transitions
+```css
+--duration-fast: 150ms;   /* Micro-interactions */
+--duration-base: 220ms;   /* Standard transitions */
+--duration-slow: 320ms;   /* Complex animations */
+--easing-standard: cubic-bezier(.2,.8,.2,1);
+```
+
+## Tailwind Integration Rules
+When using Tailwind classes, prefer semantic color names:
+- `bg-bg` instead of `bg-[#0f1f33]`
+- `text-action` instead of `text-[#0077ff]`
+- `border-border` instead of `border-[#2d4f7c]`
+
+## Gold Usage Guidelines
+⚠️ **CRITICAL:** Gold (#d4af37) is for premium highlights ONLY:
+- ✅ Accent borders, badge outlines, icon strokes
+- ✅ Premium service indicators, awards, certifications
+- ❌ NEVER use for primary buttons or main CTAs
+- ❌ Keep usage ≤10% per page
+
+## Image Treatment
+- **Overlay for text legibility:** `linear-gradient(180deg, rgba(15,31,51,.65), rgba(15,31,51,.85))`
+- **Style preference:** Real ECIS imagery (team, vehicles, command center)
+- **Timing:** "Blue hour" photography preferred
+- **Icons:** Geometric/line style (Lucide, Heroicons)
+
+## Responsive Breakpoints
+- **sm:** 640px (mobile landscape)
+- **md:** 768px (tablet portrait) 
+- **lg:** 1024px (tablet landscape/small desktop)
+- **xl:** 1280px (desktop)
+- **2xl:** 1536px (large desktop)
+
+## Dark Mode Support
+Respect `prefers-color-scheme: dark` with darker variants:
+```css
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b1726;
+    --surface: #111f32;
+    --surface-2: #16233a;
+    --action: #4da3ff;
+    --action-hover: #3a8be0;
+    --focus: #6bb6ff;
+  }
+}
+```

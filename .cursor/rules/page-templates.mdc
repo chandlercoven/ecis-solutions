@@ -1,0 +1,445 @@
+---
+globs: src/views/**,src/components/**Section.vue
+description: Page template structures and layout patterns for ECIS Solutions
+---
+
+# ECIS Page Templates & Layout Patterns
+
+## Template Hierarchy Rules
+**DO NOT invent new sections.** Follow these exact page structures:
+
+## 1. Home Page Template ([src/views/Home.vue](mdc:src/views/Home.vue))
+Required sections in order:
+```vue
+<template>
+  <Navigation />
+  
+  <!-- 1. Hero Section -->
+  <HeroSection>
+    <!-- Headline + Supporting line + Primary CTA + Secondary CTA + Trust badges -->
+  </HeroSection>
+  
+  <!-- 2. Proof/Stats Section -->
+  <section class="proof-section">
+    <!-- 3-4 stats in badge cards: Years experience, Response time, Properties protected, Client satisfaction -->
+  </section>
+  
+  <!-- 3. Services Preview -->
+  <ServicesSection>
+    <!-- 3-6 service cards: Patrol, HOA Security, Investigations, CCTV, Training -->
+  </ServicesSection>
+  
+  <!-- 4. Technology Section -->
+  <section class="technology-section">
+    <!-- GPS tracking, Real-time reporting, CCTV monitoring, Mobile apps -->
+  </section>
+  
+  <!-- 5. Testimonials/Client Logos -->
+  <TestimonialsSection />
+  
+  <!-- 6. CTA Banner -->
+  <section class="cta-banner">
+    <!-- Final conversion opportunity -->
+  </section>
+  
+  <FooterSection />
+</template>
+```
+
+## 2. Service Detail Pages ([src/views/Services.vue](mdc:src/views/Services.vue))
+Structure for individual service pages:
+```vue
+<template>
+  <Navigation />
+  
+  <!-- Hero with service-specific icon and proof points -->
+  <section class="service-hero">
+    <div class="container">
+      <div class="hero-content">
+        <Icon name="shield-check" class="hero-icon" />
+        <h1>{{ serviceTitle }}</h1>
+        <p class="hero-description">{{ serviceDescription }}</p>
+        <!-- Key metrics/proof points -->
+        <div class="proof-badges">
+          <span class="badge">3-min response</span>
+          <span class="badge">Licensed officers</span>
+          <span class="badge">24/7 coverage</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Problem → Solution → Outcomes -->
+  <section class="problem-solution">
+    <div class="container">
+      <h2>The Security Challenge</h2>
+      <!-- Describe the problem this service solves -->
+      
+      <h2>Our Solution</h2>
+      <!-- How ECIS addresses the problem -->
+      
+      <h2>Results You Can Expect</h2>
+      <!-- Specific outcomes and benefits -->
+    </div>
+  </section>
+  
+  <!-- Process Steps (1-4 steps) -->
+  <section class="process-steps">
+    <div class="container">
+      <h2>How It Works</h2>
+      <div class="steps-grid">
+        <div class="step" v-for="step in processSteps" :key="step.number">
+          <span class="step-number">{{ step.number }}</span>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Pricing (if public) -->
+  <section class="pricing" v-if="showPricing">
+    <div class="container">
+      <h2>Investment</h2>
+      <div class="pricing-cards">
+        <!-- Pricing tiers or contact for quote -->
+      </div>
+    </div>
+  </section>
+  
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="container">
+      <h2>Frequently Asked Questions</h2>
+      <!-- Service-specific Q&A -->
+    </div>
+  </section>
+  
+  <!-- CTA -->
+  <section class="service-cta">
+    <div class="container">
+      <h2>Ready to Secure Your Property?</h2>
+      <button class="btn btn--primary">Request Assessment</button>
+    </div>
+  </section>
+  
+  <FooterSection />
+</template>
+```
+
+## 3. About Page ([src/views/About.vue](mdc:src/views/About.vue))
+```vue
+<template>
+  <Navigation />
+  
+  <!-- Mission Statement -->
+  <section class="mission-hero">
+    <h1>Protecting Communities Since 2008</h1>
+    <p class="mission-statement">{{ missionText }}</p>
+  </section>
+  
+  <!-- Leadership Team -->
+  <section class="leadership">
+    <h2>Our Leadership</h2>
+    <div class="team-grid">
+      <!-- Photos, names, titles, credentials -->
+    </div>
+  </section>
+  
+  <!-- Credentials & Licenses -->
+  <section class="credentials">
+    <h2>Licensed & Certified</h2>
+    <!-- State licenses, insurance, certifications -->
+  </section>
+  
+  <!-- Company Timeline/Milestones -->
+  <section class="timeline">
+    <h2>Our Growth</h2>
+    <!-- Key milestones and achievements -->
+  </section>
+  
+  <!-- Recruitment CTA -->
+  <section class="careers-cta">
+    <h2>Join Our Team</h2>
+    <button class="btn btn--primary" @click="navigateTo('/careers')">
+      View Open Positions
+    </button>
+  </section>
+  
+  <FooterSection />
+</template>
+```
+
+## 4. Contact Page ([src/views/Contact.vue](mdc:src/views/Contact.vue))
+```vue
+<template>
+  <Navigation />
+  
+  <!-- Contact Hero -->
+  <section class="contact-hero">
+    <h1>Get Your Free Security Assessment</h1>
+    <p>Available 24/7 for emergencies and consultations</p>
+  </section>
+  
+  <!-- Contact Form + Contact Info Side by Side -->
+  <section class="contact-content">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Left: Contact Form -->
+        <div class="contact-form">
+          <ContactForm />
+        </div>
+        
+        <!-- Right: Contact Information -->
+        <div class="contact-info">
+          <h3>Get in Touch</h3>
+          <div class="contact-methods">
+            <div class="contact-method">
+              <Icon name="phone" />
+              <div>
+                <strong>Emergency Line</strong>
+                <a href="tel:+15555551234">(555) 555-1234</a>
+              </div>
+            </div>
+            
+            <div class="contact-method">
+              <Icon name="mail" />
+              <div>
+                <strong>General Inquiries</strong>
+                <a href="mailto:info@ecissolutions.com">info@ecissolutions.com</a>
+              </div>
+            </div>
+            
+            <div class="contact-method">
+              <Icon name="map-pin" />
+              <div>
+                <strong>Service Area</strong>
+                <span>Greater Metro Area</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Response SLA -->
+          <div class="response-guarantee">
+            <h4>Response Guarantee</h4>
+            <p>Emergency calls: <strong>3 minutes</strong></p>
+            <p>General inquiries: <strong>24 hours</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- 24/7 Phone Banner -->
+  <section class="emergency-banner">
+    <div class="container">
+      <h2>Need Immediate Assistance?</h2>
+      <a href="tel:+15555551234" class="emergency-phone">
+        Call (555) 555-1234 Now
+      </a>
+    </div>
+  </section>
+  
+  <FooterSection />
+</template>
+```
+
+## Layout Components Standards
+
+### Container & Grid System
+```vue
+<template>
+  <!-- Max-width container -->
+  <div class="container mx-auto px-6 lg:px-12 max-w-7xl">
+    
+    <!-- 12-column grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      
+      <!-- Content cards -->
+      <div class="col-span-full lg:col-span-2">
+        <!-- Main content -->
+      </div>
+      
+      <aside class="lg:col-span-1">
+        <!-- Sidebar content -->
+      </aside>
+    </div>
+  </div>
+</template>
+```
+
+### Section Spacing & Typography
+```vue
+<template>
+  <!-- Standard section -->
+  <section class="section-standard">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">{{ title }}</h2>
+        <p class="section-description">{{ description }}</p>
+      </div>
+      
+      <div class="section-content">
+        <!-- Section body content -->
+      </div>
+    </div>
+  </section>
+</template>
+
+<style scoped>
+.section-standard {
+  padding: 4rem 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.section-description {
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+</style>
+```
+
+### Hero Section Pattern
+```vue
+<template>
+  <section class="hero-section">
+    <div class="hero-background">
+      <!-- Background image with overlay -->
+    </div>
+    
+    <div class="hero-content">
+      <div class="container">
+        <div class="hero-text">
+          <!-- Badge/tagline -->
+          <span class="hero-badge">Trusted Since 2008</span>
+          
+          <!-- Main headline -->
+          <h1 class="hero-title">{{ heroTitle }}</h1>
+          
+          <!-- Supporting text -->
+          <p class="hero-description">{{ heroDescription }}</p>
+          
+          <!-- CTA buttons -->
+          <div class="hero-actions">
+            <button class="btn btn--primary btn--large">{{ primaryCTA }}</button>
+            <button class="btn btn--secondary btn--large">{{ secondaryCTA }}</button>
+          </div>
+          
+          <!-- Trust indicators -->
+          <div class="trust-badges">
+            <span class="trust-badge">Licensed & Bonded</span>
+            <span class="trust-badge">24/7 Response</span>
+            <span class="trust-badge">200+ Properties</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<style scoped>
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero-background::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15,31,51,.65), rgba(15,31,51,.85));
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+</style>
+```
+
+## Responsive Breakpoint Patterns
+```vue
+<template>
+  <!-- Mobile-first responsive classes -->
+  <div class="
+    grid 
+    grid-cols-1 
+    md:grid-cols-2 
+    lg:grid-cols-3 
+    xl:grid-cols-4 
+    gap-4 
+    md:gap-6 
+    lg:gap-8
+  ">
+    
+    <!-- Card component -->
+    <div class="
+      p-4 
+      md:p-6 
+      lg:p-8 
+      text-center 
+      md:text-left
+    ">
+      <h3 class="
+        text-lg 
+        md:text-xl 
+        lg:text-2xl 
+        font-semibold 
+        mb-2 
+        md:mb-4
+      ">
+        {{ title }}
+      </h3>
+    </div>
+  </div>
+</template>
+```
+
+## Page-Specific Component Rules
+
+### Navigation Component ([src/components/Navigation.vue](mdc:src/components/Navigation.vue))
+- Fixed position with scroll-triggered background
+- Mobile hamburger menu with accessibility features
+- Active page indication with underline
+- Logo on left, menu items center/right
+
+### Footer Component ([src/components/FooterSection.vue](mdc:src/components/FooterSection.vue))
+- Contact information (phone, email, address)
+- Quick links to main pages
+- Social media links
+- Copyright and licensing information
+- Emergency phone number prominence
+
+## Quality Gates for Page Templates
+Before shipping any page:
+- [ ] Follows exact template structure (no invented sections)
+- [ ] Hero section includes all required elements
+- [ ] CTA buttons use action-oriented text
+- [ ] Contact information is prominently displayed
+- [ ] Mobile responsive at all breakpoints
+- [ ] Loading states for dynamic content
+- [ ] SEO meta tags properly set
