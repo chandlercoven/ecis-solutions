@@ -1,7 +1,13 @@
 <template>
   <div id="app" class="min-h-screen bg-bg text-text">
+    <!-- SEO Head Component -->
+    <SEOHead />
+    
     <!-- Navigation -->
     <Navigation />
+    
+    <!-- Breadcrumb Navigation -->
+    <BreadcrumbNavigation />
     
     <!-- Loading Indicator -->
     <Transition name="fade">
@@ -40,7 +46,7 @@
       <button 
         v-if="showBackToTop"
         @click="scrollToTop"
-        class="fixed bottom-8 right-8 z-40 w-12 h-12 bg-action rounded-full shadow-lg hover:shadow-lg items-center justify-center transition-all duration-base hover:scale-110 hidden lg:flex focus-ring"
+        class="fixed z-40 w-12 h-12 bg-action rounded-full shadow-lg hover:shadow-lg items-center justify-center transition-all duration-base hover:scale-110 flex focus-ring bottom-20 right-4 lg:bottom-8 lg:right-8"
         aria-label="Back to top"
       >
         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -56,6 +62,8 @@ import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import Navigation from './components/Navigation.vue'
 import FooterSection from './components/FooterSection.vue'
 import MobileCallButton from './components/MobileCallButton.vue'
+import SEOHead from './components/SEOHead.vue'
+import BreadcrumbNavigation from './components/BreadcrumbNavigation.vue'
 import { onLoadingChange } from './router'
 
 const showBackToTop = ref(false)
@@ -66,11 +74,18 @@ const unsubscribeLoading = onLoadingChange((loading) => {
   isLoading.value = loading
 })
 
-// Global scroll animations setup
+// Global scroll animations setup - optimized
+let scrollObserver = null
+
 const observeElements = () => {
+  // Clean up existing observer
+  if (scrollObserver) {
+    scrollObserver.disconnect()
+  }
+
   const options = {
     root: null,
-    rootMargin: '0px',
+    rootMargin: '0px 0px -50px 0px', // Trigger slightly before element is fully visible
     threshold: 0.1
   }
 
@@ -78,22 +93,33 @@ const observeElements = () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible')
+        // Stop observing once visible to improve performance
+        scrollObserver.unobserve(entry.target)
       }
     })
   }
 
-  const observer = new IntersectionObserver(callback, options)
+  scrollObserver = new IntersectionObserver(callback, options)
 
   // Observe all elements with animate-on-scroll class
   nextTick(() => {
-    const elements = document.querySelectorAll('.animate-on-scroll')
-    elements.forEach(element => observer.observe(element))
+    const elements = document.querySelectorAll('.animate-on-scroll:not(.visible)')
+    elements.forEach(element => scrollObserver.observe(element))
   })
 }
 
-// Handle scroll events
+// Handle scroll events - throttled for better performance
+let scrollTimeout = null
+
 const handleScroll = () => {
-  showBackToTop.value = window.scrollY > 500
+  // Throttle scroll events to improve performance
+  if (scrollTimeout) {
+    clearTimeout(scrollTimeout)
+  }
+  
+  scrollTimeout = setTimeout(() => {
+    showBackToTop.value = window.scrollY > 500
+  }, 10) // 10ms throttle
 }
 
 // Scroll to top function
@@ -142,7 +168,20 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
+  // Remove scroll event listener
   window.removeEventListener('scroll', handleScroll)
+  
+  // Clean up scroll observer
+  if (scrollObserver) {
+    scrollObserver.disconnect()
+  }
+  
+  // Clear scroll timeout
+  if (scrollTimeout) {
+    clearTimeout(scrollTimeout)
+  }
+  
+  // Clean up loading subscription
   unsubscribeLoading()
 })
 </script>
