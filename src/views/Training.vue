@@ -1,17 +1,24 @@
 <template>
   <div class="training-page">
     <!-- Training Hero Section -->
-    <section class="hero-section relative min-h-[60vh] flex items-center justify-center animate-on-scroll pt-24 sm:pt-20 lg:pt-24">
+    <section class="hero-section relative min-h-[60vh] flex items-center justify-center animate-on-scroll pt-24 sm:pt-20 lg:pt-24 pb-8 sm:pb-12">
       <div class="absolute inset-0 z-0">
         <!-- Enhanced overlay layers -->
         <div class="absolute inset-0 bg-gradient-to-b from-bg/40 via-bg/70 to-bg/90 z-10"></div>
         <div class="absolute inset-0 bg-gradient-to-r from-bg/30 via-transparent to-bg/30 z-20"></div>
         <div class="absolute inset-0 bg-black/20 z-30"></div>
         
+        <!-- Desktop hero image -->
         <img 
-          src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2560&q=80"
+          src="@/assets/hero-banner.jpg"
           alt="Security training academy classroom with professional instructors"
-          class="w-full h-full object-cover"
+          class="w-full h-full object-cover hidden md:block"
+        >
+        <!-- Mobile hero image -->
+        <img 
+          src="@/assets/hero-banner-mobile.jpg"
+          alt="Security training academy classroom with professional instructors"
+          class="w-full h-full object-cover block md:hidden"
         >
       </div>
 

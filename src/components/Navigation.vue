@@ -2,10 +2,10 @@
   <nav 
     :class="[
       'fixed top-0 left-0 right-0 z-50 transition-all duration-base',
-      isScrolled ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900/95 backdrop-blur shadow-lg py-4' : 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-6'
+      isScrolled ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900/95 backdrop-blur shadow-lg' : 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900'
     ]"
   >
-    <div class="container">
+    <div class="container pb-1">
       <div class="flex items-center justify-between">
         <!-- Logo -->
         <router-link 
@@ -38,16 +38,16 @@
             {{ item.label }}
           </router-link>
           
-          <!-- Emergency Call Button -->
+          <!-- Call Now Button -->
           <a 
             href="tel:+15166408144" 
-            class="btn btn--premium text-sm"
-            aria-label="Call emergency security line"
+            class="btn btn--call-now text-sm"
+            aria-label="Call now"
           >
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
-            Emergency: (516) 640-8144
+            Call Now: (516) 640-8144
           </a>
         </div>
 
@@ -114,27 +114,95 @@
               {{ item.label }}
             </router-link>
             
-            <!-- Mobile Emergency Call -->
+            <!-- Mobile Call Now -->
             <a 
               href="tel:+15166408144" 
-              class="block py-3 px-4 text-base font-medium font-body text-accent border border-accent/20 rounded-lg mt-4"
+              class="btn btn--call-now text-base mt-4"
               @click="closeMobileMenu"
               role="menuitem"
             >
-              📞 Emergency: (516) 640-8144
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              Call Now: (516) 640-8144
             </a>
           </div>
         </div>
       </transition>
+    </div>
+    
+    <!-- Announcement Banner -->
+    <div v-if="showBanner" class="bg-accent text-white px-2 sm:px-4 text-center border-b border-accent/20">
+      <div class="container mx-auto">
+        <!-- Mobile Layout -->
+        <div class="sm:hidden flex items-center justify-between gap-2 py-1">
+          <div class="flex items-center gap-1 text-xs font-medium flex-1 min-w-0">
+            <span class="font-bold truncate">Security License Training</span>
+            <span class="text-xs">• Nov 1st</span>
+          </div>
+          <div class="flex items-center gap-1 flex-shrink-0">
+            <span class="text-sm font-bold">$99</span>
+            <button 
+              @click="handleEnrollClick"
+              class="bg-white text-accent px-2 py-0.5 rounded text-xs font-semibold hover:bg-white/90 transition-colors"
+            >
+              $25
+            </button>
+            <button 
+              @click="closeBanner"
+              class="text-white/70 hover:text-white transition-colors p-0.5"
+              aria-label="Close announcement"
+            >
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Desktop Layout -->
+        <div class="hidden sm:flex items-center justify-center gap-4 py-1">
+          <!-- Main Message -->
+          <div class="flex items-center gap-2 text-sm font-medium">
+            <span class="font-bold">Security License Training</span>
+            <span class="inline">• Classes start November 1st</span>
+          </div>
+          
+          <!-- Price & CTA -->
+          <div class="flex items-center gap-3">
+            <span class="text-lg font-bold">$99</span>
+            <button 
+              @click="handleEnrollClick"
+              class="bg-white text-accent px-3 py-1 rounded text-xs font-semibold hover:bg-white/90 transition-colors"
+            >
+              Secure Spot - $25
+            </button>
+          </div>
+          
+          <!-- Close Button -->
+          <button 
+            @click="closeBanner"
+            class="text-white/70 hover:text-white transition-colors p-1"
+            aria-label="Close announcement"
+          >
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
   </nav>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const isScrolled = ref(false)
 const mobileMenuOpen = ref(false)
+const showBanner = ref(true)
 
 const navItems = [
   { path: '/', label: 'Home' },
@@ -156,6 +224,25 @@ const closeMobileMenu = () => {
   mobileMenuOpen.value = false
 }
 
+// Banner functions
+const closeBanner = () => {
+  showBanner.value = false
+  localStorage.setItem('announcement-banner-dismissed', 'true')
+}
+
+const handleEnrollClick = () => {
+  router.push('/training')
+  
+  // Track the click for analytics
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'click', {
+      event_category: 'announcement',
+      event_label: 'security-license-enrollment',
+      value: 25
+    })
+  }
+}
+
 // Close mobile menu when clicking outside
 const handleClickOutside = (event) => {
   const nav = event.target.closest('nav')
@@ -168,6 +255,12 @@ onMounted(() => {
   window.addEventListener('scroll', handleScroll)
   document.addEventListener('click', handleClickOutside)
   handleScroll()
+  
+  // Check if banner was previously dismissed
+  const dismissed = localStorage.getItem('announcement-banner-dismissed')
+  if (dismissed === 'true') {
+    showBanner.value = false
+  }
 })
 
 onUnmounted(() => {

@@ -172,9 +172,25 @@ const previousTestimonial = () => {
 }
 
 const startAutoplay = () => {
+  // Only start autoplay if user is not actively scrolling
+  let isScrolling = false
+  let scrollTimeout = null
+  
+  const handleScroll = () => {
+    isScrolling = true
+    if (scrollTimeout) clearTimeout(scrollTimeout)
+    scrollTimeout = setTimeout(() => {
+      isScrolling = false
+    }, 1000) // Wait 1 second after scroll stops
+  }
+  
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  
   autoplayInterval = setInterval(() => {
-    nextTestimonial()
-  }, 6000) // Change testimonial every 6 seconds
+    if (!isScrolling) {
+      nextTestimonial()
+    }
+  }, 8000) // Increased to 8 seconds to reduce conflicts
 }
 
 const stopAutoplay = () => {

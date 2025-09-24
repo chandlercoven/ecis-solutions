@@ -53,12 +53,14 @@ onUnmounted(() => {
 
 .call-btn {
   @apply relative flex items-center justify-center;
-  @apply w-14 h-14 bg-gradient-to-br from-green-500 to-green-600;
-  @apply rounded-full shadow-lg hover:shadow-xl;
+  @apply w-14 h-14 rounded-full shadow-lg hover:shadow-xl;
   @apply transition-all duration-300 transform;
   @apply hover:scale-110 active:scale-95;
   @apply text-white;
   @apply overflow-hidden;
+  /* Use the new yellow button styling */
+  background: var(--accent);
+  border: 1px solid var(--accent);
   /* Material Design elevation */
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 
               0 6px 10px 0 rgba(0, 0, 0, 0.14), 
@@ -66,7 +68,8 @@ onUnmounted(() => {
 }
 
 .call-btn:hover {
-  @apply bg-gradient-to-br from-green-600 to-green-700;
+  background: #b8941f; /* Darker yellow on hover */
+  border-color: #b8941f;
   /* Enhanced elevation on hover */
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 
               0 8px 10px 1px rgba(0, 0, 0, 0.14), 
@@ -92,20 +95,20 @@ onUnmounted(() => {
     box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 
                 0 6px 10px 0 rgba(0, 0, 0, 0.14), 
                 0 1px 18px 0 rgba(0, 0, 0, 0.12),
-                0 0 0 0 rgba(34, 197, 94, 0.7);
+                0 0 0 0 rgba(212, 175, 55, 0.7);
   }
   50% {
     box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 
                 0 6px 10px 0 rgba(0, 0, 0, 0.14), 
                 0 1px 18px 0 rgba(0, 0, 0, 0.12),
-                0 0 0 8px rgba(34, 197, 94, 0);
+                0 0 0 8px rgba(212, 175, 55, 0);
   }
 }
 
 /* Pulse ring animation */
 .pulse-ring {
   @apply absolute inset-0 rounded-full;
-  @apply border-2 border-green-400;
+  @apply border-2 border-accent;
   @apply animate-ping;
   @apply opacity-75;
 }

@@ -2,10 +2,19 @@
   <section class="hero-section relative flex flex-col justify-center overflow-hidden animate-on-scroll pt-20 sm:pt-24 lg:pt-28 pb-12">
     <!-- Hero Background Image -->
     <div class="absolute inset-0 z-0">
-      <!-- Hero background image - security scene -->
-      <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" 
-           style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');">
-      </div>
+      <!-- Desktop hero image -->
+      <img 
+        src="@/assets/hero-banner.jpg"
+        alt="Professional security services hero banner"
+        class="w-full h-full object-cover hidden md:block"
+      >
+      <!-- Mobile hero image -->
+      <img 
+        src="@/assets/hero-banner-mobile.jpg"
+        alt="Professional security services hero banner"
+        class="w-full h-full object-cover object-center block md:hidden"
+        style="object-position: center center;"
+      >
       
       <!-- Dark overlay for text readability -->
       <div class="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-slate-800/70 to-slate-900/80 z-10"></div>
@@ -19,8 +28,8 @@
       <div class="max-w-5xl mx-auto space-y-6 sm:space-y-8">
 
         <!-- Trust Badge - Solid Background -->
-        <div class="inline-flex items-center space-x-2 sm:space-x-3 hero-card-sm mt-8 sm:mt-6">
-          <span class="w-2 h-2 bg-action rounded-full animate-pulse"></span>
+        <div class="inline-flex items-center space-x-2 sm:space-x-3 hero-card-sm mt-12 sm:mt-6">
+          <span class="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
           <span class="text-white text-xs sm:text-sm font-medium font-body">Trusted Since 2008 • Licensed & Bonded</span>
         </div>
 
@@ -29,10 +38,10 @@
           <!-- Form Header -->
           <div class="text-center mb-6 sm:mb-8">
             <h1 class="text-2xl sm:text-3xl lg:text-4xl text-white font-heading mb-3 sm:mb-4 text-shadow-lg">
-              Get Your Free Security Assessment
+              Professional Security Services - 24/7 Patrol & Protection
           </h1>
             <p class="text-sm sm:text-base lg:text-lg text-white/90 font-body leading-relaxed text-shadow">
-              Licensed security professionals will evaluate your property and provide a customized protection plan.
+              Licensed security officers protect 200+ properties with 3-minute response time. Get your free security assessment and discover how we safeguard what matters most.
             </p>
           </div>
 
@@ -40,7 +49,7 @@
           <form @submit.prevent="submitAssessment" class="space-y-4">
             <!-- Name -->
             <div>
-              <label for="name" class="block text-sm font-medium text-white mb-2">Name *</label>
+              <label for="name" class="block text-sm font-medium text-white mb-2 text-left">Name *</label>
               <input 
                 type="text" 
                 id="name"
@@ -53,7 +62,7 @@
 
             <!-- Email -->
             <div>
-              <label for="email" class="block text-sm font-medium text-white mb-2">Email *</label>
+              <label for="email" class="block text-sm font-medium text-white mb-2 text-left">Email *</label>
               <input 
                 type="email" 
                 id="email"
@@ -66,7 +75,7 @@
 
             <!-- Message -->
             <div>
-              <label for="message" class="block text-sm font-medium text-white mb-2">Message *</label>
+              <label for="message" class="block text-sm font-medium text-white mb-2 text-left">Message *</label>
               <textarea 
                 id="message"
                 v-model="form.securityConcerns"
@@ -127,12 +136,12 @@
           </div>
 
           <!-- BBB Rating - Premium Badge Design -->
-          <div class="flex justify-center mt-6">
+          <div class="flex justify-center mt-4">
             <a 
               href="https://www.bbb.org/us/fl/west-palm-beach/profile/security-guards/east-coast-investigation-security-services-llc-0633-92046681" 
               target="_blank" 
               rel="noopener noreferrer"
-              class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-accent/10 via-accent/5 to-transparent p-6 sm:p-8 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/20"
+              class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-accent/10 via-accent/5 to-transparent p-4 sm:p-6 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/20"
               aria-label="View ECIS Solutions BBB A+ rating profile"
             >
               
@@ -140,7 +149,7 @@
               <div class="relative z-10 text-center">
                 <!-- BBB Logo with premium styling -->
                 <div class="mb-2 relative">
-                  <div class="w-64 h-64 mx-auto bg-gradient-to-br from-accent/20 to-accent/10 rounded-full flex items-center justify-center group-hover:from-accent/30 group-hover:to-accent/20 transition-all duration-300">
+                  <div class="w-32 h-32 mx-auto bg-gradient-to-br from-accent/20 to-accent/10 rounded-full flex items-center justify-center group-hover:from-accent/30 group-hover:to-accent/20 transition-all duration-300">
                     <img 
                       src="/src/assets/BBB-Logo.png" 
                       alt="Better Business Bureau A+ Rating" 
@@ -269,6 +278,19 @@ const submitAssessment = async () => {
 @media (max-width: 768px) {
   .hero-section::before {
     background: radial-gradient(ellipse at 50% 30%, rgba(59, 130, 246, 0.03) 0%, transparent 40%);
+  }
+  
+  /* Better mobile hero image handling for 9:16 portrait images */
+  .hero-section img {
+    object-position: center center;
+    min-height: 100vh;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Ensure the hero section has proper height for 9:16 images */
+  .hero-section {
+    min-height: 100vh;
   }
 }
 

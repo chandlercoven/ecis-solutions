@@ -1,5 +1,5 @@
 <template>
-  <section id="training" class="section-padding bg-white relative overflow-hidden">
+  <section id="training" class="section-padding bg-surface relative overflow-hidden">
     <!-- Background Pattern -->
     <div class="absolute inset-0 opacity-10">
       <div class="absolute inset-0 bg-pattern"></div>
@@ -13,11 +13,11 @@
             <span class="text-law-enforcement-gold text-sm font-semibold uppercase tracking-wider">ECIS Training Academy</span>
           </div>
           
-          <h2 class="heading-lg text-navy-dark">
+          <h2 class="heading-lg text-text">
             Launch Your Career in Security
           </h2>
           
-          <p class="text-lg text-gray-600 leading-relaxed">
+          <p class="text-lg text-muted leading-relaxed">
             Get licensed and certified through our state-approved training programs. 
             Join hundreds of graduates who have started successful security careers.
           </p>
@@ -33,10 +33,10 @@
                 </div>
                 <div class="flex-1">
                   <div class="flex items-center space-x-2 mb-2">
-                    <h3 class="text-xl font-heading font-semibold text-navy-dark group-hover:text-amber-600 transition-colors duration-300">Class D License</h3>
+                    <h3 class="text-xl font-heading font-semibold text-text group-hover:text-amber-600 transition-colors duration-300">Class D License</h3>
                     <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-full">Popular</span>
                   </div>
-                  <p class="text-gray-600 text-sm leading-relaxed mb-3">Unarmed Security Officer certification. 40-hour comprehensive training program covering legal aspects, emergency procedures, and professional conduct.</p>
+                  <p class="text-muted text-sm leading-relaxed mb-3">Unarmed Security Officer certification. 40-hour comprehensive training program covering legal aspects, emergency procedures, and professional conduct.</p>
                   <div class="flex items-center text-amber-600 text-sm font-semibold">
                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -56,10 +56,10 @@
                 </div>
                 <div class="flex-1">
                   <div class="flex items-center space-x-2 mb-2">
-                    <h3 class="text-xl font-heading font-semibold text-navy-dark group-hover:text-red-600 transition-colors duration-300">Class G License</h3>
+                    <h3 class="text-xl font-heading font-semibold text-text group-hover:text-red-600 transition-colors duration-300">Class G License</h3>
                     <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-full">Advanced</span>
                   </div>
-                  <p class="text-gray-600 text-sm leading-relaxed mb-3">Armed Security Officer certification. Advanced training with firearms qualification, tactical response, and enhanced legal training.</p>
+                  <p class="text-muted text-sm leading-relaxed mb-3">Armed Security Officer certification. Advanced training with firearms qualification, tactical response, and enhanced legal training.</p>
                   <div class="flex items-center text-red-600 text-sm font-semibold">
                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -104,7 +104,7 @@
           </div>
           
           <!-- Badge -->
-          <div class="absolute -bottom-6 -left-6 bg-white rounded-xl p-6 shadow-xl">
+          <div class="absolute -bottom-6 -left-6 bg-surface rounded-xl p-6 shadow-xl">
             <div class="flex items-center space-x-4">
               <div class="text-electric-blue">
                 <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
@@ -112,8 +112,8 @@
                 </svg>
               </div>
               <div>
-                <div class="text-2xl font-bold text-navy-dark">500+</div>
-                <div class="text-sm text-gray-600">Graduates Working</div>
+                <div class="text-2xl font-bold text-text">500+</div>
+                <div class="text-sm text-muted">Graduates Working</div>
               </div>
             </div>
           </div>
@@ -126,28 +126,28 @@
           <div class="stats-number group-hover:scale-110 transition-transform duration-300">
             <span class="counter" data-target="95">0</span>%
           </div>
-          <div class="text-gray-600 mt-2 text-sm font-medium">Pass Rate</div>
+          <div class="text-muted mt-2 text-sm font-medium">Pass Rate</div>
           <div class="w-8 h-1 bg-gradient-to-r from-green-400 to-green-600 rounded-full mx-auto mt-2"></div>
         </div>
         <div class="stats-card group">
           <div class="stats-number group-hover:scale-110 transition-transform duration-300">
             <span class="counter" data-target="500">0</span>+
           </div>
-          <div class="text-gray-600 mt-2 text-sm font-medium">Graduates</div>
+          <div class="text-muted mt-2 text-sm font-medium">Graduates</div>
           <div class="w-8 h-1 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full mx-auto mt-2"></div>
         </div>
         <div class="stats-card group">
           <div class="stats-number group-hover:scale-110 transition-transform duration-300">
             <span class="counter" data-target="30">0</span>+
           </div>
-          <div class="text-gray-600 mt-2 text-sm font-medium">Industry Partners</div>
+          <div class="text-muted mt-2 text-sm font-medium">Industry Partners</div>
           <div class="w-8 h-1 bg-gradient-to-r from-purple-400 to-purple-600 rounded-full mx-auto mt-2"></div>
         </div>
         <div class="stats-card group">
           <div class="stats-number group-hover:scale-110 transition-transform duration-300">
             <span class="counter" data-target="100">0</span>%
           </div>
-          <div class="text-gray-600 mt-2 text-sm font-medium">State Approved</div>
+          <div class="text-muted mt-2 text-sm font-medium">State Approved</div>
           <div class="w-8 h-1 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full mx-auto mt-2"></div>
         </div>
       </div>

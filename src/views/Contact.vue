@@ -1,32 +1,47 @@
 <template>
   <div class="contact-page">
     <!-- Contact Hero -->
-    <section class="hero-section relative min-h-[50vh] flex items-center justify-center animate-on-scroll pt-32 sm:pt-20 lg:pt-24">
+    <section class="hero-section relative min-h-[60vh] flex items-center justify-center animate-on-scroll pt-24 sm:pt-20 lg:pt-24">
       <div class="absolute inset-0 z-0">
-        <div class="absolute inset-0 bg-gradient-to-b from-bg/65 to-bg/85 z-10"></div>
+        <!-- Enhanced overlay layers -->
+        <div class="absolute inset-0 bg-gradient-to-b from-bg/40 via-bg/70 to-bg/90 z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-bg/30 via-transparent to-bg/30 z-20"></div>
+        <div class="absolute inset-0 bg-black/20 z-30"></div>
+        
+        <!-- Desktop hero image -->
         <img 
-          src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2560&q=80"
+          src="@/assets/hero-banner.jpg"
           alt="ECIS security command center with monitoring equipment"
-          class="w-full h-full object-cover"
+          class="w-full h-full object-cover hidden md:block"
+        >
+        <!-- Mobile hero image -->
+        <img 
+          src="@/assets/hero-banner-mobile.jpg"
+          alt="ECIS security command center with monitoring equipment"
+          class="w-full h-full object-cover block md:hidden"
         >
       </div>
 
       <div class="relative z-20 container text-center">
         <div class="max-w-4xl mx-auto">
-          <div class="inline-flex items-center space-x-3 bg-success/20 backdrop-blur-sm rounded-full px-6 py-3 border border-success/20 mb-6">
-            <svg class="w-6 h-6 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <!-- Solid background badge -->
+          <div class="inline-flex items-center space-x-2 sm:space-x-3 hero-card-sm mb-6 mt-6 sm:mt-4">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
-            <span class="text-text/90 text-sm font-medium font-body">Available 24/7 for Emergencies</span>
+            <span class="text-white text-xs sm:text-sm font-medium font-body">Available 24/7</span>
           </div>
 
-          <h1 class="heading-xl text-white font-heading mb-4">
-            Get Your Free Security Assessment
-          </h1>
-          
-          <p class="text-lg text-white/80 max-w-3xl mx-auto font-body">
-            Ready to protect what matters most? Contact our security experts for a consultation tailored to your specific needs.
-          </p>
+          <!-- Main content in solid background card -->
+          <div class="hero-card-lg p-8 lg:p-12">
+            <h1 class="heading-xl text-white font-heading mb-4 text-shadow-lg">
+              Get Your Free Security Assessment
+            </h1>
+            
+            <p class="text-lg text-white/90 max-w-3xl mx-auto font-body text-shadow">
+              Ready to protect what matters most? Contact our security experts for a consultation tailored to your specific needs.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -42,7 +57,7 @@
             <form @submit.prevent="handleSubmit" class="space-y-6">
               <!-- Name Field -->
               <div>
-                <label for="name" class="block text-sm font-medium text-text mb-2">
+                <label for="name" class="block text-sm font-medium text-text mb-2 text-left">
                   Full Name <span class="text-danger">*</span>
                 </label>
                 <input 
@@ -59,7 +74,7 @@
 
               <!-- Email Field -->
               <div>
-                <label for="email" class="block text-sm font-medium text-text mb-2">
+                <label for="email" class="block text-sm font-medium text-text mb-2 text-left">
                   Email Address <span class="text-danger">*</span>
                 </label>
                 <input 
@@ -76,7 +91,7 @@
 
               <!-- Phone Field -->
               <div>
-                <label for="phone" class="block text-sm font-medium text-text mb-2">
+                <label for="phone" class="block text-sm font-medium text-text mb-2 text-left">
                   Phone Number <span class="text-danger">*</span>
                 </label>
                 <input 
@@ -93,7 +108,7 @@
 
               <!-- Property Type -->
               <div>
-                <label for="property-type" class="block text-sm font-medium text-text mb-2">
+                <label for="property-type" class="block text-sm font-medium text-text mb-2 text-left">
                   Property Type <span class="text-danger">*</span>
                 </label>
                 <select 
@@ -116,7 +131,7 @@
 
               <!-- Service Interest -->
               <div>
-                <label for="service" class="block text-sm font-medium text-text mb-2">Service Interest</label>
+                <label for="service" class="block text-sm font-medium text-text mb-2 text-left">Service Interest</label>
                 <select 
                   id="service"
                   v-model="form.service"
@@ -135,7 +150,7 @@
 
               <!-- Message -->
               <div>
-                <label for="message" class="block text-sm font-medium text-text mb-2">
+                <label for="message" class="block text-sm font-medium text-text mb-2 text-left">
                   Message <span class="text-danger">*</span>
                 </label>
                 <textarea 
@@ -183,20 +198,20 @@
             <h3 class="text-2xl font-heading font-semibold text-text mb-6">Get in Touch</h3>
             
             <div class="space-y-6">
-              <!-- Emergency Contact -->
+              <!-- Call Now Contact -->
               <div class="bg-bg rounded-lg p-6 border border-border">
                 <div class="flex items-start space-x-4">
-                  <div class="w-12 h-12 bg-danger/10 rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <div class="w-12 h-12 bg-action/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-6 h-6 text-action" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
                   </div>
                   <div>
-                    <h4 class="font-heading font-semibold text-text mb-1">Emergency Line</h4>
+                    <h4 class="font-heading font-semibold text-text mb-1">Call Now</h4>
                     <a href="tel:+15166408144" class="text-lg font-semibold text-action hover:text-action/80 transition-colors">
                       (516) 640-8144
                     </a>
-                    <p class="text-muted text-sm mt-1">Available 24/7 for security emergencies</p>
+                    <p class="text-muted text-sm mt-1">Available 24/7 for all security needs</p>
                   </div>
                 </div>
               </div>
@@ -235,7 +250,7 @@
                   <div>
                     <h4 class="font-heading font-semibold text-text mb-1">Business Hours</h4>
                     <p class="text-text">Mon-Fri: 8:00 AM - 6:00 PM</p>
-                    <p class="text-muted text-sm mt-1">Emergency services available 24/7</p>
+                    <p class="text-muted text-sm mt-1">Security services available 24/7</p>
                   </div>
                 </div>
               </div>
@@ -248,7 +263,7 @@
                     <svg class="w-4 h-4 text-success mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
-                    <span class="text-text">Emergency calls: <strong>3 minutes</strong></span>
+                    <span class="text-text">Response time: <strong>3 minutes</strong></span>
                   </div>
                   <div class="flex items-center">
                     <svg class="w-4 h-4 text-success mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -270,25 +285,25 @@
       </div>
     </section>
 
-    <!-- 24/7 Emergency Banner -->
-    <section class="section bg-danger/10 border-y border-danger/20 animate-on-scroll">
+    <!-- 24/7 Call Now Banner -->
+    <section class="section bg-action/10 border-y border-action/20 animate-on-scroll">
       <div class="container text-center">
         <div class="max-w-3xl mx-auto">
           <div class="flex items-center justify-center mb-4">
-            <svg class="w-8 h-8 text-danger mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            <svg class="w-8 h-8 text-action mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
-            <h2 class="text-2xl font-heading font-bold text-text">Need Immediate Assistance?</h2>
+            <h2 class="text-2xl font-heading font-bold text-text">Ready to Get Started?</h2>
           </div>
           
           <p class="text-lg text-muted mb-6">
-            For security emergencies, active incidents, or urgent consultations, call our 24/7 emergency line.
+            For immediate assistance, security consultations, or to learn more about our services, call us now.
           </p>
           
           <a 
             href="tel:+15166408144" 
-            class="inline-flex items-center gap-3 bg-danger text-white px-8 py-4 rounded-lg font-heading font-semibold text-lg hover:bg-danger/90 transition-colors duration-base shadow-lg hover:shadow-xl focus-ring"
-            aria-label="Call emergency security line now"
+            class="inline-flex items-center gap-3 bg-action text-white px-8 py-4 rounded-lg font-heading font-semibold text-lg hover:bg-action/90 transition-colors duration-base shadow-lg hover:shadow-xl focus-ring"
+            aria-label="Call now"
           >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />

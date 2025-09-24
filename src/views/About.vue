@@ -8,10 +8,17 @@
         <div class="absolute inset-0 bg-gradient-to-r from-bg/30 via-transparent to-bg/30 z-20"></div>
         <div class="absolute inset-0 bg-black/20 z-30"></div>
         
+        <!-- Desktop hero image -->
         <img 
-          src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=2560&q=80"
+          src="@/assets/hero-banner.jpg"
           alt="Professional security team in uniform at headquarters"
-          class="w-full h-full object-cover"
+          class="w-full h-full object-cover hidden md:block"
+        >
+        <!-- Mobile hero image -->
+        <img 
+          src="@/assets/hero-banner-mobile.jpg"
+          alt="Professional security team in uniform at headquarters"
+          class="w-full h-full object-cover block md:hidden"
         >
       </div>
 

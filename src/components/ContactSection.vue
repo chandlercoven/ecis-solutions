@@ -1,15 +1,15 @@
 <template>
-  <section id="contact" class="section-padding bg-gradient-primary relative">
-    <div class="container-custom">
+  <section id="contact" class="section bg-gradient-primary relative">
+    <div class="container">
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-        <div class="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2">
+        <div class="inline-flex items-center space-x-2 bg-surface/20 backdrop-blur-sm rounded-full px-4 py-2">
           <span class="text-white text-sm font-semibold uppercase tracking-wider">Get In Touch</span>
         </div>
         <h2 class="heading-lg text-white">
           Start Securing Your Property Today
         </h2>
-        <p class="text-lg text-white/80">
+        <p class="text-body-lg text-white/80">
           Contact us for a free security assessment or to learn more about our services and training programs.
         </p>
       </div>
@@ -17,76 +17,76 @@
       <!-- Contact Grid -->
       <div class="grid lg:grid-cols-2 gap-12">
         <!-- Contact Form -->
-        <div class="bg-white rounded-2xl p-8 lg:p-10 shadow-2xl">
-          <h3 class="heading-sm text-navy-dark mb-6">Request a Free Assessment</h3>
+        <div class="card">
+          <h3 class="heading-sm text-text mb-6">Request a Free Assessment</h3>
           
           <form @submit.prevent="handleSubmit" class="space-y-6">
             <div class="grid md:grid-cols-2 gap-6">
               <div>
-                <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">
-                  First Name *
+                <label for="firstName" class="label label--required">
+                  First Name
                 </label>
                 <input 
                   type="text" 
                   id="firstName" 
                   v-model="form.firstName"
                   required
-                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-electric-blue focus:ring-2 focus:ring-electric-blue/20 transition-colors"
+                  class="input"
                   placeholder="John"
                 >
               </div>
               
               <div>
-                <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">
-                  Last Name *
+                <label for="lastName" class="label label--required">
+                  Last Name
                 </label>
                 <input 
                   type="text" 
                   id="lastName" 
                   v-model="form.lastName"
                   required
-                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-electric-blue focus:ring-2 focus:ring-electric-blue/20 transition-colors"
+                  class="input"
                   placeholder="Doe"
                 >
               </div>
             </div>
 
             <div>
-              <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                Email Address *
+              <label for="email" class="label label--required">
+                Email Address
               </label>
               <input 
                 type="email" 
                 id="email" 
                 v-model="form.email"
                 required
-                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-electric-blue focus:ring-2 focus:ring-electric-blue/20 transition-colors"
+                class="input"
                 placeholder="john.doe@example.com"
               >
             </div>
 
             <div>
-              <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
-                Phone Number *
+              <label for="phone" class="label label--required">
+                Phone Number
               </label>
               <input 
                 type="tel" 
                 id="phone" 
                 v-model="form.phone"
                 required
-                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-electric-blue focus:ring-2 focus:ring-electric-blue/20 transition-colors"
+                class="input"
                 placeholder="(555) 123-4567"
               >
             </div>
 
             <div>
-              <label for="service" class="block text-sm font-medium text-gray-700 mb-2">
+              <label for="service" class="label">
                 Service Needed
               </label>
               <select 
                 id="service" 
                 v-model="form.service"
-                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-electric-blue focus:ring-2 focus:ring-electric-blue/20 transition-colors"
+                class="select"
               >
                 <option value="">Select a service</option>
                 <option value="hoa">HOA/Community Security</option>
@@ -99,21 +99,21 @@
             </div>
 
             <div>
-              <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
+              <label for="message" class="label">
                 Message
               </label>
               <textarea 
                 id="message" 
                 v-model="form.message"
                 rows="4"
-                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-electric-blue focus:ring-2 focus:ring-electric-blue/20 transition-colors resize-none"
+                class="textarea"
                 placeholder="Tell us about your security needs..."
               ></textarea>
             </div>
 
             <button 
               type="submit" 
-              class="w-full btn-primary"
+              class="btn btn--primary w-full"
               :disabled="isSubmitting"
             >
               <span v-if="!isSubmitting">Send Message</span>
@@ -129,8 +129,8 @@
 
           <!-- Success Message -->
           <transition name="fade">
-            <div v-if="showSuccess" class="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-              <p class="text-green-800 font-medium">Thank you for your message! We'll be in touch within 24 hours.</p>
+            <div v-if="showSuccess" class="alert alert--success mt-6">
+              <p class="font-medium">Thank you for your message! We'll be in touch within 24 hours.</p>
             </div>
           </transition>
         </div>
@@ -139,46 +139,46 @@
         <div class="space-y-8">
           <!-- Quick Contact Cards -->
           <div class="grid gap-4">
-            <a href="tel:+15166408144" class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 group">
+            <a href="tel:+15166408144" class="card interactive">
               <div class="flex items-center space-x-4">
-                <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
-                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-12 h-12 bg-surface-2 rounded-lg flex items-center justify-center">
+                  <svg class="w-6 h-6 text-action" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </div>
                 <div>
-                  <p class="text-white/70 text-sm">Call Us 24/7</p>
-                  <p class="text-white text-lg font-semibold">(516) 640-8144</p>
+                  <p class="text-muted text-sm">Call Us 24/7</p>
+                  <p class="text-text text-lg font-semibold">(516) 640-8144</p>
                 </div>
               </div>
             </a>
 
-            <a href="mailto:michael@ecissolutions.com" class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 group">
+            <a href="mailto:michael@ecissolutions.com" class="card interactive">
               <div class="flex items-center space-x-4">
-                <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
-                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-12 h-12 bg-surface-2 rounded-lg flex items-center justify-center">
+                  <svg class="w-6 h-6 text-action" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
                 <div>
-                  <p class="text-white/70 text-sm">Email Us</p>
-                  <p class="text-white text-lg font-semibold">michael@ecissolutions.com</p>
+                  <p class="text-muted text-sm">Email Us</p>
+                  <p class="text-text text-lg font-semibold">michael@ecissolutions.com</p>
                 </div>
               </div>
             </a>
 
-            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+            <div class="card">
               <div class="flex items-start space-x-4">
-                <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-12 h-12 bg-surface-2 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-action" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </div>
                 <div>
-                  <p class="text-white/70 text-sm">Headquarters</p>
-                  <p class="text-white font-semibold">1234 Security Blvd</p>
-                  <p class="text-white">Miami, FL 33101</p>
+                  <p class="text-muted text-sm">Headquarters</p>
+                  <p class="text-text font-semibold">1234 Security Blvd</p>
+                  <p class="text-text">Miami, FL 33101</p>
                 </div>
               </div>
             </div>
@@ -199,12 +199,12 @@
           </div>
 
           <!-- Business Hours -->
-          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-            <h4 class="text-white font-heading font-semibold mb-4">Business Hours</h4>
-            <div class="space-y-2 text-white/80">
+          <div class="card">
+            <h4 class="font-heading font-semibold mb-4 text-text">Business Hours</h4>
+            <div class="space-y-2 text-muted">
               <div class="flex justify-between">
                 <span>Security Services:</span>
-                <span class="font-semibold text-white">24/7 Available</span>
+                <span class="font-semibold text-text">24/7 Available</span>
               </div>
               <div class="flex justify-between">
                 <span>Office Hours:</span>

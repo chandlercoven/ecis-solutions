@@ -12,10 +12,10 @@
         <div class="inline-flex items-center space-x-2 bg-electric-blue/20 rounded-full px-4 py-2">
           <span class="text-electric-blue text-sm font-semibold uppercase tracking-wider">Private Investigations</span>
         </div>
-        <h2 class="heading-lg text-navy-dark">
+        <h2 class="heading-lg text-text">
           Discreet & Professional Investigations
         </h2>
-        <p class="text-lg text-gray-600">
+        <p class="text-lg text-muted">
           Licensed private investigators providing confidential services for individuals, 
           attorneys, and businesses throughout Florida.
         </p>
@@ -24,14 +24,14 @@
       <!-- Services Grid -->
       <div class="grid lg:grid-cols-3 gap-8">
         <!-- Background Checks -->
-        <div class="bg-white rounded-xl p-8 border border-gray-200 hover:border-electric-blue/30 transition-all duration-300 shadow-sm">
+        <div class="bg-surface rounded-xl p-8 border border hover:border-electric-blue/30 transition-all duration-300 shadow-sm">
           <div class="w-14 h-14 bg-gradient-cta rounded-lg flex items-center justify-center mb-6">
             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </div>
-          <h3 class="text-xl font-heading font-semibold text-navy-dark mb-3">Background Checks</h3>
-          <ul class="space-y-2 text-gray-600 text-sm">
+          <h3 class="text-xl font-heading font-semibold text-text mb-3">Background Checks</h3>
+          <ul class="space-y-2 text-muted text-sm">
             <li class="flex items-start">
               <svg class="w-4 h-4 text-electric-blue mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -60,14 +60,14 @@
         </div>
 
         <!-- Surveillance -->
-        <div class="bg-white rounded-xl p-8 border border-gray-200 hover:border-electric-blue/30 transition-all duration-300 shadow-sm">
+        <div class="bg-surface rounded-xl p-8 border border hover:border-electric-blue/30 transition-all duration-300 shadow-sm">
           <div class="w-14 h-14 bg-gradient-cta rounded-lg flex items-center justify-center mb-6">
             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
             </svg>
           </div>
-          <h3 class="text-xl font-heading font-semibold text-navy-dark mb-3">Surveillance Services</h3>
-          <ul class="space-y-2 text-gray-600 text-sm">
+          <h3 class="text-xl font-heading font-semibold text-text mb-3">Surveillance Services</h3>
+          <ul class="space-y-2 text-muted text-sm">
             <li class="flex items-start">
               <svg class="w-4 h-4 text-electric-blue mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -96,14 +96,14 @@
         </div>
 
         <!-- Corporate Investigations -->
-        <div class="bg-white rounded-xl p-8 border border-gray-200 hover:border-electric-blue/30 transition-all duration-300 shadow-sm">
+        <div class="bg-surface rounded-xl p-8 border border hover:border-electric-blue/30 transition-all duration-300 shadow-sm">
           <div class="w-14 h-14 bg-gradient-cta rounded-lg flex items-center justify-center mb-6">
             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 1.5c-1.921 0-3.816.111-5.68.319-1.464.16-2.608 1.304-2.768 2.768-.208 1.864-.319 3.759-.319 5.68 0 1.921.111 3.816.319 5.68.16 1.464 1.304 2.608 2.768 2.768 1.864.208 3.759.319 5.68.319 1.921 0 3.816-.111 5.68-.319 1.464-.16 2.608-1.304 2.768-2.768.208-1.864.319-3.759.319-5.68 0-1.921-.111-3.816-.319-5.68-.16-1.464-1.304-2.608-2.768-2.768-1.864-.208-3.759-.319-5.68-.319zM12 9.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" />
             </svg>
           </div>
-          <h3 class="text-xl font-heading font-semibold text-navy-dark mb-3">Corporate Services</h3>
-          <ul class="space-y-2 text-gray-600 text-sm">
+          <h3 class="text-xl font-heading font-semibold text-text mb-3">Corporate Services</h3>
+          <ul class="space-y-2 text-muted text-sm">
             <li class="flex items-start">
               <svg class="w-4 h-4 text-electric-blue mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -140,10 +140,10 @@
               <div class="w-2 h-2 bg-electric-blue rounded-full animate-pulse"></div>
               <span class="text-electric-blue text-sm font-semibold uppercase tracking-wider">Trusted Service</span>
             </div>
-            <h3 class="text-2xl font-heading font-semibold text-navy-dark mb-3">
+            <h3 class="text-2xl font-heading font-semibold text-text mb-3">
               Handled with Discretion
             </h3>
-            <p class="text-gray-600 leading-relaxed">
+            <p class="text-muted leading-relaxed">
               All investigations conducted with complete confidentiality and professionalism.
             </p>
           </div>
@@ -156,7 +156,7 @@
                 </div>
                 <div class="absolute -top-2 -right-2 w-3 h-3 bg-electric-blue/30 rounded-full animate-ping"></div>
               </div>
-              <div class="text-sm text-gray-600 font-medium">Years Experience</div>
+              <div class="text-sm text-muted font-medium">Years Experience</div>
             </div>
             <div class="stat-item text-center group">
               <div class="relative">
@@ -165,7 +165,7 @@
                 </div>
                 <div class="absolute -top-2 -right-2 w-3 h-3 bg-electric-blue/30 rounded-full animate-ping" style="animation-delay: 0.5s;"></div>
               </div>
-              <div class="text-sm text-gray-600 font-medium">Cases Solved</div>
+              <div class="text-sm text-muted font-medium">Cases Solved</div>
             </div>
           </div>
           

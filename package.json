@@ -9,6 +9,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:prod": "vite build && docker compose down && docker compose up -d --build",
+    "deploy": "npm run build:prod",
     "preview": "vite preview"
   },
   "dependencies": {
