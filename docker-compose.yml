@@ -1,0 +1,20 @@
+services:
+  ecis-solutions:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ecis-solutions
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - ecis-network
+      - proxy-network
+
+networks:
+  ecis-network:
+    driver: bridge
+  proxy-network:
+    external: true
