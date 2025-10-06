@@ -1,0 +1,59 @@
+---
+description: Deployment fixes and server configuration commands for ECIS Solutions
+---
+
+# Deployment Fixes - ECIS Solutions
+
+## Current Issue: Apache + Nginx Conflict
+- **Problem:** Both Apache and Nginx are running, causing port 80 conflicts
+- **Solution:** Stop Apache, configure Nginx properly for ECIS Solutions
+
+## Commands to Fix Server Configuration
+
+### 1. Stop Apache (Run as root/sudo)
+```bash
+# Stop all Apache processes
+sudo systemctl stop apache2
+sudo systemctl disable apache2
+
+# Kill any remaining Apache processes
+sudo pkill -f apache2
+```
+
+### 2. Configure Nginx for ECIS Solutions
+```bash
+# Copy the ECIS Solutions config
+sudo cp /var/www/ecis-solutions/ecis-solutions.conf /etc/nginx/sites-available/
+
+# Enable the site
+sudo ln -sf /etc/nginx/sites-available/ecis-solutions.conf /etc/nginx/sites-enabled/
+
+# Remove default site if it conflicts
+sudo rm -f /etc/nginx/sites-enabled/default
+
+# Test and reload Nginx
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+### 3. Verify Configuration
+```bash
+# Check Nginx is running
+sudo systemctl status nginx
+
+# Test contact form endpoint
+curl -X POST http://localhost/contact-form-working.php \
+  -H "Content-Type: application/json" \
+  -d '{"firstName":"Test","lastName":"User","email":"test@example.com","phone":"555-123-4567","service":"test","message":"Test submission"}'
+```
+
+## Nginx Proxy Manager Integration
+- **Port 80:** Nginx Proxy Manager handles domain routing
+- **Backend:** Routes to main Nginx server for ECIS Solutions
+- **SSL:** Nginx Proxy Manager manages SSL certificates
+- **Logs:** Check `/var/log/nginx/ecis-solutions.*.log` for debugging
+
+## Contact Form Logging
+- **Log File:** `/var/www/ecis-solutions/contact-submissions.log`
+- **Permissions:** Ensure www-data can write to log file
+- **Monitoring:** Use `tail -f contact-submissions.log` to monitor submissions

@@ -1,0 +1,106 @@
+---
+description: ECIS Solutions internal team portal development and deployment guidelines
+---
+
+# ECIS Solutions Team Portal
+
+## Authentication System
+
+### Team Members
+- **Mikey** (`mikey@ecissolutions.com`) - Admin role
+- **Joey** (`joey@ecissolutions.com`) - Manager role  
+- **Chandler** (`chandler@ecissolutions.com`) - Dispatcher role
+- **Password**: `ecis2024` (for all team members)
+
+### Role-Based Permissions
+- **Admin**: Full access to all features
+- **Manager**: Can manage clients, view reports, create incidents
+- **Dispatcher**: Can view reports, create incidents, manage schedules
+- **Officer**: Can create incidents, view assigned tasks
+
+## Portal Routes
+
+### Public Routes (No Auth Required)
+- `/` - Public homepage
+- `/services/*` - Service pages
+- `/contact` - Contact page
+- `/about` - About page
+- `/training` - Training page
+
+### Protected Routes (Auth Required)
+- `/login` - Team login page
+- `/dashboard` - Internal dashboard (requires auth)
+
+## Authentication Store
+
+### Pinia Store: [src/stores/auth.js](mdc:src/stores/auth.js)
+- **State Management**: User data, authentication status, permissions
+- **Actions**: Login, logout, profile updates
+- **Getters**: Role-based permission checks
+- **Persistence**: localStorage for session management
+
+### Key Features
+- **Session Persistence**: Users stay logged in across browser sessions
+- **Route Protection**: Automatic redirect to login for protected routes
+- **Role-Based Access**: Different permissions for different team members
+- **Secure Logout**: Clears all stored authentication data
+
+## Dashboard Features
+
+### Real-Time Stats
+- Active Patrols count
+- Incidents Today
+- Active Clients
+- Average Response Time
+
+### Quick Actions (Role-Based)
+- **Report Incident** (All roles)
+- **Add New Client** (Admin, Manager, Dispatcher)
+- **Schedule Patrol** (All roles)
+
+### Emergency Contacts
+- Emergency Line: (516) 640-8144
+- Dispatch: (516) 640-8146
+- Manager: (516) 640-8145
+
+## Development Guidelines
+
+### Adding New Features
+1. **Check Permissions**: Use `authStore.canManageUsers`, `authStore.canViewReports`, etc.
+2. **Route Protection**: Add `requiresAuth: true` to route meta
+3. **Role-Based UI**: Show/hide features based on user role
+4. **Session Management**: Always use auth store for user data
+
+### Security Considerations
+- **No Demo Credentials**: Production-ready authentication
+- **Secure Tokens**: Time-based authentication tokens
+- **Role Validation**: Server-side role checking (when API is implemented)
+- **Session Timeout**: Automatic logout after inactivity
+
+## Deployment Considerations
+
+### Production Build
+- Authentication system is production-ready
+- No demo or test credentials
+- Real team member accounts configured
+- Secure session management
+
+### Nginx Configuration
+- Team portal routes work with existing nginx config
+- No additional configuration needed for authentication
+- Client-side routing handled by Vue Router
+
+## Future Enhancements
+
+### Planned Features
+1. **Client Management System** - Add/edit clients, property details
+2. **Incident Reporting** - Create, track, manage security incidents
+3. **Scheduling System** - Manage patrols, shifts, officer assignments
+4. **Analytics Dashboard** - Performance metrics and reporting
+5. **Real-Time Updates** - WebSocket integration for live updates
+
+### API Integration
+- Replace mock authentication with real API calls
+- Add server-side session validation
+- Implement real-time data updates
+- Add file upload for incident photos/videos

@@ -1,0 +1,122 @@
+---
+description: ECIS Solutions deployment and rebuild procedures with Docker and Nginx Proxy Manager
+---
+
+# ECIS Solutions Deployment Guide
+
+## Production Infrastructure
+
+### Docker Setup
+- **Container**: `ecis-solutions` running on port 3000
+- **Dockerfile**: Multi-stage build with Node.js builder and Nginx production server
+- **Networks**: Connected to `ecis-network` and `proxy-network` for Nginx Proxy Manager
+- **Base Image**: `nginx:alpine` for production serving
+
+### Nginx Configuration
+- **Config File**: [nginx.conf](mdc:nginx.conf) - Optimized for Vue.js SPA routing
+- **Caching**: Aggressive static asset caching with cache busting for HTML
+- **Compression**: Gzip compression enabled for all text assets
+- **Security**: Security headers and XSS protection enabled
+
+## Build & Deployment Process
+
+### Quick Rebuild (Recommended)
+```bash
+# Use the automated rebuild script
+./quick-rebuild.sh
+```
+
+### Manual Rebuild Steps
+1. **Build Application**:
+   ```bash
+   npm run build
+   ```
+
+2. **Build Docker Image**:
+   ```bash
+   docker build -t ecis-solutions-ecis-solutions .
+   ```
+
+3. **Stop Old Container**:
+   ```bash
+   docker stop ecis-solutions
+   docker rm ecis-solutions
+   ```
+
+4. **Start New Container**:
+   ```bash
+   docker run -d --name ecis-solutions -p 3000:80 ecis-solutions-ecis-solutions
+   ```
+
+### Docker Compose (Alternative)
+```bash
+# Stop and rebuild with compose
+docker compose down
+docker compose up -d --build
+```
+
+## Verification & Monitoring
+
+### Check Deployment Status
+```bash
+# Run deployment verification
+./deploy-check.sh
+```
+
+### Manual Verification
+```bash
+# Check container status
+docker ps | grep ecis-solutions
+
+# Check container logs
+docker logs ecis-solutions
+
+# Verify latest files are deployed
+docker exec ecis-solutions ls -la /usr/share/nginx/html/assets/
+```
+
+## Nginx Proxy Manager Integration
+
+### Proxy Configuration
+- **Container Port**: 3000 (internal)
+- **External Access**: Configured through Nginx Proxy Manager
+- **SSL**: Handled by Nginx Proxy Manager with Let's Encrypt
+- **Domain**: Configured in Nginx Proxy Manager dashboard
+
+### Network Requirements
+- Container must be on `proxy-network` for Nginx Proxy Manager access
+- Internal communication on port 3000
+- External access through proxy manager on configured domain
+
+## Troubleshooting
+
+### Common Issues
+1. **Container not starting**: Check Docker logs with `docker logs ecis-solutions`
+2. **Old files served**: Run `./quick-rebuild.sh` to force rebuild
+3. **Port conflicts**: Ensure port 3000 is available
+4. **Network issues**: Verify container is on correct networks
+
+### Cache Issues
+- HTML files are never cached to prevent deployment issues
+- Static assets cached for 1 year with cache busting
+- Force refresh with `Ctrl+F5` if needed
+
+## Development vs Production
+
+### Development
+- Uses `npm run dev` with Vite dev server
+- Hot reload enabled
+- No Docker required for development
+
+### Production
+- Uses Docker with Nginx for serving
+- Optimized build with compression
+- Static asset caching enabled
+- Security headers configured
+
+## File Structure
+- **Source**: Vue.js application in `src/`
+- **Build Output**: `dist/` directory with optimized assets
+- **Docker**: Multi-stage build in [Dockerfile](mdc:Dockerfile)
+- **Nginx**: Production config in [nginx.conf](mdc:nginx.conf)
+- **Scripts**: Build automation in [build.sh](mdc:build.sh) and [quick-rebuild.sh](mdc:quick-rebuild.sh)

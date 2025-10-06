@@ -1,0 +1,39 @@
+---
+description: Production deployment and asset serving guidelines for ECIS Solutions
+---
+
+# Production Deployment Rules for ECIS Solutions
+
+## Current Production Setup
+- **Domain**: https://www.ecissolutions.com
+- **Container**: Docker with Nginx serving static assets
+- **Port**: 3000 (mapped to container port 80)
+- **Environment**: Production (NODE_ENV=production)
+
+## Asset Serving Issues
+When getting 502 Bad Gateway errors for images:
+1. **Check container status**: `docker ps | grep ecis-solutions`
+2. **Verify assets exist**: Check `/var/www/ecis-solutions/dist/assets/images/`
+3. **Rebuild if needed**: `./build.sh` to regenerate assets with correct hashes
+4. **Check nginx config**: Ensure no hardcoded image references in [nginx.conf](mdc:nginx.conf)
+
+## Image Preloader Configuration
+- **File**: [src/utils/imagePreloader.js](mdc:src/utils/imagePreloader.js)
+- **Uses dynamic imports**: `import('@/assets/images.js')` for correct hashed filenames
+- **No hardcoded URLs**: All image paths are dynamically resolved
+
+## Production URLs
+- **Base URL**: `https://ecissolutions.com` (hardcoded in [src/router/index.js](mdc:src/router/index.js))
+- **Assets**: Served from `/assets/images/` with Vite-generated hashes
+- **Phone Numbers**: All updated to `(561) 249-0897`
+
+## Deployment Process
+1. **Build**: `npm run build` generates hashed assets
+2. **Deploy**: `./build.sh` creates Docker container
+3. **Verify**: Check container logs and asset availability
+4. **Test**: Ensure all images load without 502 errors
+
+## Common Issues
+- **502 Bad Gateway**: Assets not properly deployed or nginx misconfiguration
+- **Hardcoded URLs**: Check for production domain references in code
+- **Asset hashing**: Ensure Vite generates correct hashes for all images

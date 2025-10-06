@@ -1,0 +1,46 @@
+---
+description: Production server fixes for 502 Bad Gateway errors
+---
+
+# Production Server Fixes for ECIS Solutions
+
+## Current Issue: 502 Bad Gateway for Images
+- **Problem**: Reverse proxy (openresty) returning 502 for certain image files
+- **Root Cause**: Proxy configuration not properly forwarding requests to Docker container
+- **Container Status**: ✅ Working correctly on localhost:3000
+- **Proxy Status**: ❌ Failing to serve some assets
+
+## Immediate Fixes Needed
+
+### 1. Reverse Proxy Configuration
+The openresty server needs to be configured to:
+- Point to `localhost:3000` (Docker container)
+- Handle large file uploads (images are 200KB+)
+- Set proper timeout values
+- Configure proper upstream settings
+
+### 2. File Size Limits
+Check and increase these limits in the proxy:
+```nginx
+client_max_body_size 10M;
+proxy_read_timeout 300s;
+proxy_connect_timeout 75s;
+proxy_send_timeout 300s;
+```
+
+### 3. Static Asset Handling
+Ensure the proxy is configured to:
+- Serve static assets directly when possible
+- Cache images properly
+- Handle WebP and other image formats
+
+## Verification Steps
+1. **Test container directly**: `curl -I http://localhost:3000/assets/images/hero-banner-CaLbKVWz.webp`
+2. **Check proxy logs**: Look for upstream connection errors
+3. **Verify upstream**: Ensure proxy points to correct backend
+4. **Test file sizes**: Large images might hit size limits
+
+## Production URLs
+- **Container**: http://localhost:3000 (working)
+- **Production**: https://www.ecissolutions.com (502 errors)
+- **Issue**: Proxy configuration, not application code

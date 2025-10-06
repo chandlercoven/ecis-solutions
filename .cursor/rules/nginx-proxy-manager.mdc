@@ -1,0 +1,34 @@
+---
+description: Nginx Proxy Manager configuration and domain management for ECIS Solutions
+---
+
+# Nginx Proxy Manager Configuration
+
+## Overview
+- **Purpose:** Manages domains, SSL certificates, and reverse proxy rules
+- **Access:** Web interface for easy domain and SSL management
+- **Integration:** Works with main Nginx server for routing
+
+## Domain Management
+- **Primary Domain:** Configure main ECIS Solutions domain
+- **SSL Certificates:** Automatic Let's Encrypt certificate management
+- **Subdomains:** Handle any subdomain routing needs
+- **Redirects:** Manage HTTP to HTTPS redirects
+
+## Proxy Rules
+- **Main Site:** Route to Nginx server on port 80/443
+- **API Endpoints:** Route contact form and other PHP endpoints
+- **Static Assets:** Efficient serving of Vue.js built files
+- **Caching:** Configure appropriate cache headers for static content
+
+## SSL Configuration
+- **Let's Encrypt:** Automatic SSL certificate generation and renewal
+- **Force HTTPS:** Redirect all HTTP traffic to HTTPS
+- **Security Headers:** Configure security headers for production
+- **Certificate Monitoring:** Monitor certificate expiration and renewal
+
+## Integration with Main Nginx
+- **Upstream:** Nginx Proxy Manager → Main Nginx Server
+- **Headers:** Pass through necessary headers for proper routing
+- **Logging:** Maintain access and error logs for debugging
+- **Performance:** Optimize proxy settings for ECIS Solutions workload

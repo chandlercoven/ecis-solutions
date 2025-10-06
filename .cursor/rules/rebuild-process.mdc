@@ -1,0 +1,194 @@
+---
+description: Step-by-step rebuild process for ECIS Solutions with Docker and Nginx Proxy Manager
+---
+
+# ECIS Solutions Rebuild Process
+
+## Quick Rebuild (Recommended)
+
+### One-Command Rebuild
+```bash
+# Run the automated rebuild script
+./quick-rebuild.sh
+```
+
+This script handles:
+1. Building the Vue.js application
+2. Building the Docker image
+3. Stopping the old container
+4. Starting the new container
+5. Verifying deployment
+
+## Manual Rebuild Steps
+
+### Step 1: Build the Application
+```bash
+# Build the Vue.js application with optimizations
+npm run build
+```
+
+### Step 2: Build Docker Image
+```bash
+# Build the Docker image with the latest code
+docker build -t ecis-solutions-ecis-solutions .
+```
+
+### Step 3: Stop Old Container
+```bash
+# Stop and remove the existing container
+docker stop ecis-solutions
+docker rm ecis-solutions
+```
+
+### Step 4: Start New Container
+```bash
+# Start the new container with latest build
+docker run -d --name ecis-solutions -p 3000:80 ecis-solutions-ecis-solutions
+```
+
+## Alternative: Docker Compose
+
+### Using Docker Compose
+```bash
+# Stop existing containers
+docker compose down
+
+# Rebuild and start with compose
+docker compose up -d --build
+```
+
+## Verification Steps
+
+### Check Container Status
+```bash
+# Verify container is running
+docker ps | grep ecis-solutions
+```
+
+### Check Container Logs
+```bash
+# View container logs for errors
+docker logs ecis-solutions
+```
+
+### Verify Latest Files
+```bash
+# Check if latest assets are deployed
+docker exec ecis-solutions ls -la /usr/share/nginx/html/assets/
+```
+
+### Run Deployment Check
+```bash
+# Run comprehensive deployment verification
+./deploy-check.sh
+```
+
+## Nginx Proxy Manager Integration
+
+### Container Network Requirements
+- Container must be on `proxy-network` for Nginx Proxy Manager access
+- Internal port 3000 exposed to proxy manager
+- External access through configured domain
+
+### Proxy Manager Configuration
+1. **Add Proxy Host** in Nginx Proxy Manager
+2. **Domain**: Your configured domain (e.g., ecissolutions.com)
+3. **Forward Hostname/IP**: `ecis-solutions` (container name)
+4. **Forward Port**: `3000`
+5. **Enable SSL** with Let's Encrypt certificate
+
+## Troubleshooting
+
+### Container Won't Start
+```bash
+# Check Docker logs
+docker logs ecis-solutions
+
+# Check if port 3000 is available
+netstat -tulpn | grep :3000
+
+# Check Docker system resources
+docker system df
+```
+
+### Old Files Still Served
+```bash
+# Force rebuild with cache clearing
+docker build --no-cache -t ecis-solutions-ecis-solutions .
+
+# Stop and remove container
+docker stop ecis-solutions && docker rm ecis-solutions
+
+# Start new container
+docker run -d --name ecis-solutions -p 3000:80 ecis-solutions-ecis-solutions
+```
+
+### Network Issues
+```bash
+# Check container networks
+docker inspect ecis-solutions | grep -A 10 "Networks"
+
+# Verify proxy-network exists
+docker network ls | grep proxy-network
+```
+
+## Production Deployment Checklist
+
+### Before Rebuild
+- [ ] Test changes locally with `npm run dev`
+- [ ] Run `npm run build` to ensure no build errors
+- [ ] Check that all new features work correctly
+- [ ] Verify authentication system is working
+
+### During Rebuild
+- [ ] Run `./quick-rebuild.sh` or manual steps
+- [ ] Monitor container logs for errors
+- [ ] Verify container starts successfully
+- [ ] Check that latest files are deployed
+
+### After Rebuild
+- [ ] Test public website functionality
+- [ ] Test team portal login with all team members
+- [ ] Verify dashboard loads correctly
+- [ ] Check that all routes work properly
+- [ ] Test on different devices/browsers
+
+## Performance Optimization
+
+### Build Optimization
+- Vue.js build includes code splitting
+- Static assets are optimized and compressed
+- Nginx serves with aggressive caching
+- Gzip compression enabled
+
+### Caching Strategy
+- HTML files: No cache (immediate updates)
+- Static assets: 1 year cache with cache busting
+- Images: Optimized with WebP support
+- CSS/JS: Hashed filenames for cache busting
+
+## Monitoring
+
+### Health Checks
+```bash
+# Check container health
+docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+
+# Monitor resource usage
+docker stats ecis-solutions
+
+# Check disk usage
+docker system df
+```
+
+### Log Monitoring
+```bash
+# Follow container logs
+docker logs -f ecis-solutions
+
+# Check nginx access logs
+docker exec ecis-solutions tail -f /var/log/nginx/access.log
+
+# Check nginx error logs
+docker exec ecis-solutions tail -f /var/log/nginx/error.log
+```

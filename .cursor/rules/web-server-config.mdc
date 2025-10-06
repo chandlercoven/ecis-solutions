@@ -1,0 +1,36 @@
+---
+alwaysApply: true
+description: Web server configuration and deployment guidelines for ECIS Solutions
+---
+
+# Web Server Configuration - ECIS Solutions
+
+## Primary Web Server: Nginx
+- **Main Server:** Nginx (not Apache)
+- **Proxy Manager:** Nginx Proxy Manager for domain management
+- **Document Root:** `/var/www/ecis-solutions/`
+- **Contact Form Endpoint:** `/contact-form-working.php`
+
+## Server Architecture
+- **Nginx:** Primary web server handling all HTTP requests
+- **Nginx Proxy Manager:** Manages domains, SSL certificates, and reverse proxy rules
+- **PHP-FPM:** Processes PHP files (contact forms, etc.)
+- **No Apache:** Apache should not be running alongside Nginx
+
+## Contact Form Configuration
+- **Log File:** `/var/www/ecis-solutions/contact-submissions.log`
+- **Form Handler:** [contact-form-working.php](mdc:contact-form-working.php)
+- **Backup Handler:** [contact-form-sendgrid.php](mdc:contact-form-sendgrid.php)
+- **Logging:** All submissions logged in JSON format with timestamp, IP, and form data
+
+## Deployment Rules
+1. **Single Web Server:** Only Nginx should be running (no Apache conflicts)
+2. **Document Root:** All requests should serve from `/var/www/ecis-solutions/`
+3. **PHP Processing:** Nginx → PHP-FPM for dynamic content
+4. **Static Assets:** Nginx serves Vue.js built files from `dist/` directory
+5. **Contact Forms:** PHP handlers in project root, not subdirectories
+
+## Troubleshooting
+- If contact form returns 404: Check Nginx configuration points to correct document root
+- If Apache is running: Stop Apache service to prevent port conflicts
+- Log file not updating: Verify file permissions and Nginx document root configuration

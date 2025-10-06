@@ -1,0 +1,52 @@
+services:
+  ecis-solutions:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ecis-solutions
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - ecis-network
+      - proxy-network
+
+  ecis-api:
+    image: php:8.2-fpm-alpine
+    container_name: ecis-api
+    restart: unless-stopped
+    volumes:
+      - ./contact-form-working.php:/var/www/html/contact-form-working.php
+      - ./contact-form-sendgrid.php:/var/www/html/contact-form-sendgrid.php
+      - ./api-submissions.php:/var/www/html/api-submissions.php
+      - ./contact-submissions.log:/var/www/html/contact-submissions.log
+      - ./.env:/var/www/html/.env
+    networks:
+      - ecis-network
+      - proxy-network
+    working_dir: /var/www/html
+
+  ecis-nginx-api:
+    image: nginx:alpine
+    container_name: ecis-nginx-api
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    volumes:
+      - ./contact-form-working.php:/usr/share/nginx/html/contact-form-working.php
+      - ./contact-form-sendgrid.php:/usr/share/nginx/html/contact-form-sendgrid.php
+      - ./api-submissions.php:/usr/share/nginx/html/api-submissions.php
+      - ./nginx-api.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - ecis-api
+    networks:
+      - ecis-network
+      - proxy-network
+
+networks:
+  ecis-network:
+    driver: bridge
+  proxy-network:
+    external: true
