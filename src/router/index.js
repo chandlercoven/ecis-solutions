@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { imagePreloader } from '@/utils/imagePreloader.js'
 
 // Loading state management
 let isLoading = false
@@ -54,8 +55,8 @@ const router = createRouter({
       name: 'about',
       component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
       meta: { 
-        title: 'About ECIS Solutions | Professional Security Company - 15+ Years Experience',
-        description: 'Learn about ECIS Solutions, a professional security company with 15+ years of experience protecting 200+ properties. Licensed, bonded, and BBB A+ rated security services.',
+        title: 'About ECIS Solutions | Professional Security Company - 25+ Years Experience',
+        description: 'Learn about ECIS Solutions, a professional security company with 25+ years of experience protecting 200+ properties. Licensed, bonded, and BBB A+ rated security services.',
         keywords: 'about ECIS Solutions, security company, professional security, licensed security, bonded security, BBB A+ rating, security experience'
       }
     },
@@ -190,6 +191,57 @@ const router = createRouter({
         description: 'Retail security services including shoplifting prevention, inventory protection, and customer safety. Specialized retail loss prevention for stores and shopping centers.',
         keywords: 'retail security, loss prevention, shoplifting prevention, retail protection, inventory security, store security, retail loss prevention, shopping center security'
       }
+    },
+    // Internal Team Portal Routes
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue'),
+      meta: {
+        title: 'ECIS Team Portal - Login',
+        description: 'Secure login for ECIS Solutions internal team portal',
+        requiresAuth: false
+      }
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
+      meta: {
+        title: 'ECIS Team Portal - Dashboard',
+        description: 'Internal team dashboard for ECIS Solutions',
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/clients',
+      name: 'clients',
+      component: () => import(/* webpackChunkName: "clients" */ '../views/Clients.vue'),
+      meta: {
+        title: 'ECIS Team Portal - Clients',
+        description: 'Client management for ECIS Solutions',
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/clients/:id',
+      name: 'client-detail',
+      component: () => import(/* webpackChunkName: "client-detail" */ '../views/ClientDetail.vue'),
+      meta: {
+        title: 'ECIS Team Portal - Client Details',
+        description: 'Client details for ECIS Solutions',
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/submissions',
+      name: 'submissions',
+      component: () => import(/* webpackChunkName: "submissions" */ '../views/Submissions.vue'),
+      meta: {
+        title: 'ECIS Team Portal - Contact Submissions',
+        description: 'View and manage contact form submissions for ECIS Solutions',
+        requiresAuth: true
+      }
     }
   ],
   scrollBehavior(to, from, savedPosition) {
@@ -215,6 +267,32 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   // Set loading state
   setLoading(true)
+  
+  // Authentication check for protected routes
+  if (to.meta.requiresAuth) {
+    const { useAuthStore } = await import('@/stores/auth')
+    const authStore = useAuthStore()
+    
+    // Initialize auth state from localStorage
+    authStore.initializeAuth()
+    
+    if (!authStore.isAuthenticated) {
+      next('/login')
+      return
+    }
+  }
+  
+  // Redirect authenticated users away from login page
+  if (to.path === '/login') {
+    const { useAuthStore } = await import('@/stores/auth')
+    const authStore = useAuthStore()
+    authStore.initializeAuth()
+    
+    if (authStore.isAuthenticated) {
+      next('/submissions')
+      return
+    }
+  }
   
   // Update page title
   if (to.meta.title) {
@@ -245,6 +323,9 @@ router.beforeEach(async (to, from, next) => {
       }
     })
   }
+  
+  // Smart image preloading based on route
+  imagePreloader.preloadRouteImages(to.path)
   
   next()
 })

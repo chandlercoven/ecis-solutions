@@ -1,26 +1,76 @@
 <template>
-  <div id="app" class="min-h-screen bg-bg text-text">
+  <div id="app" class="min-h-screen bg-bg text-text overflow-x-hidden">
     <!-- SEO Head Component -->
     <SEOHead />
     
-    <!-- Navigation -->
-    <Navigation />
+    <!-- Public Site Layout (Navigation, Footer, etc.) -->
+    <template v-if="!isInternalRoute">
+      <!-- Navigation -->
+      <Navigation />
+      
+      <!-- Breadcrumb Navigation -->
+      <BreadcrumbNavigation />
+      
+      <!-- Loading Indicator -->
+      <Transition name="fade">
+        <div 
+          v-if="isLoading" 
+          class="fixed top-0 left-0 w-full h-1 bg-action z-50"
+        >
+          <div class="h-full bg-action-hover animate-pulse"></div>
+        </div>
+      </Transition>
+      
+      <!-- Router View - Page Content -->
+      <main class="relative z-10">
+        <RouterView v-slot="{ Component, route }">
+          <Suspense>
+            <Transition name="page" mode="out-in" @before-enter="onPageEnter" @after-enter="onPageEntered">
+              <component :is="Component" :key="route.path" />
+            </Transition>
+            <template #fallback>
+              <div class="min-h-screen flex items-center justify-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-action"></div>
+              </div>
+            </template>
+          </Suspense>
+        </RouterView>
+      </main>
+      
+      <!-- Footer -->
+      <FooterSection />
+      
+      <!-- Mobile Call Button -->
+      <MobileCallButton />
+      
+      <!-- Back to Top Button -->
+      <transition name="fade">
+        <button 
+          v-if="showBackToTop"
+          @click="scrollToTop"
+          class="fixed z-40 w-12 h-12 bg-action rounded-full shadow-lg hover:shadow-lg items-center justify-center transition-all duration-base hover:scale-110 flex focus-ring bottom-20 right-4 lg:bottom-20 lg:right-8"
+          aria-label="Back to top"
+        >
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+        </button>
+      </transition>
+    </template>
     
-    <!-- Breadcrumb Navigation -->
-    <BreadcrumbNavigation />
-    
-    <!-- Loading Indicator -->
-    <Transition name="fade">
-      <div 
-        v-if="isLoading" 
-        class="fixed top-0 left-0 w-full h-1 bg-action z-50"
-      >
-        <div class="h-full bg-action-hover animate-pulse"></div>
-      </div>
-    </Transition>
-    
-    <!-- Router View - Page Content -->
-    <main class="relative z-10">
+    <!-- Internal App Layout (No Navigation/Footer) -->
+    <template v-else>
+      <!-- Loading Indicator -->
+      <Transition name="fade">
+        <div 
+          v-if="isLoading" 
+          class="fixed top-0 left-0 w-full h-1 bg-action z-50"
+        >
+          <div class="h-full bg-action-hover animate-pulse"></div>
+        </div>
+      </Transition>
+      
+      <!-- Router View - Internal App Content -->
       <RouterView v-slot="{ Component, route }">
         <Suspense>
           <Transition name="page" mode="out-in" @before-enter="onPageEnter" @after-enter="onPageEntered">
@@ -33,32 +83,13 @@
           </template>
         </Suspense>
       </RouterView>
-    </main>
-    
-    <!-- Footer -->
-    <FooterSection />
-    
-    <!-- Mobile Call Button -->
-    <MobileCallButton />
-    
-    <!-- Back to Top Button -->
-    <transition name="fade">
-      <button 
-        v-if="showBackToTop"
-        @click="scrollToTop"
-        class="fixed z-40 w-12 h-12 bg-action rounded-full shadow-lg hover:shadow-lg items-center justify-center transition-all duration-base hover:scale-110 flex focus-ring bottom-20 right-4 lg:bottom-8 lg:right-8"
-        aria-label="Back to top"
-      >
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-        </svg>
-      </button>
-    </transition>
+    </template>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick, computed } from 'vue'
+import { useRoute } from 'vue-router'
 import Navigation from './components/Navigation.vue'
 import FooterSection from './components/FooterSection.vue'
 import MobileCallButton from './components/MobileCallButton.vue'
@@ -66,8 +97,15 @@ import SEOHead from './components/SEOHead.vue'
 import BreadcrumbNavigation from './components/BreadcrumbNavigation.vue'
 import { onLoadingChange } from './router'
 
+const route = useRoute()
 const showBackToTop = ref(false)
 const isLoading = ref(false)
+
+// Check if current route is internal (team portal/authenticated area)
+const isInternalRoute = computed(() => {
+  const internalPaths = ['/login', '/dashboard', '/submissions', '/incidents', '/clients', '/reports', '/users']
+  return internalPaths.some(path => route.path.startsWith(path))
+})
 
 // Subscribe to loading state changes
 const unsubscribeLoading = onLoadingChange((loading) => {
@@ -212,5 +250,22 @@ onUnmounted(() => {
 .page-leave-to {
   opacity: 0;
   transform: translateY(-10px);
+}
+
+/* ===== FOOTER SCROLL FIX ===== */
+/* Ensure footer doesn't cause unexpected scroll */
+footer {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Prevent body scroll issues */
+body {
+  overflow-x: hidden;
+}
+
+/* Ensure proper spacing for fixed elements */
+#app {
+  padding-bottom: 0;
 }
 </style>
