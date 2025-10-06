@@ -120,7 +120,7 @@
           <div class="text-muted mt-2 text-sm">Emergency Response</div>
         </div>
         <div class="text-center">
-          <div class="text-3xl lg:text-4xl font-bold text-gradient font-heading">15+</div>
+          <div class="text-3xl lg:text-4xl font-bold text-gradient font-heading">25+</div>
           <div class="text-muted mt-2 text-sm">Years Experience</div>
         </div>
       </div>

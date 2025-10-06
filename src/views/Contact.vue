@@ -54,7 +54,12 @@
           <div class="order-2 lg:order-1">
             <h3 class="text-2xl font-heading font-semibold text-text mb-6">Send Us a Message</h3>
             
-            <form @submit.prevent="handleSubmit" class="space-y-6">
+            <form 
+              action="https://formspree.io/f/YOUR_FORM_ID" 
+              method="POST" 
+              @submit.prevent="handleSubmit" 
+              class="space-y-6"
+            >
               <!-- Name Field -->
               <div>
                 <label for="name" class="block text-sm font-medium text-text mb-2 text-left">
@@ -504,17 +509,37 @@ const handleSubmit = async () => {
   submitMessage.value = ''
   
   try {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    // Submit to your PHP script
+    const response = await fetch('/contact-form-working.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstName: form.name.split(' ')[0] || form.name,
+        lastName: form.name.split(' ').slice(1).join(' ') || '',
+        email: form.email,
+        phone: form.phone,
+        service: form.service,
+        message: form.message
+      })
+    })
     
-    // Success
-    submitSuccess.value = true
-    submitMessage.value = 'Thank you! Your security assessment request has been received. We\'ll contact you within 24 hours to schedule your free consultation.'
+    const result = await response.json()
     
-    // Reset form
-    Object.keys(form).forEach(key => form[key] = '')
+    if (response.ok && result.success) {
+      // Success
+      submitSuccess.value = true
+      submitMessage.value = 'Thank you! Your security assessment request has been received. We\'ll contact you within 24 hours to schedule your free consultation.'
+      
+      // Reset form
+      Object.keys(form).forEach(key => form[key] = '')
+    } else {
+      throw new Error(result.error || 'Form submission failed')
+    }
     
   } catch (error) {
+    console.error('Form submission error:', error)
     // Error
     submitSuccess.value = false
     submitMessage.value = 'We encountered an issue sending your request. Please try again or call us directly at (516) 640-8144.'

@@ -9,17 +9,23 @@
         <div class="absolute inset-0 bg-black/30 z-30"></div>
         
         <!-- Desktop hero image -->
-        <img 
-          src="@/assets/hero-banner.jpg"
+        <EnhancedImage
+          :src="heroBanner"
           alt="Secure gated community with professional security patrol"
-          class="w-full h-full object-cover hidden md:block"
-        >
+          container-class="w-full h-full hidden md:block hero-image"
+          image-class="w-full h-full object-cover"
+          :lazy="false"
+          :show-loading-icon="false"
+        />
         <!-- Mobile hero image -->
-        <img 
-          src="@/assets/hero-banner-mobile.jpg"
+        <EnhancedImage
+          :src="heroBannerMobile"
           alt="Secure gated community with professional security patrol"
-          class="w-full h-full object-cover block md:hidden"
-        >
+          container-class="w-full h-full block md:hidden hero-image"
+          image-class="w-full h-full object-cover"
+          :lazy="false"
+          :show-loading-icon="false"
+        />
       </div>
 
       <div class="relative z-20 container text-center">
@@ -369,7 +375,7 @@
               <svg class="w-5 h-5 text-success" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
               </svg>
-              <span>15+ Years Experience</span>
+              <span>25+ Years Experience</span>
             </div>
           </div>
         </div>
@@ -379,6 +385,9 @@
 </template>
 
 <script setup>
+import EnhancedImage from '@/components/EnhancedImage.vue'
+import { heroBanner, heroBannerMobile } from '@/assets/images.js'
+
 // HOA Security service page functionality
 </script>
 

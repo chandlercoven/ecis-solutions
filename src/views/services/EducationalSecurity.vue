@@ -9,17 +9,23 @@
         <div class="absolute inset-0 bg-black/30 z-30"></div>
         
         <!-- Desktop hero image -->
-        <img 
-          src="@/assets/hero-banner.jpg"
+        <EnhancedImage
+          :src="heroBanner"
           alt="Professional campus security officer at educational facility"
-          class="w-full h-full object-cover hidden md:block"
-        >
+          container-class="w-full h-full hidden md:block hero-image"
+          image-class="w-full h-full object-cover"
+          :lazy="false"
+          :show-loading-icon="false"
+        />
         <!-- Mobile hero image -->
-        <img 
-          src="@/assets/hero-banner-mobile.jpg"
+        <EnhancedImage
+          :src="heroBannerMobile"
           alt="Professional campus security officer at educational facility"
-          class="w-full h-full object-cover block md:hidden"
-        >
+          container-class="w-full h-full block md:hidden hero-image"
+          image-class="w-full h-full object-cover"
+          :lazy="false"
+          :show-loading-icon="false"
+        />
       </div>
 
       <div class="relative z-20 container text-center">
@@ -67,58 +73,6 @@
       </div>
     </section>
 
-    <!-- Problem Section -->
-    <section class="section bg-surface animate-on-scroll">
-      <div class="container">
-        <div class="max-w-4xl mx-auto text-center mb-12">
-          <h2 class="heading-lg text-text mb-6">Educational Security Challenges</h2>
-          <p class="text-lg text-muted mb-8">
-            Educational institutions face unique security challenges that require specialized training, student-focused protocols, and understanding of educational environments.
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Challenge 1 -->
-          <div class="card text-center p-8">
-            <div class="w-16 h-16 bg-danger/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-heading font-semibold text-text mb-3">Student Safety Threats</h3>
-            <p class="text-muted">
-              Schools must protect students from violence, bullying, unauthorized access, and external threats while maintaining a positive learning environment.
-            </p>
-          </div>
-
-          <!-- Challenge 2 -->
-          <div class="card text-center p-8">
-            <div class="w-16 h-16 bg-danger/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-heading font-semibold text-text mb-3">Campus Access Control</h3>
-            <p class="text-muted">
-              Managing access for students, staff, visitors, and parents while preventing unauthorized entry and maintaining security during school hours and events.
-            </p>
-          </div>
-
-          <!-- Challenge 3 -->
-          <div class="card text-center p-8">
-            <div class="w-16 h-16 bg-danger/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-heading font-semibold text-text mb-3">Emergency Response</h3>
-            <p class="text-muted">
-              Educational institutions need rapid response capabilities for medical emergencies, security incidents, and crisis situations while coordinating with school administration.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- Solution Section -->
     <section class="section bg-bg animate-on-scroll">
@@ -128,6 +82,18 @@
           <p class="text-lg text-muted mb-8">
             ECIS provides specialized educational security services with trained officers who understand school environments and student safety requirements.
           </p>
+        </div>
+
+        <!-- Security Uniform Image -->
+        <div class="mb-12">
+          <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+            <img 
+              src="https://tacticalteamsecurity.com/wp-content/uploads/2015/09/uniform_security.jpg"
+              alt="Professional security uniform for educational environments"
+              class="w-full h-auto"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-navy-dark/60 to-transparent"></div>
+          </div>
         </div>
 
         <div class="grid lg:grid-cols-2 gap-12 items-center">
@@ -234,63 +200,6 @@
       </div>
     </section>
 
-    <!-- Process Steps Section -->
-    <section class="section bg-surface animate-on-scroll">
-      <div class="container">
-        <div class="max-w-4xl mx-auto text-center mb-12">
-          <h2 class="heading-lg text-text mb-6">Educational Security Implementation</h2>
-          <p class="text-lg text-muted">
-            Our systematic approach ensures seamless integration with educational operations while maintaining the highest security standards for student safety.
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <!-- Step 1 -->
-          <div class="text-center">
-            <div class="w-20 h-20 bg-action rounded-xl flex items-center justify-center mx-auto mb-4">
-              <span class="text-2xl font-heading font-bold text-white">1</span>
-            </div>
-            <h3 class="text-xl font-heading font-semibold text-text mb-3">Campus Assessment</h3>
-            <p class="text-muted">
-              Comprehensive evaluation of educational facility security needs, student flow, and specialized requirements for different age groups.
-            </p>
-          </div>
-
-          <!-- Step 2 -->
-          <div class="text-center">
-            <div class="w-20 h-20 bg-action rounded-xl flex items-center justify-center mx-auto mb-4">
-              <span class="text-2xl font-heading font-bold text-white">2</span>
-            </div>
-            <h3 class="text-xl font-heading font-semibold text-text mb-3">Educational Training</h3>
-            <p class="text-muted">
-              Specialized training in educational environments, student interaction protocols, and age-appropriate security measures for different school levels.
-            </p>
-          </div>
-
-          <!-- Step 3 -->
-          <div class="text-center">
-            <div class="w-20 h-20 bg-action rounded-xl flex items-center justify-center mx-auto mb-4">
-              <span class="text-2xl font-heading font-bold text-white">3</span>
-            </div>
-            <h3 class="text-xl font-heading font-semibold text-text mb-3">Staff Integration</h3>
-            <p class="text-muted">
-              Coordination with teachers, administrators, and school staff to ensure seamless security integration with educational operations.
-            </p>
-          </div>
-
-          <!-- Step 4 -->
-          <div class="text-center">
-            <div class="w-20 h-20 bg-action rounded-xl flex items-center justify-center mx-auto mb-4">
-              <span class="text-2xl font-heading font-bold text-white">4</span>
-            </div>
-            <h3 class="text-xl font-heading font-semibold text-text mb-3">Ongoing Support</h3>
-            <p class="text-muted">
-              Continuous monitoring, regular training updates, and proactive security management to maintain optimal educational security.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- FAQ Section -->
     <section class="section bg-bg animate-on-scroll">
@@ -384,7 +293,8 @@
 </template>
 
 <script setup>
-// Educational Security service page functionality
+import EnhancedImage from '@/components/EnhancedImage.vue'
+import { heroBanner, heroBannerMobile } from '@/assets/images.js'
 </script>
 
 <style scoped>

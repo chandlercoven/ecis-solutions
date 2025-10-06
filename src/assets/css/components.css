@@ -31,6 +31,15 @@
     }
   }
   
+  /* Mobile-specific button optimizations */
+  @media (max-width: 639px) {
+    .btn {
+      padding: var(--space-3) var(--space-6); /* 12px 24px mobile */
+      font-size: var(--text-sm);
+      min-height: 44px; /* Touch target */
+    }
+  }
+  
   /* Button sizes */
   .btn--sm {
     padding: var(--space-2) var(--space-4);
@@ -259,6 +268,21 @@
     line-height: var(--leading-tight);
     font-size: var(--text-5xl);
     color: var(--text);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Responsive heading sizing */
+  @media (max-width: 768px) {
+    .heading-xl {
+      font-size: var(--text-4xl);
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .heading-xl {
+      font-size: var(--text-3xl);
+    }
   }
   
   .heading-lg {
@@ -312,7 +336,13 @@
     width: 100%;
     max-width: 90rem; /* 1440px */
     margin: 0 auto;
-    padding: 0 var(--space-6); /* 24px mobile */
+    padding: 0 var(--space-4); /* 16px mobile */
+  }
+  
+  @media (min-width: 640px) {
+    .container {
+      padding: 0 var(--space-6); /* 24px tablet */
+    }
   }
   
   @media (min-width: 1024px) {
@@ -454,5 +484,138 @@
     background: color-mix(in oklab, var(--info) 10%, var(--surface));
     border-color: var(--info);
     color: var(--info-dark);
+  }
+
+/* ===== ENHANCED IMAGE COMPONENT ===== */
+.enhanced-image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hero images get blue background */
+.enhanced-image-container.hero-image {
+  background: var(--bg);
+}
+
+  .enhanced-image {
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    will-change: opacity, transform;
+  }
+
+/* Loading skeleton animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.image-skeleton {
+  background: linear-gradient(90deg, var(--surface-2) 25%, var(--surface) 50%, var(--surface-2) 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Hero images get blue shimmer */
+.enhanced-image-container.hero-image .image-skeleton {
+  background: linear-gradient(90deg, var(--bg) 25%, var(--surface) 50%, var(--bg) 75%);
+}
+
+  /* Image loading states */
+  .image-loading {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+
+  .image-loaded {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+.image-error {
+  background: var(--surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  border: 1px solid var(--action);
+  border-radius: 8px;
+}
+
+  /* Graceful fade-in animation */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(1.02);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .image-fade-in {
+    animation: fadeInUp 0.7s ease-out;
+  }
+
+  /* Progressive enhancement for images */
+  .enhanced-image-container img {
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .enhanced-image-container img:hover {
+    transform: scale(1.02);
+  }
+
+/* Loading spinner for enhanced images */
+.image-loading-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid var(--surface);
+  border-top: 2px solid var(--action);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Accessibility improvements */
+  .enhanced-image:focus-visible {
+    outline: 2px solid var(--action);
+    outline-offset: 2px;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .enhanced-image,
+    .enhanced-image-container img {
+      transition: opacity 0.3s ease;
+    }
+    
+    .image-skeleton {
+      animation: none;
+    }
+    
+    .image-loading-spinner {
+      animation: none;
+    }
+    
+    .image-fade-in {
+      animation: none;
+    }
+  }
+
+  /* Performance optimizations */
+  .enhanced-image-container {
+    contain: layout style paint;
+  }
+
+  .enhanced-image {
+    contain: layout style paint;
   }
 }

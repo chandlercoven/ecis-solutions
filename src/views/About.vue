@@ -9,17 +9,23 @@
         <div class="absolute inset-0 bg-black/20 z-30"></div>
         
         <!-- Desktop hero image -->
-        <img 
-          src="@/assets/hero-banner.jpg"
+        <EnhancedImage
+          :src="heroBanner"
           alt="Professional security team in uniform at headquarters"
-          class="w-full h-full object-cover hidden md:block"
-        >
+          container-class="w-full h-full hidden md:block hero-image"
+          image-class="w-full h-full object-cover"
+          :lazy="false"
+          :show-loading-icon="false"
+        />
         <!-- Mobile hero image -->
-        <img 
-          src="@/assets/hero-banner-mobile.jpg"
+        <EnhancedImage
+          :src="heroBannerMobile"
           alt="Professional security team in uniform at headquarters"
-          class="w-full h-full object-cover block md:hidden"
-        >
+          container-class="w-full h-full block md:hidden hero-image"
+          image-class="w-full h-full object-cover"
+          :lazy="false"
+          :show-loading-icon="false"
+        />
       </div>
 
       <div class="relative z-20 container text-center">
@@ -29,13 +35,13 @@
             <svg class="w-5 h-5 sm:w-6 sm:h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
             </svg>
-            <span class="text-white text-xs sm:text-sm font-medium font-body">Established 2008</span>
+            <span class="text-white text-xs sm:text-sm font-medium font-body">Established 1998</span>
           </div>
 
           <!-- Main content in solid background card -->
           <div class="hero-card-lg p-8 lg:p-12">
             <h1 class="heading-xl text-white font-heading mb-4 text-shadow-lg">
-              Protecting Communities Since 2008
+              Protecting Communities Since 1998
             </h1>
             
             <p class="text-lg text-white/90 max-w-3xl mx-auto font-body text-shadow">
@@ -102,7 +108,7 @@
             <h3 class="text-2xl font-heading font-semibold text-text mb-8">By the Numbers</h3>
             <div class="grid grid-cols-2 gap-6">
               <div>
-                <div class="text-3xl font-heading font-bold text-gradient mb-2">15+</div>
+                <div class="text-3xl font-heading font-bold text-gradient mb-2">25+</div>
                 <div class="text-muted text-sm">Years of Excellence</div>
               </div>
               <div>
@@ -131,7 +137,7 @@
           <p class="text-lg text-muted max-w-2xl mx-auto">Experienced professionals dedicated to your security.</p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <!-- Michael LaBella - President -->
           <div class="text-center">
             <div class="w-32 h-32 bg-surface rounded-full mx-auto mb-4 flex items-center justify-center border-2 border-border">
@@ -142,18 +148,6 @@
             <h3 class="font-heading font-semibold text-text mb-1">Michael LaBella</h3>
             <p class="text-action text-sm font-semibold mb-2">President</p>
             <p class="text-muted text-sm">Leading ECIS Solutions with over 15 years of security industry expertise and strategic vision.</p>
-          </div>
-
-          <!-- Jake LaBella - VP & Field Operations Director -->
-          <div class="text-center">
-            <div class="w-32 h-32 bg-surface rounded-full mx-auto mb-4 flex items-center justify-center border-2 border-border">
-              <svg class="w-16 h-16 text-action" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-            </div>
-            <h3 class="font-heading font-semibold text-text mb-1">Jake LaBella</h3>
-            <p class="text-action text-sm font-semibold mb-2">VP & Field Operations Director</p>
-            <p class="text-muted text-sm">Overseeing field operations and ensuring seamless security service delivery across all locations.</p>
           </div>
 
           <!-- Joseph F. LaBella - Security Director -->
@@ -168,17 +162,7 @@
             <p class="text-muted text-sm">Directing security protocols and ensuring the highest standards of protection for our clients.</p>
           </div>
 
-          <!-- Gabriel Calderon - Logistics Coordinator Director -->
-          <div class="text-center">
-            <div class="w-32 h-32 bg-surface rounded-full mx-auto mb-4 flex items-center justify-center border-2 border-border">
-              <svg class="w-16 h-16 text-action" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-            </div>
-            <h3 class="font-heading font-semibold text-text mb-1">Gabriel Calderon</h3>
-            <p class="text-action text-sm font-semibold mb-2">Logistics Coordinator Director</p>
-            <p class="text-muted text-sm">Managing operational logistics and coordinating resources to ensure efficient service delivery.</p>
-          </div>
+          
         </div>
       </div>
     </section>
@@ -197,7 +181,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
             <h4 class="font-heading font-semibold text-text mb-1">State Licensed</h4>
-            <p class="text-muted text-sm">Florida License #B2800123</p>
+            <p class="text-muted text-sm">Florida License #A 1700202</p>
           </div>
 
           <div class="card text-center">
@@ -244,6 +228,9 @@
 </template>
 
 <script setup>
+import EnhancedImage from '@/components/EnhancedImage.vue'
+import { heroBanner, heroBannerMobile } from '@/assets/images.js'
+
 // About page functionality
 </script>
 

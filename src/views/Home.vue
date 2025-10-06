@@ -8,7 +8,7 @@
       <div class="container">
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           <div class="text-center">
-            <div class="text-3xl lg:text-4xl font-heading font-bold text-action mb-2">15+</div>
+            <div class="text-3xl lg:text-4xl font-heading font-bold text-action mb-2">25+</div>
             <div class="text-muted text-sm lg:text-base">Years Experience</div>
           </div>
           <div class="text-center">
@@ -43,10 +43,13 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div class="text-center">
             <div class="w-20 h-20 rounded-xl overflow-hidden mx-auto mb-4 shadow-lg">
-              <img 
-                src="/src/assets/gps-monitoring.jpg" 
+              <EnhancedImage
+                :src="gpsMonitoring"
                 alt="GPS tracking system showing real-time officer locations"
-                class="w-full h-full object-cover"
+                container-class="w-full h-full"
+                image-class="w-full h-full object-cover"
+                :lazy="true"
+                :show-loading-icon="false"
               />
             </div>
             <h3 class="text-lg font-heading font-semibold text-text mb-2">GPS Tracking</h3>
@@ -55,10 +58,13 @@
 
           <div class="text-center">
             <div class="w-20 h-20 rounded-xl overflow-hidden mx-auto mb-4 shadow-lg">
-              <img 
-                src="/src/assets/cctv-monitoring.jpg" 
+              <EnhancedImage
+                :src="cctvMonitoring"
                 alt="CCTV surveillance system monitoring property"
-                class="w-full h-full object-cover"
+                container-class="w-full h-full"
+                image-class="w-full h-full object-cover"
+                :lazy="true"
+                :show-loading-icon="false"
               />
             </div>
             <h3 class="text-lg font-heading font-semibold text-text mb-2">CCTV Monitoring</h3>
@@ -67,10 +73,13 @@
 
           <div class="text-center">
             <div class="w-20 h-20 rounded-xl overflow-hidden mx-auto mb-4 shadow-lg">
-              <img 
-                src="/src/assets/digital-reports.jpg" 
+              <EnhancedImage
+                :src="digitalReports"
                 alt="Digital incident reporting system interface"
-                class="w-full h-full object-cover"
+                container-class="w-full h-full"
+                image-class="w-full h-full object-cover"
+                :lazy="true"
+                :show-loading-icon="false"
               />
             </div>
             <h3 class="text-lg font-heading font-semibold text-text mb-2">Digital Reports</h3>
@@ -79,10 +88,13 @@
 
           <div class="text-center">
             <div class="w-20 h-20 rounded-xl overflow-hidden mx-auto mb-4 shadow-lg">
-              <img 
-                src="/src/assets/real-time-alert.jpg" 
+              <EnhancedImage
+                :src="realTimeAlert"
                 alt="Real-time security alert notification system"
-                class="w-full h-full object-cover"
+                container-class="w-full h-full"
+                image-class="w-full h-full object-cover"
+                :lazy="true"
+                :show-loading-icon="false"
               />
             </div>
             <h3 class="text-lg font-heading font-semibold text-text mb-2">Real-Time Alerts</h3>
@@ -126,4 +138,6 @@
 import HeroSection from '../components/HeroSection.vue'
 import ServicesSection from '../components/ServicesSection.vue'
 import TestimonialsSection from '../components/TestimonialsSection.vue'
+import EnhancedImage from '../components/EnhancedImage.vue'
+import { gpsMonitoring, cctvMonitoring, digitalReports, realTimeAlert } from '@/assets/images.js'
 </script>

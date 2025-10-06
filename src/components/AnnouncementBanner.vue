@@ -11,13 +11,14 @@
         </div>
         
         <!-- Price & CTA -->
-        <div class="flex items-center gap-3">
-          <span class="text-lg font-bold">$99</span>
+        <div class="flex items-center gap-2 sm:gap-3">
+          <span class="text-lg font-bold">$249</span>
           <button 
             @click="handleEnrollClick"
-            class="bg-white text-accent px-3 py-1 rounded text-xs font-semibold hover:bg-white/90 transition-colors"
+            class="bg-white text-accent px-2 py-1 rounded text-xs font-semibold hover:bg-white/90 transition-colors whitespace-nowrap"
           >
-            Secure Spot - $25
+            <span class="hidden sm:inline">Secure Spot - $299</span>
+            <span class="sm:hidden">$299</span>
           </button>
         </div>
         
@@ -64,8 +65,8 @@ const handleEnrollClick = () => {
   if (typeof gtag !== 'undefined') {
     gtag('event', 'click', {
       event_category: 'announcement',
-      event_label: 'security-license-enrollment',
-      value: 25
+      event_label: 'security-license-waitlist',
+      value: 249
     })
   }
 }
@@ -104,6 +105,16 @@ const handleEnrollClick = () => {
   .announcement-banner .container > div {
     flex-wrap: wrap;
     gap: 0.5rem;
+    justify-content: center;
+  }
+  
+  .announcement-banner .container > div > div:first-child {
+    font-size: 0.8rem;
+    text-align: center;
+  }
+  
+  .announcement-banner .container > div > div:last-child {
+    font-size: 0.75rem;
   }
 }
 </style>

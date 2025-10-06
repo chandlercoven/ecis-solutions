@@ -20,7 +20,12 @@
         <div class="card">
           <h3 class="heading-sm text-text mb-6">Request a Free Assessment</h3>
           
-          <form @submit.prevent="handleSubmit" class="space-y-6">
+          <form 
+            action="https://formspree.io/f/YOUR_FORM_ID" 
+            method="POST" 
+            @submit.prevent="handleSubmit" 
+            class="space-y-6"
+          >
             <div class="grid md:grid-cols-2 gap-6">
               <div>
                 <label for="firstName" class="label label--required">
@@ -240,26 +245,51 @@ const showSuccess = ref(false)
 const handleSubmit = async () => {
   isSubmitting.value = true
   
-  // Simulate form submission
-  setTimeout(() => {
-    isSubmitting.value = false
-    showSuccess.value = true
+  try {
+    // Submit to your PHP script
+    const response = await fetch('/contact-form-working.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstName: form.value.firstName,
+        lastName: form.value.lastName,
+        email: form.value.email,
+        phone: form.value.phone,
+        service: form.value.service,
+        message: form.value.message
+      })
+    })
     
-    // Reset form
-    form.value = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      service: '',
-      message: ''
+    const result = await response.json()
+    
+    if (response.ok && result.success) {
+      showSuccess.value = true
+      
+      // Reset form
+      form.value = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        service: '',
+        message: ''
+      }
+      
+      // Hide success message after 5 seconds
+      setTimeout(() => {
+        showSuccess.value = false
+      }, 5000)
+    } else {
+      throw new Error(result.error || 'Form submission failed')
     }
-    
-    // Hide success message after 5 seconds
-    setTimeout(() => {
-      showSuccess.value = false
-    }, 5000)
-  }, 2000)
+  } catch (error) {
+    console.error('Form submission error:', error)
+    alert('Sorry, there was an error sending your message. Please try calling us directly at (516) 640-8144.')
+  } finally {
+    isSubmitting.value = false
+  }
 }
 </script>
 

@@ -139,7 +139,7 @@
           <!-- Placeholder for certification/partner logos -->
           <div class="text-muted">
             <svg class="w-32 h-12" fill="currentColor" viewBox="0 0 120 40">
-              <text x="10" y="25" font-family="Arial" font-size="12">FL License #B2800245</text>
+              <text x="10" y="25" font-family="Arial" font-size="12">FL License #A 1700202</text>
             </svg>
           </div>
           <div class="text-muted">

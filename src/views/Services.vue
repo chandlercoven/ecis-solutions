@@ -9,17 +9,23 @@
         <div class="absolute inset-0 bg-black/20 z-30"></div>
         
         <!-- Desktop hero image -->
-        <img 
-          src="@/assets/hero-banner.jpg"
+        <EnhancedImage
+          :src="heroBanner"
           alt="Professional security team monitoring surveillance systems"
-          class="w-full h-full object-cover hidden md:block"
-        >
+          container-class="w-full h-full hidden md:block hero-image"
+          image-class="w-full h-full object-cover"
+          :lazy="false"
+          :show-loading-icon="false"
+        />
         <!-- Mobile hero image -->
-        <img 
-          src="@/assets/hero-banner-mobile.jpg"
+        <EnhancedImage
+          :src="heroBannerMobile"
           alt="Professional security team monitoring surveillance systems"
-          class="w-full h-full object-cover block md:hidden"
-        >
+          container-class="w-full h-full block md:hidden hero-image"
+          image-class="w-full h-full object-cover"
+          :lazy="false"
+          :show-loading-icon="false"
+        />
       </div>
 
       <div class="relative z-20 container text-center">
@@ -33,32 +39,32 @@
           </div>
 
           <!-- Main content in solid background card -->
-          <div class="hero-card-lg p-8 lg:p-12">
-            <h1 class="heading-xl text-white font-heading mb-4 text-shadow-lg">
+          <div class="hero-card-lg p-4 sm:p-6 lg:p-8 xl:p-12 max-w-5xl mx-auto">
+            <h1 class="heading-xl text-white font-heading mb-3 sm:mb-4 text-shadow-lg">
               Comprehensive Security Solutions
             </h1>
             
-            <p class="text-lg text-white/90 max-w-3xl mx-auto mb-8 font-body text-shadow">
+            <p class="text-base sm:text-lg text-white/90 max-w-3xl mx-auto mb-6 sm:mb-8 font-body text-shadow">
               From 24/7 patrol services to advanced surveillance systems, we provide tailored security solutions that protect what matters most to you.
             </p>
 
             <!-- Quick stats in solid background cards -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-              <div class="hero-card-sm text-center p-4 lg:p-6">
-                <div class="text-2xl lg:text-3xl font-heading font-bold text-action mb-1">200+</div>
-                <div class="text-sm text-white/90 font-body">Properties Protected</div>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+              <div class="hero-card-sm text-center p-3 sm:p-4 lg:p-6">
+                <div class="text-xl sm:text-2xl lg:text-3xl font-heading font-bold text-action mb-1">200+</div>
+                <div class="text-xs sm:text-sm text-white/90 font-body">Properties Protected</div>
               </div>
-              <div class="hero-card-sm text-center p-4 lg:p-6">
-                <div class="text-2xl lg:text-3xl font-heading font-bold text-action mb-1">24/7</div>
-                <div class="text-sm text-white/90 font-body">Response Available</div>
+              <div class="hero-card-sm text-center p-3 sm:p-4 lg:p-6">
+                <div class="text-xl sm:text-2xl lg:text-3xl font-heading font-bold text-action mb-1">24/7</div>
+                <div class="text-xs sm:text-sm text-white/90 font-body">Response Available</div>
               </div>
-              <div class="hero-card-sm text-center p-4 lg:p-6">
-                <div class="text-2xl lg:text-3xl font-heading font-bold text-action mb-1">3 min</div>
-                <div class="text-sm text-white/90 font-body">Average Response</div>
+              <div class="hero-card-sm text-center p-3 sm:p-4 lg:p-6">
+                <div class="text-xl sm:text-2xl lg:text-3xl font-heading font-bold text-action mb-1">3 min</div>
+                <div class="text-xs sm:text-sm text-white/90 font-body">Average Response</div>
               </div>
-              <div class="hero-card-sm text-center p-4 lg:p-6">
-                <div class="text-2xl lg:text-3xl font-heading font-bold text-action mb-1">98%</div>
-                <div class="text-sm text-white/90 font-body">Client Satisfaction</div>
+              <div class="hero-card-sm text-center p-3 sm:p-4 lg:p-6">
+                <div class="text-xl sm:text-2xl lg:text-3xl font-heading font-bold text-action mb-1">98%</div>
+                <div class="text-xs sm:text-sm text-white/90 font-body">Client Satisfaction</div>
               </div>
             </div>
           </div>
@@ -492,6 +498,9 @@
 </template>
 
 <script setup>
+import EnhancedImage from '@/components/EnhancedImage.vue'
+import { heroBanner, heroBannerMobile } from '@/assets/images.js'
+
 // Services page functionality
 </script>
 

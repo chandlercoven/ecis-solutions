@@ -1,16 +1,20 @@
 <template>
-  <footer class="bg-surface pt-16 pb-8 border-t border-border/20">
+  <footer class="bg-surface pt-16 pb-8 border-t border-border/20 overflow-hidden">
     <div class="container">
       <!-- Footer Content -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
         <!-- Company Info -->
         <div>
           <div class="flex items-start space-x-3 mb-4">
-            <img 
-              src="/src/assets/logo.png" 
-              alt="ECIS Solutions Logo" 
-              class="h-12 w-auto mt-1"
-            >
+            <EnhancedImage
+              src="/logo.png"
+              alt="ECIS Solutions Logo"
+              container-class="h-12 w-auto mt-1"
+              image-class="h-12 w-auto"
+              :lazy="false"
+              :show-loading-icon="false"
+              :scale-on-load="false"
+            />
             <div class="flex flex-col">
               <span class="text-text font-heading font-bold text-lg leading-tight">
                 ECIS Solutions
@@ -26,7 +30,11 @@
           <div class="space-y-2 text-muted text-sm">
             <p class="flex items-center">
               <span class="w-2 h-2 bg-accent rounded-full mr-2"></span>
-              FL License #B2800245
+              FL License #A 1700202
+            </p>
+            <p class="flex items-center">
+              <span class="w-2 h-2 bg-accent rounded-full mr-2"></span>
+              FL License #B 1900402
             </p>
             <p class="flex items-center">
               <span class="w-2 h-2 bg-accent rounded-full mr-2"></span>
@@ -180,5 +188,8 @@
 </template>
 
 <script setup>
+import EnhancedImage from './EnhancedImage.vue'
+// Using static image path
+
 // No additional functionality needed - using router-based navigation
 </script>

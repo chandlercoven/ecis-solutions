@@ -9,17 +9,23 @@
         <div class="absolute inset-0 bg-black/30 z-30"></div>
         
         <!-- Desktop hero image -->
-        <img 
-          src="@/assets/hero-banner.jpg"
+        <EnhancedImage
+          :src="heroBanner"
           alt="Professional security officer protecting commercial property"
-          class="w-full h-full object-cover hidden md:block"
-        >
+          container-class="w-full h-full hidden md:block hero-image"
+          image-class="w-full h-full object-cover"
+          :lazy="false"
+          :show-loading-icon="false"
+        />
         <!-- Mobile hero image -->
-        <img 
-          src="@/assets/hero-banner-mobile.jpg"
+        <EnhancedImage
+          :src="heroBannerMobile"
           alt="Professional security officer protecting commercial property"
-          class="w-full h-full object-cover block md:hidden"
-        >
+          container-class="w-full h-full block md:hidden hero-image"
+          image-class="w-full h-full object-cover"
+          :lazy="false"
+          :show-loading-icon="false"
+        />
       </div>
 
       <div class="relative z-20 container text-center">
@@ -438,7 +444,8 @@
 </template>
 
 <script setup>
-// Commercial Security service page functionality
+import EnhancedImage from '@/components/EnhancedImage.vue'
+import { heroBanner, heroBannerMobile } from '@/assets/images.js'
 </script>
 
 <style scoped>

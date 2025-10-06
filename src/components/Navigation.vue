@@ -5,19 +5,24 @@
       isScrolled ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900/95 backdrop-blur shadow-lg' : 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900'
     ]"
   >
-    <div class="container pb-1">
+    <div class="container py-4">
       <div class="flex items-center justify-between">
         <!-- Logo -->
         <router-link 
           to="/" 
-          class="flex items-center space-x-4 group focus-ring-keyboard"
+          class="flex items-center space-x-4 group focus-ring-keyboard py-2"
           aria-label="ECIS Solutions home page"
         >
-          <img 
-            src="/src/assets/logo.png" 
-            alt="ECIS Solutions Logo" 
-            class="h-16 w-auto group-hover:scale-105 transition-transform duration-base"
-          >
+          <EnhancedImage
+            src="/logo.png"
+            alt="ECIS Solutions Logo"
+            container-class="h-16 w-auto flex-shrink-0"
+            image-class="h-16 w-auto group-hover:scale-105 transition-transform duration-base"
+            :lazy="false"
+            :show-loading-icon="false"
+            :scale-on-load="false"
+            :no-animation="true"
+          />
         </router-link>
 
         <!-- Desktop Navigation -->
@@ -54,7 +59,7 @@
         <!-- Mobile Menu Button -->
         <button 
           @click="toggleMobileMenu"
-          class="lg:hidden relative w-10 h-10 text-white focus-ring-keyboard"
+          class="lg:hidden relative w-10 h-10 text-white focus-ring-keyboard touch-target"
           :aria-expanded="mobileMenuOpen"
           :aria-label="mobileMenuOpen ? 'Close main menu' : 'Open main menu'"
         >
@@ -93,7 +98,7 @@
       >
         <div 
           v-if="mobileMenuOpen"
-          class="lg:hidden absolute top-full left-0 right-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900/95 backdrop-blur border-t border-slate-700/20"
+          class="lg:hidden absolute top-full left-0 right-0 w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900/95 backdrop-blur border-t border-slate-700/20"
           role="menu"
         >
           <div class="container py-6 space-y-1">
@@ -132,7 +137,7 @@
     </div>
     
     <!-- Announcement Banner -->
-    <div v-if="showBanner" class="bg-accent text-white px-2 sm:px-4 text-center border-b border-accent/20">
+    <div v-if="showBanner" class="bg-accent text-white px-2 sm:px-4 text-center border-b border-accent/20 cursor-pointer hover:bg-accent/90 transition-colors" @click="handleEnrollClick">
       <div class="container mx-auto">
         <!-- Mobile Layout -->
         <div class="sm:hidden flex items-center justify-between gap-2 py-1">
@@ -141,15 +146,15 @@
             <span class="text-xs">• Nov 1st</span>
           </div>
           <div class="flex items-center gap-1 flex-shrink-0">
-            <span class="text-sm font-bold">$99</span>
+            <span class="text-sm font-bold">$249</span>
             <button 
-              @click="handleEnrollClick"
+              @click.stop="handleEnrollClick"
               class="bg-white text-accent px-2 py-0.5 rounded text-xs font-semibold hover:bg-white/90 transition-colors"
             >
-              $25
+              <span class="line-through opacity-60">$299</span>
             </button>
             <button 
-              @click="closeBanner"
+              @click.stop="closeBanner"
               class="text-white/70 hover:text-white transition-colors p-0.5"
               aria-label="Close announcement"
             >
@@ -170,18 +175,18 @@
           
           <!-- Price & CTA -->
           <div class="flex items-center gap-3">
-            <span class="text-lg font-bold">$99</span>
+            <span class="text-lg font-bold">$249</span>
             <button 
-              @click="handleEnrollClick"
+              @click.stop="handleEnrollClick"
               class="bg-white text-accent px-3 py-1 rounded text-xs font-semibold hover:bg-white/90 transition-colors"
             >
-              Secure Spot - $25
+              Secure Spot - <span class="line-through opacity-60">$299</span>
             </button>
           </div>
           
           <!-- Close Button -->
           <button 
-            @click="closeBanner"
+            @click.stop="closeBanner"
             class="text-white/70 hover:text-white transition-colors p-1"
             aria-label="Close announcement"
           >
@@ -196,10 +201,13 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import EnhancedImage from './EnhancedImage.vue'
+// Using static image path
 
 const router = useRouter()
+const route = useRoute()
 const isScrolled = ref(false)
 const mobileMenuOpen = ref(false)
 const showBanner = ref(true)
@@ -224,20 +232,27 @@ const closeMobileMenu = () => {
   mobileMenuOpen.value = false
 }
 
+// Watch for route changes and close mobile menu
+watch(() => route.path, () => {
+  if (mobileMenuOpen.value) {
+    closeMobileMenu()
+  }
+})
+
 // Banner functions
 const closeBanner = () => {
   showBanner.value = false
-  localStorage.setItem('announcement-banner-dismissed', 'true')
+  localStorage.setItem('announcement-banner-dismissed-v2', 'true')
 }
 
 const handleEnrollClick = () => {
-  router.push('/training')
+  router.push('/contact')
   
   // Track the click for analytics
   if (typeof gtag !== 'undefined') {
     gtag('event', 'click', {
       event_category: 'announcement',
-      event_label: 'security-license-enrollment',
+      event_label: 'security-license-contact',
       value: 25
     })
   }
@@ -257,7 +272,7 @@ onMounted(() => {
   handleScroll()
   
   // Check if banner was previously dismissed
-  const dismissed = localStorage.getItem('announcement-banner-dismissed')
+  const dismissed = localStorage.getItem('announcement-banner-dismissed-v2')
   if (dismissed === 'true') {
     showBanner.value = false
   }

@@ -9,17 +9,23 @@
         <div class="absolute inset-0 bg-black/20 z-30"></div>
         
         <!-- Desktop hero image -->
-        <img 
-          src="@/assets/hero-banner.jpg"
+        <EnhancedImage
+          :src="heroBanner"
           alt="Security training academy classroom with professional instructors"
-          class="w-full h-full object-cover hidden md:block"
-        >
+          container-class="w-full h-full hidden md:block hero-image"
+          image-class="w-full h-full object-cover"
+          :lazy="false"
+          :show-loading-icon="false"
+        />
         <!-- Mobile hero image -->
-        <img 
-          src="@/assets/hero-banner-mobile.jpg"
+        <EnhancedImage
+          :src="heroBannerMobile"
           alt="Security training academy classroom with professional instructors"
-          class="w-full h-full object-cover block md:hidden"
-        >
+          container-class="w-full h-full block md:hidden hero-image"
+          image-class="w-full h-full object-cover"
+          :lazy="false"
+          :show-loading-icon="false"
+        />
       </div>
 
       <div class="relative z-20 container text-center">
@@ -278,7 +284,7 @@
                   <div class="text-muted text-sm">Pass Rate</div>
                 </div>
                 <div>
-                  <div class="text-3xl font-heading font-bold text-gradient mb-2">15+</div>
+                  <div class="text-3xl font-heading font-bold text-gradient mb-2">25+</div>
                   <div class="text-muted text-sm">Years Experience</div>
                 </div>
               </div>
@@ -375,6 +381,9 @@
 </template>
 
 <script setup>
+import EnhancedImage from '@/components/EnhancedImage.vue'
+import { heroBanner, heroBannerMobile } from '@/assets/images.js'
+
 // Training page functionality
 </script>
 

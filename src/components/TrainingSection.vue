@@ -96,8 +96,8 @@
         <div class="relative">
           <div class="relative rounded-2xl overflow-hidden shadow-2xl">
             <img 
-              src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-              alt="Security training classroom"
+              src="https://tacticalteamsecurity.com/wp-content/uploads/2015/09/uniform_security.jpg"
+              alt="Professional security uniform training"
               class="w-full h-auto"
             >
             <div class="absolute inset-0 bg-gradient-to-t from-navy-dark/60 to-transparent"></div>

@@ -3,34 +3,40 @@
     <!-- Hero Background Image -->
     <div class="absolute inset-0 z-0">
       <!-- Desktop hero image -->
-      <img 
-        src="@/assets/hero-banner.jpg"
+      <EnhancedImage
+        :src="heroBanner"
         alt="Professional security services hero banner"
-        class="w-full h-full object-cover hidden md:block"
-      >
+        container-class="w-full h-full hidden md:block hero-image"
+        image-class="w-full h-full object-cover"
+        :lazy="false"
+        :show-loading-icon="false"
+      />
       <!-- Mobile hero image -->
-      <img 
-        src="@/assets/hero-banner-mobile.jpg"
+      <EnhancedImage
+        :src="heroBannerMobile"
         alt="Professional security services hero banner"
-        class="w-full h-full object-cover object-center block md:hidden"
-        style="object-position: center center;"
-      >
+        container-class="w-full h-full block md:hidden hero-image"
+        image-class="w-full h-full object-cover object-center"
+        :lazy="false"
+        :show-loading-icon="false"
+        :image-style="{ objectPosition: 'center center' }"
+      />
       
       <!-- Dark overlay for text readability -->
-      <div class="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-slate-800/70 to-slate-900/80 z-10"></div>
+      <div class="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-slate-800/70 to-slate-900/80 z-10 pointer-events-none"></div>
       
       <!-- Subtle blue accent overlay -->
-      <div class="absolute inset-0 bg-gradient-to-t from-blue-900/20 via-transparent to-blue-800/30 z-20"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-blue-900/20 via-transparent to-blue-800/30 z-15 pointer-events-none"></div>
     </div>
 
     <!-- Hero Content -->
-    <div class="relative z-20 container text-center">
+    <div class="relative z-30 container text-center">
       <div class="max-w-5xl mx-auto space-y-6 sm:space-y-8">
 
         <!-- Trust Badge - Solid Background -->
         <div class="inline-flex items-center space-x-2 sm:space-x-3 hero-card-sm mt-12 sm:mt-6">
           <span class="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-          <span class="text-white text-xs sm:text-sm font-medium font-body">Trusted Since 2008 • Licensed & Bonded</span>
+          <span class="text-white text-xs sm:text-sm font-medium font-body">Trusted Since 1998 • Licensed & Bonded</span>
         </div>
 
         <!-- Security Assessment Form Card -->
@@ -131,7 +137,7 @@
                 </svg>
               </div>
               <div class="text-sm font-heading font-semibold text-white mb-1">Family Owned</div>
-              <div class="text-xs text-white/80 font-body">Since 2008</div>
+              <div class="text-xs text-white/80 font-body">Since 1998</div>
             </div>
           </div>
 
@@ -188,6 +194,8 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
+import EnhancedImage from './EnhancedImage.vue'
+import { heroBanner, heroBannerMobile } from '@/assets/images.js'
 
 // Form data
 const form = reactive({
@@ -252,7 +260,8 @@ const submitAssessment = async () => {
   position: absolute;
   inset: 0;
   background: radial-gradient(ellipse at 30% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
-  z-index: 10; /* Lower than content to avoid conflicts */
+  z-index: 5; /* Lower than overlays and content */
+  pointer-events: none; /* Don't block clicks */
   animation: subtle-glow 8s ease-in-out infinite alternate;
   will-change: opacity; /* Optimize for animation performance */
 }
@@ -296,7 +305,12 @@ const submitAssessment = async () => {
 
 /* Form input styling - simplified and reusable */
 .form-input {
-  @apply w-full rounded-lg px-4 py-3 text-white focus:outline-none transition-colors;
+  width: 100%;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: white;
+  outline: none;
+  transition: all 0.3s ease;
   background-color: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }

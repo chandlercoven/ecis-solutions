@@ -2,7 +2,7 @@
   <!-- Mobile Call Button - Only visible on mobile devices -->
   <div class="mobile-call-button" id="floating-call-button">
     <a 
-      href="tel:+1234567890" 
+      href="tel:+15166408144" 
       class="call-btn group"
       :class="{ 'call-btn-pulse': shouldPulse }"
       title="Call Now"

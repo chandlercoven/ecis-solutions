@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Security Services | ECIS Solutions - 24/7 Patrol & Protection</title>
+    <meta name="description" content="ECIS Solutions - Professional security services with 24/7 patrol coverage, CCTV monitoring, and emergency response. Licensed officers protect 200+ properties with 3-minute response time. Call (516) 640-8144 for free assessment.">
+    <meta name="keywords" content="security services, 24/7 patrol, HOA security, commercial security, CCTV monitoring, emergency response, security training, licensed security officers, property protection">
+    <meta name="author" content="ECIS Solutions">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://ecissolutions.com">
+    
+    <!-- Open Graph Meta Tags for Social Media Sharing -->
+    <meta property="og:title" content="ECIS Solutions - Professional Security Services & Training Academy">
+    <meta property="og:description" content="ECIS Solutions - Professional security services with 24/7 patrol coverage, CCTV monitoring, and emergency response. Licensed officers protect 200+ properties with 3-minute response time. Call (516) 640-8144 for free assessment.">
+    <meta property="og:image" content="/og-image.jpg">
+    <meta property="og:url" content="https://ecissolutions.com">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ECIS Solutions">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ECIS Solutions - Professional Security Services & Training Academy">
+    <meta name="twitter:description" content="ECIS Solutions - Professional security services with 24/7 patrol coverage, CCTV monitoring, and emergency response. Licensed officers protect 200+ properties with 3-minute response time. Call (516) 640-8144 for free assessment.">
+    <meta name="twitter:image" content="/og-image.jpg">
+    
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Theme Colors for Mobile Browsers -->
+    <meta name="theme-color" content="#0f1f33">
+    <meta name="msapplication-TileColor" content="#0f1f33">
+    
+    <!-- No hardcoded preloads - Vite handles cache busting automatically -->
+    <!-- Build timestamp for cache busting: 2025-10-01T23:42:19.311Z -->
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SecurityBusiness",
+      "name": "ECIS Solutions",
+      "alternateName": "East Coast Investigation and Security",
+      "description": "Professional security services including 24/7 patrol coverage, CCTV monitoring, emergency response, and security training. Licensed and bonded security officers protect residential communities and commercial properties.",
+      "url": "https://ecissolutions.com",
+      "logo": "https://ecissolutions.com/ecis-logo.png",
+      "image": "https://ecissolutions.com/og-image.jpg",
+      "telephone": "+1-516-640-8144",
+      "email": "info@ecissolutions.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "123 Security Way",
+        "addressLocality": "Long Island",
+        "addressRegion": "NY",
+        "postalCode": "11501",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "40.7891",
+        "longitude": "-73.1350"
+      },
+      "openingHours": "Mo-Su 00:00-23:59",
+      "priceRange": "$$",
+      "paymentAccepted": "Cash, Check, Credit Card",
+      "currenciesAccepted": "USD",
+      "areaServed": [
+        "Long Island, NY",
+        "Nassau County, NY", 
+        "Suffolk County, NY",
+        "New York Metro Area"
+      ],
+      "serviceType": [
+        "Security Patrol Services",
+        "CCTV Monitoring", 
+        "Emergency Response",
+        "HOA Security",
+        "Commercial Security",
+        "Security Training",
+        "Private Investigation"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Security Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "24/7 Security Patrol",
+              "description": "Visible deterrence with scheduled and random patrols using GPS-tracked vehicles"
+            }
+          },
+          {
+            "@type": "Offer", 
+            "itemOffered": {
+              "@type": "Service",
+              "name": "CCTV Monitoring",
+              "description": "Advanced surveillance systems with 24/7 monitoring and real-time alerts"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service", 
+              "name": "Emergency Response",
+              "description": "3-minute average response time for security incidents and emergencies"
+            }
+          }
+        ]
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "200",
+        "bestRating": "5"
+      },
+      "foundingDate": "1998",
+      "numberOfEmployees": "50-100",
+      "slogan": "We safeguard what matters most—your people, your property, your peace of mind",
+      "sameAs": [
+        "https://www.facebook.com/ecissolutions",
+        "https://www.linkedin.com/company/ecis-solutions",
+        "https://www.google.com/maps/place/ECIS+Solutions"
+      ],
+      "hasMap": "https://www.google.com/maps/place/ECIS+Solutions",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://ecissolutions.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    
+    <!-- FAQ Schema for Featured Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What security services does ECIS Solutions provide?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ECIS Solutions provides comprehensive security services including 24/7 patrol coverage, CCTV monitoring, emergency response, HOA security, commercial property protection, and security training. Our licensed officers protect over 200 properties with a 3-minute average response time."
+          }
+        },
+        {
+          "@type": "Question", 
+          "name": "How quickly can ECIS Solutions respond to security incidents?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ECIS Solutions maintains a 3-minute average response time for security incidents and emergencies. Our GPS-tracked patrol vehicles and 24/7 monitoring ensure rapid response to any security situation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What areas does ECIS Solutions serve?",
+          "acceptedAnswer": {
+            "@type": "Answer", 
+            "text": "ECIS Solutions serves Long Island, NY including Nassau County, Suffolk County, and the greater New York Metro Area. We provide security services for residential communities, commercial properties, and special events."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are ECIS Solutions security officers licensed and bonded?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, all ECIS Solutions security officers are fully licensed, bonded, and insured. Our team includes former law enforcement professionals with extensive training and experience in security operations."
+          }
+        }
+      ]
+    }
+    </script>
+    <script type="module" crossorigin src="/assets/index-CH_YoN8w.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-TiukkVDg.css">
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>

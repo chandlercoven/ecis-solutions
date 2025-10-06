@@ -151,6 +151,8 @@
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: var(--radius-2xl);
     box-shadow: var(--shadow-xl);
+    max-width: 100%;
+    width: 100%;
   }
   
   .hero-button {
@@ -167,6 +169,22 @@
     transition: all var(--duration-base) var(--easing-standard);
   }
   
+  /* Responsive hero card constraints */
+  @media (max-width: 768px) {
+    .hero-card-lg {
+      margin: 0 0.5rem;
+      max-width: calc(100% - 1rem);
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .hero-card-lg {
+      margin: 0 0.25rem;
+      max-width: calc(100% - 0.5rem);
+      padding: 0.75rem;
+    }
+  }
+  
   /* ===== ACCESSIBILITY UTILITIES ===== */
   .sr-only {
     position: absolute;
@@ -178,6 +196,23 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+  }
+  
+  /* ===== TOUCH TARGET UTILITIES ===== */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Touch feedback for mobile devices */
+  @media (hover: none) {
+    .touch-target:active {
+      transform: scale(0.95);
+      transition: transform 0.1s ease;
+    }
   }
   
   .skip-link {
@@ -415,11 +450,30 @@
 
 /* ===== REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  /* Use higher specificity instead of !important */
+  html *,
+  html *::before,
+  html *::after {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+  }
+  
+  /* Specific overrides for common animation classes */
+  .animate-on-scroll,
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-slide-down,
+  .animate-scale-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  /* Disable hover animations */
+  .hero-card-sm:hover,
+  .hero-card-lg:hover,
+  .card:hover {
+    transform: none;
   }
 }
