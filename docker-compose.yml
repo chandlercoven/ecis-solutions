@@ -1,4 +1,5 @@
 services:
+  # Vue Frontend
   ecis-solutions:
     build:
       context: .
@@ -9,9 +10,74 @@ services:
       - "3000:80"
     environment:
       - NODE_ENV=production
+      - VITE_API_URL=http://localhost:8100/api
     networks:
       - ecis-network
       - proxy-network
+    depends_on:
+      - ecis-backend
+
+  # Laravel Backend API
+  ecis-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ecis-backend
+    restart: unless-stopped
+    working_dir: /var/www/html
+    ports:
+      - "8100:80"
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_HOST=ecis-mysql
+      - DB_PORT=3306
+      - DB_DATABASE=ecis_solutions
+      - DB_USERNAME=ecis_user
+      - DB_PASSWORD=securepassword123
+    volumes:
+      - ./backend:/var/www/html
+    networks:
+      - ecis-network
+    depends_on:
+      - ecis-mysql
+
+  # MySQL Database
+  ecis-mysql:
+    image: mysql:8.0
+    container_name: ecis-mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword123
+      - MYSQL_DATABASE=ecis_solutions
+      - MYSQL_USER=ecis_user
+      - MYSQL_PASSWORD=securepassword123
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - ecis-network
+
+  # phpMyAdmin (optional, for database management)
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: ecis-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8200:80"
+    environment:
+      - PMA_HOST=ecis-mysql
+      - PMA_USER=ecis_user
+      - PMA_PASSWORD=securepassword123
+    networks:
+      - ecis-network
+    depends_on:
+      - ecis-mysql
+
+volumes:
+  mysql-data:
+    driver: local
 
 networks:
   ecis-network:

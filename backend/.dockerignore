@@ -1,0 +1,14 @@
+vendor
+node_modules
+npm-debug.log
+yarn-error.log
+.env
+.git
+.gitignore
+.idea
+.vscode
+storage/*.key
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
