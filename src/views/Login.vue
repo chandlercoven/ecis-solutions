@@ -158,20 +158,25 @@ const isLoading = computed(() => authStore.isLoading)
 
 // Handle login
 const handleLogin = async () => {
+  console.log('🔐 Login.vue: Login form submitted', { email: form.email })
   error.value = ''
   
   try {
     const result = await authStore.login(form.email, form.password)
     
+    console.log('🔐 Login.vue: Login result received', result)
+    
     if (result.success) {
-      // Redirect to submissions (or use redirectTo if provided)
-      router.push(result.redirectTo || '/submissions')
+      console.log('✅ Login.vue: Login successful, redirecting to:', result.redirectTo || '/dashboard')
+      // Redirect to dashboard (or use redirectTo if provided)
+      router.push(result.redirectTo || '/dashboard')
     } else {
+      console.log('❌ Login.vue: Login failed', result.error)
       error.value = result.error || 'Login failed. Please try again.'
     }
   } catch (err) {
+    console.error('❌ Login.vue: Login error occurred', err)
     error.value = 'An unexpected error occurred. Please try again.'
-    console.error('Login error:', err)
   }
 }
 

@@ -246,8 +246,8 @@ const handleSubmit = async () => {
   isSubmitting.value = true
   
   try {
-    // Submit to your PHP script
-    const response = await fetch('/contact-form-working.php', {
+    // Submit to Laravel backend
+    const response = await fetch('/api/submissions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

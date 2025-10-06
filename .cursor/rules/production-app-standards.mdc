@@ -1,0 +1,175 @@
+---
+description: Production app development standards for ECIS Solutions internal portal
+globs: *.vue,*.js,*.css
+---
+
+# ECIS Solutions Production App Standards
+
+## App Architecture
+
+### Internal Portal Structure
+- **Public Site:** Marketing pages (Home, Services, About, Contact)
+- **Internal App:** Authenticated portal (Dashboard, Submissions, Clients, etc.)
+- **Layout Switching:** [App.vue](mdc:src/App.vue) conditionally renders based on route
+
+### Authentication Flow
+```javascript
+// Route-based layout switching
+const isInternalRoute = computed(() => {
+  const internalPaths = ['/login', '/dashboard', '/submissions', '/incidents', '/clients', '/reports', '/users']
+  return internalPaths.some(path => route.path.startsWith(path))
+})
+```
+
+## Component Standards
+
+### AppHeader Component
+- **Purpose:** Navigation for authenticated users
+- **Location:** [src/components/AppHeader.vue](mdc:src/components/AppHeader.vue)
+- **Features:** Logo, navigation menu, user dropdown, notifications
+- **Mobile:** Hamburger menu with full-width navigation
+
+### Page Headers
+- **Consistent Structure:** Icon + Title + Actions
+- **Mobile-First:** Stack vertically on mobile, horizontal on desktop
+- **Actions:** Filter, Refresh, Export buttons grouped logically
+
+## Data Management
+
+### Submissions Management
+- **Data Source:** [src/data/submissions.json](mdc:src/data/submissions.json)
+- **Filtering:** Status, Service, Date Range filters
+- **Actions:** Mark as Read, Reply, Export
+- **Real-time Updates:** Refresh functionality
+
+### State Management
+- **Auth Store:** [src/stores/auth.js](mdc:src/stores/auth.js) - User authentication and permissions
+- **Role-Based Access:** Admin, Manager, Dispatcher, Officer roles
+- **Local Storage:** Persistent authentication state
+
+## Mobile-First Design
+
+### Breakpoint Strategy
+```css
+/* Mobile-first approach */
+.mobile-layout { @apply flex flex-col; }
+.sm\:desktop-layout { @apply sm:flex-row; }
+
+/* Touch targets */
+.touch-target { @apply min-h-[44px] min-w-[44px]; }
+```
+
+### Navigation Patterns
+- **Mobile:** Full-width hamburger menu
+- **Desktop:** Horizontal navigation bar
+- **Tablet:** Responsive hybrid approach
+
+## Production Considerations
+
+### Performance
+- **Code Splitting:** Route-based lazy loading
+- **Image Optimization:** WebP format with fallbacks
+- **Bundle Size:** Tree-shaking and dead code elimination
+- **Caching:** Service worker for offline functionality
+
+### Security
+- **Authentication:** JWT tokens with refresh mechanism
+- **Authorization:** Role-based route protection
+- **Data Validation:** Client and server-side validation
+- **HTTPS:** SSL/TLS encryption in production
+
+### Error Handling
+```vue
+<!-- Consistent error states -->
+<div v-if="error" class="bg-danger/10 border border-danger/20 rounded-md p-4">
+  <div class="flex">
+    <svg class="h-5 w-5 text-danger" fill="currentColor">
+      <!-- Error icon -->
+    </svg>
+    <div class="ml-3">
+      <h3 class="text-sm font-medium text-danger">Error</h3>
+      <div class="mt-2 text-sm text-danger">{{ error }}</div>
+    </div>
+  </div>
+</div>
+```
+
+## API Integration
+
+### Backend Communication
+- **Laravel Backend:** [backend/](mdc:backend/) directory
+- **API Endpoints:** RESTful API with proper HTTP methods
+- **CORS Configuration:** Cross-origin request handling
+- **Authentication:** Laravel Sanctum for API auth
+
+### Data Flow
+```javascript
+// API call pattern
+const fetchData = async () => {
+  try {
+    const response = await fetch('/api/endpoint', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    
+    if (!response.ok) throw new Error('API Error')
+    return await response.json()
+  } catch (error) {
+    console.error('API Error:', error)
+    throw error
+  }
+}
+```
+
+## Testing Standards
+
+### Component Testing
+- **Unit Tests:** Individual component functionality
+- **Integration Tests:** Component interaction
+- **E2E Tests:** Full user workflows
+- **Mobile Testing:** Touch interactions and responsive behavior
+
+### Quality Gates
+- [ ] Mobile responsive design verified
+- [ ] All touch targets minimum 44px
+- [ ] Accessibility standards met (WCAG 2.1 AA)
+- [ ] Performance benchmarks met
+- [ ] Security vulnerabilities addressed
+- [ ] Cross-browser compatibility verified
+
+## Deployment
+
+### Docker Configuration
+- **Frontend:** [docker-compose.yml](mdc:docker-compose.yml) - Vue.js app
+- **Backend:** Laravel API with MySQL database
+- **Networking:** Container communication via Docker networks
+- **Ports:** Frontend (3000), Backend (8100), Database (3306), phpMyAdmin (8200)
+
+### Production Environment
+- **Domain:** ecissolutions.com
+- **SSL:** HTTPS with valid certificates
+- **CDN:** Static asset delivery optimization
+- **Monitoring:** Error tracking and performance monitoring
+
+## Code Quality
+
+### Vue.js Best Practices
+- **Composition API:** Use `<script setup>` syntax
+- **Reactive Data:** Proper use of `ref()` and `reactive()`
+- **Computed Properties:** Efficient derived state
+- **Lifecycle Hooks:** Proper cleanup and memory management
+
+### CSS Standards
+- **Tailwind CSS:** Utility-first approach
+- **Design System:** Consistent color tokens and spacing
+- **Responsive:** Mobile-first breakpoint strategy
+- **Performance:** Minimal custom CSS, leverage Tailwind
+
+### JavaScript Standards
+- **ES6+ Features:** Modern JavaScript syntax
+- **Async/Await:** Promise-based asynchronous code
+- **Error Handling:** Comprehensive try/catch blocks
+- **Code Organization:** Modular, maintainable structure

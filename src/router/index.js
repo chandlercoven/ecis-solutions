@@ -265,6 +265,12 @@ const router = createRouter({
 
 // Enhanced navigation guards with loading coordination and SEO
 router.beforeEach(async (to, from, next) => {
+  console.log('🚦 Router: Navigation starting', {
+    from: from.path,
+    to: to.path,
+    requiresAuth: to.meta.requiresAuth
+  })
+  
   // Set loading state
   setLoading(true)
   
@@ -276,7 +282,14 @@ router.beforeEach(async (to, from, next) => {
     // Initialize auth state from localStorage
     authStore.initializeAuth()
     
+    console.log('🔐 Router: Auth check for protected route', {
+      isAuthenticated: authStore.isAuthenticated,
+      user: authStore.userName,
+      role: authStore.userRole
+    })
+    
     if (!authStore.isAuthenticated) {
+      console.log('❌ Router: Not authenticated, redirecting to login')
       next('/login')
       return
     }
@@ -288,8 +301,14 @@ router.beforeEach(async (to, from, next) => {
     const authStore = useAuthStore()
     authStore.initializeAuth()
     
+    console.log('🔐 Router: Login page access check', {
+      isAuthenticated: authStore.isAuthenticated,
+      user: authStore.userName
+    })
+    
     if (authStore.isAuthenticated) {
-      next('/submissions')
+      console.log('✅ Router: Already authenticated, redirecting to dashboard')
+      next('/dashboard')
       return
     }
   }
@@ -326,6 +345,11 @@ router.beforeEach(async (to, from, next) => {
   
   // Smart image preloading based on route
   imagePreloader.preloadRouteImages(to.path)
+  
+  console.log('✅ Router: Navigation completed', {
+    to: to.path,
+    title: to.meta.title
+  })
   
   next()
 })

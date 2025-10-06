@@ -58,8 +58,11 @@
       </transition>
     </template>
     
-    <!-- Internal App Layout (No Navigation/Footer) -->
+    <!-- Internal App Layout (App Header for authenticated areas) -->
     <template v-else>
+      <!-- App Header for Internal Pages -->
+      <AppHeader />
+      
       <!-- Loading Indicator -->
       <Transition name="fade">
         <div 
@@ -71,18 +74,20 @@
       </Transition>
       
       <!-- Router View - Internal App Content -->
-      <RouterView v-slot="{ Component, route }">
-        <Suspense>
-          <Transition name="page" mode="out-in" @before-enter="onPageEnter" @after-enter="onPageEntered">
-            <component :is="Component" :key="route.path" />
-          </Transition>
-          <template #fallback>
-            <div class="min-h-screen flex items-center justify-center">
-              <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-action"></div>
-            </div>
-          </template>
-        </Suspense>
-      </RouterView>
+      <main class="relative z-10">
+        <RouterView v-slot="{ Component, route }">
+          <Suspense>
+            <Transition name="page" mode="out-in" @before-enter="onPageEnter" @after-enter="onPageEntered">
+              <component :is="Component" :key="route.path" />
+            </Transition>
+            <template #fallback>
+              <div class="min-h-screen flex items-center justify-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-action"></div>
+              </div>
+            </template>
+          </Suspense>
+        </RouterView>
+      </main>
     </template>
   </div>
 </template>
@@ -95,6 +100,7 @@ import FooterSection from './components/FooterSection.vue'
 import MobileCallButton from './components/MobileCallButton.vue'
 import SEOHead from './components/SEOHead.vue'
 import BreadcrumbNavigation from './components/BreadcrumbNavigation.vue'
+import AppHeader from './components/AppHeader.vue'
 import { onLoadingChange } from './router'
 
 const route = useRoute()
@@ -104,7 +110,17 @@ const isLoading = ref(false)
 // Check if current route is internal (team portal/authenticated area)
 const isInternalRoute = computed(() => {
   const internalPaths = ['/login', '/dashboard', '/submissions', '/incidents', '/clients', '/reports', '/users']
-  return internalPaths.some(path => route.path.startsWith(path))
+  const isInternal = internalPaths.some(path => route.path.startsWith(path))
+  
+  // Debug logging
+  console.log('🔍 App.vue Debug:', {
+    currentPath: route.path,
+    internalPaths,
+    isInternal,
+    template: isInternal ? 'Internal App Layout' : 'Public Site Layout'
+  })
+  
+  return isInternal
 })
 
 // Subscribe to loading state changes
