@@ -107,8 +107,8 @@
               </svg>
               <div>
                 <p class="text-muted text-sm">24/7 Call Now</p>
-                <a href="tel:+15166408144" class="text-text hover:text-action transition-colors duration-base font-medium">
-                  (516) 640-8144
+                <a href="tel:+15612490897" class="text-text hover:text-action transition-colors duration-base font-medium">
+                  (561) 249-0897
                 </a>
               </div>
             </li>
@@ -149,8 +149,8 @@
             <router-link to="/contact" class="btn btn--primary">
               Schedule Free Assessment
             </router-link>
-            <a href="tel:+15166408144" class="btn btn--premium">
-              Call (516) 640-8144
+            <a href="tel:+15612490897" class="btn btn--premium">
+              Call (561) 249-0897
             </a>
           </div>
         </div>

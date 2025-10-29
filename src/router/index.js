@@ -25,7 +25,7 @@ const router = createRouter({
       meta: { 
         preload: true, // Preload home page
         title: 'ECIS Solutions - Professional Security Services | 24/7 Patrol & Protection',
-        description: 'ECIS Solutions - Professional security services with 24/7 patrol coverage, CCTV monitoring, and emergency response. Licensed officers protect 200+ properties with 3-minute response time. Call (516) 640-8144 for free assessment.',
+        description: 'ECIS Solutions - Professional security services with 24/7 patrol coverage, CCTV monitoring, and emergency response. Licensed officers protect 200+ properties with 3-minute response time. Call (561) 249-0897 for free assessment.',
         keywords: 'security services, 24/7 patrol, HOA security, commercial security, CCTV monitoring, emergency response, security training, licensed security officers, property protection'
       }
     },
@@ -35,7 +35,7 @@ const router = createRouter({
       component: () => import(/* webpackChunkName: "services" */ '../views/Services.vue'),
       meta: { 
         title: 'ECIS Solutions - Security Services | 24/7 Patrol, CCTV & Emergency Response',
-        description: 'ECIS Solutions - Comprehensive security services including 24/7 patrol coverage, CCTV monitoring, HOA security, commercial property protection, and emergency response. Licensed and bonded security officers. Call (516) 640-8144.',
+        description: 'ECIS Solutions - Comprehensive security services including 24/7 patrol coverage, CCTV monitoring, HOA security, commercial property protection, and emergency response. Licensed and bonded security officers. Call (561) 249-0897.',
         keywords: 'security patrol services, CCTV monitoring, HOA security, commercial security, emergency response, security officers, property protection, surveillance systems',
         preload: true // High priority page
       }
@@ -65,8 +65,8 @@ const router = createRouter({
       name: 'contact',
       component: () => import(/* webpackChunkName: "contact" */ '../views/Contact.vue'),
       meta: { 
-        title: 'ECIS Solutions - Contact | Free Security Assessment - (516) 640-8144',
-        description: 'ECIS Solutions - Contact us for a free security assessment. Call (516) 640-8144 for professional security services, 24/7 patrol coverage, and emergency response. Licensed and bonded security officers.',
+        title: 'ECIS Solutions - Contact | Free Security Assessment - (561) 249-0897',
+        description: 'ECIS Solutions - Contact us for a free security assessment. Call (561) 249-0897 for professional security services, 24/7 patrol coverage, and emergency response. Licensed and bonded security officers.',
         keywords: 'contact ECIS Solutions, free security assessment, security consultation, security quote, emergency security, 24/7 security, security services contact'
       }
     },
@@ -192,9 +192,9 @@ const router = createRouter({
         keywords: 'retail security, loss prevention, shoplifting prevention, retail protection, inventory security, store security, retail loss prevention, shopping center security'
       }
     },
-    // Internal Team Portal Routes
+    // Internal Team Portal Routes - All prefixed with /app/
     {
-      path: '/login',
+      path: '/app/login',
       name: 'login',
       component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue'),
       meta: {
@@ -203,8 +203,18 @@ const router = createRouter({
         requiresAuth: false
       }
     },
+    // Redirect old /login to /app/login (only one we need)
+    {
+      path: '/login',
+      redirect: '/app/login'
+    },
+    // Redirect old /dashboard to /app/dashboard
     {
       path: '/dashboard',
+      redirect: '/app/dashboard'
+    },
+    {
+      path: '/app/dashboard',
       name: 'dashboard',
       component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
       meta: {
@@ -214,7 +224,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/clients',
+      path: '/app/clients',
       name: 'clients',
       component: () => import(/* webpackChunkName: "clients" */ '../views/Clients.vue'),
       meta: {
@@ -224,7 +234,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/clients/:id',
+      path: '/app/clients/:id',
       name: 'client-detail',
       component: () => import(/* webpackChunkName: "client-detail" */ '../views/ClientDetail.vue'),
       meta: {
@@ -234,12 +244,42 @@ const router = createRouter({
       }
     },
     {
-      path: '/submissions',
+      path: '/app/submissions',
       name: 'submissions',
       component: () => import(/* webpackChunkName: "submissions" */ '../views/Submissions.vue'),
       meta: {
         title: 'ECIS Team Portal - Contact Submissions',
         description: 'View and manage contact form submissions for ECIS Solutions',
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/app/incidents',
+      name: 'incidents',
+      component: () => import(/* webpackChunkName: "incidents" */ '../views/Incidents.vue'),
+      meta: {
+        title: 'ECIS Team Portal - Incidents',
+        description: 'Incident management for ECIS Solutions',
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/app/reports',
+      name: 'reports',
+      component: () => import(/* webpackChunkName: "reports" */ '../views/Reports.vue'),
+      meta: {
+        title: 'ECIS Team Portal - Reports',
+        description: 'Reports and analytics for ECIS Solutions',
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/app/users',
+      name: 'users',
+      component: () => import(/* webpackChunkName: "users" */ '../views/Users.vue'),
+      meta: {
+        title: 'ECIS Team Portal - Users',
+        description: 'User management for ECIS Solutions',
         requiresAuth: true
       }
     }
@@ -290,13 +330,13 @@ router.beforeEach(async (to, from, next) => {
     
     if (!authStore.isAuthenticated) {
       console.log('❌ Router: Not authenticated, redirecting to login')
-      next('/login')
+      next('/app/login')
       return
     }
   }
   
   // Redirect authenticated users away from login page
-  if (to.path === '/login') {
+  if (to.path === '/app/login') {
     const { useAuthStore } = await import('@/stores/auth')
     const authStore = useAuthStore()
     authStore.initializeAuth()
@@ -308,7 +348,7 @@ router.beforeEach(async (to, from, next) => {
     
     if (authStore.isAuthenticated) {
       console.log('✅ Router: Already authenticated, redirecting to dashboard')
-      next('/dashboard')
+      next('/app/dashboard')
       return
     }
   }

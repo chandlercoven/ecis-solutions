@@ -213,8 +213,8 @@
                   </div>
                   <div>
                     <h4 class="font-heading font-semibold text-text mb-1">Call Now</h4>
-                    <a href="tel:+15166408144" class="text-lg font-semibold text-action hover:text-action/80 transition-colors">
-                      (516) 640-8144
+                    <a href="tel:+15612490897" class="text-lg font-semibold text-action hover:text-action/80 transition-colors">
+                      (561) 249-0897
                     </a>
                     <p class="text-muted text-sm mt-1">Available 24/7 for all security needs</p>
                   </div>
@@ -306,14 +306,14 @@
           </p>
           
           <a 
-            href="tel:+15166408144" 
+            href="tel:+15612490897" 
             class="inline-flex items-center gap-3 bg-action text-white px-8 py-4 rounded-lg font-heading font-semibold text-lg hover:bg-action/90 transition-colors duration-base shadow-lg hover:shadow-xl focus-ring"
             aria-label="Call now"
           >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
-            Call (516) 640-8144 Now
+            Call (561) 249-0897 Now
           </a>
           
           <p class="text-muted text-sm mt-4">
@@ -472,8 +472,8 @@
               security solutions for your specific location.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="tel:+15166408144" class="btn btn--primary">
-                Call (516) 640-8144
+              <a href="tel:+15612490897" class="btn btn--primary">
+                Call (561) 249-0897
               </a>
               <button @click="scrollToForm" class="btn btn--secondary">
                 Request Assessment
@@ -542,7 +542,7 @@ const handleSubmit = async () => {
     console.error('Form submission error:', error)
     // Error
     submitSuccess.value = false
-    submitMessage.value = 'We encountered an issue sending your request. Please try again or call us directly at (516) 640-8144.'
+    submitMessage.value = 'We encountered an issue sending your request. Please try again or call us directly at (561) 249-0897.'
   } finally {
     isSubmitting.value = false
     

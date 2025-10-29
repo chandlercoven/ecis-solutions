@@ -144,7 +144,7 @@
         <div class="space-y-8">
           <!-- Quick Contact Cards -->
           <div class="grid gap-4">
-            <a href="tel:+15166408144" class="card interactive">
+            <a href="tel:+15612490897" class="card interactive">
               <div class="flex items-center space-x-4">
                 <div class="w-12 h-12 bg-surface-2 rounded-lg flex items-center justify-center">
                   <svg class="w-6 h-6 text-action" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -153,7 +153,7 @@
                 </div>
                 <div>
                   <p class="text-muted text-sm">Call Us 24/7</p>
-                  <p class="text-text text-lg font-semibold">(516) 640-8144</p>
+                  <p class="text-text text-lg font-semibold">(561) 249-0897</p>
                 </div>
               </div>
             </a>
@@ -286,7 +286,7 @@ const handleSubmit = async () => {
     }
   } catch (error) {
     console.error('Form submission error:', error)
-    alert('Sorry, there was an error sending your message. Please try calling us directly at (516) 640-8144.')
+    alert('Sorry, there was an error sending your message. Please try calling us directly at (561) 249-0897.')
   } finally {
     isSubmitting.value = false
   }

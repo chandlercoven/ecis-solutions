@@ -167,9 +167,9 @@ const handleLogin = async () => {
     console.log('🔐 Login.vue: Login result received', result)
     
     if (result.success) {
-      console.log('✅ Login.vue: Login successful, redirecting to:', result.redirectTo || '/dashboard')
+      console.log('✅ Login.vue: Login successful, redirecting to:', result.redirectTo || '/app/dashboard')
       // Redirect to dashboard (or use redirectTo if provided)
-      router.push(result.redirectTo || '/dashboard')
+      router.push(result.redirectTo || '/app/dashboard')
     } else {
       console.log('❌ Login.vue: Login failed', result.error)
       error.value = result.error || 'Login failed. Please try again.'

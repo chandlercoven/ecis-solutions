@@ -422,7 +422,7 @@
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <router-link to="/contact" class="btn btn--primary">Request Patrol Service Quote</router-link>
-            <a href="tel:+15166408144" class="btn btn--secondary">Call (516) 640-8144</a>
+            <a href="tel:+15612490897" class="btn btn--secondary">Call (561) 249-0897</a>
           </div>
 
           <!-- Trust indicators -->

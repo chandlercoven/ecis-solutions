@@ -1,32 +1,42 @@
 <template>
   <div class="submissions min-h-screen bg-bg">
-    <!-- Simple Page Header -->
+    <!-- Mobile-First Page Header -->
     <div class="bg-surface border-b border-border">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div class="flex items-center justify-between">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+        <!-- Mobile: Stack vertically, Desktop: Horizontal -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-3 sm:space-y-0">
+          <!-- Title Section -->
           <div class="flex items-center space-x-3">
-            <div class="h-10 w-10 bg-action/10 rounded-lg flex items-center justify-center">
-              <svg class="h-6 w-6 text-action" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="h-8 w-8 sm:h-10 sm:w-10 bg-action/10 rounded-lg flex items-center justify-center">
+              <svg class="h-5 w-5 sm:h-6 sm:w-6 text-action" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-            <h1 class="text-2xl font-heading font-bold text-text">Contact Submissions</h1>
+            <div class="flex flex-col">
+              <h1 class="text-xl sm:text-2xl font-heading font-bold text-text">Contact Submissions</h1>
+              <p v-if="submissions.length > 0" class="text-sm text-text-muted mt-1">
+                {{ submissions.filter(s => s.status === 'unread').length }} unread, {{ submissions.length }} total
+              </p>
+            </div>
           </div>
           
-          <button 
-            @click="refreshSubmissions"
-            :disabled="loading"
-            class="inline-flex items-center px-4 py-2 border border-border text-sm font-medium rounded-md text-text bg-surface hover:bg-surface-2 disabled:opacity-50 transition-colors"
-          >
-            <svg v-if="loading" class="animate-spin h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            <svg v-else class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-            </svg>
-            Refresh
-          </button>
+          <!-- Action Buttons - Mobile: Full width, Desktop: Inline -->
+          <div class="w-full sm:w-auto flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
+            <button 
+              @click="refreshSubmissions"
+              :disabled="loading"
+              class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 border border-border text-sm font-medium rounded-md text-text bg-surface hover:bg-surface-2 disabled:opacity-50 transition-colors min-h-[44px]"
+            >
+              <svg v-if="loading" class="animate-spin h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <svg v-else class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+              </svg>
+              Refresh
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -51,25 +61,30 @@
         <p class="mt-1 text-sm text-gray-500">Contact form submissions will appear here.</p>
       </div>
 
-      <div v-else class="space-y-6">
-        <div v-for="submission in submissions" :key="submission.id" class="bg-surface rounded-xl border border-border p-6 hover:shadow-lg transition-all duration-200">
-          <!-- Simple Header -->
-          <div class="flex items-start justify-between mb-4">
+      <div v-else class="space-y-4 sm:space-y-6">
+        <div v-for="submission in submissions" :key="submission.id" class="bg-surface rounded-xl border border-border p-4 sm:p-6 hover:shadow-lg transition-all duration-200">
+          <!-- Mobile-First Header -->
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 space-y-3 sm:space-y-0">
             <div class="flex-1 min-w-0">
-              <h3 class="text-lg font-heading font-semibold text-text">{{ submission.name }}</h3>
+              <div class="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
+                <h3 class="text-base sm:text-lg font-heading font-semibold text-text truncate">{{ submission.name }}</h3>
+                <!-- Status Badge - Mobile: Inline, Desktop: Separate -->
+                <span 
+                  class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium w-fit"
+                  :class="{
+                    'bg-action/10 text-action': submission.status === 'unread',
+                    'bg-success/10 text-success': submission.status === 'read'
+                  }"
+                >
+                  {{ submission.status === 'unread' ? 'New' : 'Read' }}
+                </span>
+              </div>
               <p class="text-sm text-text-muted mt-1">{{ formatDate(submission.timestamp) }}</p>
+              <p v-if="submission.updated_by" class="text-xs text-text-muted mt-1">
+                Last updated by {{ submission.updated_by }} 
+                <span v-if="submission.updated_at">on {{ formatDate(submission.updated_at) }}</span>
+              </p>
             </div>
-            
-            <!-- Status Badge -->
-            <span 
-              class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium"
-              :class="{
-                'bg-action/10 text-action': submission.status === 'unread',
-                'bg-success/10 text-success': submission.status === 'read'
-              }"
-            >
-              {{ submission.status === 'unread' ? 'New' : 'Read' }}
-            </span>
           </div>
 
           <!-- Contact Info -->
@@ -103,22 +118,35 @@
             <p class="text-sm text-text-muted">{{ submission.message }}</p>
           </div>
 
-          <!-- Simple Actions -->
-          <div class="flex space-x-3">
-            <button 
-              v-if="submission.status === 'unread'"
-              @click="markAsRead(submission)"
-              class="inline-flex items-center px-3 py-2 text-sm font-medium bg-action text-white rounded-md hover:bg-action-hover transition-colors"
-            >
-              <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              Mark as Read
-            </button>
-            
+          <!-- Mobile-First Actions -->
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+            <div class="flex items-center space-x-2">
+              <button 
+                v-if="submission.status === 'unread'"
+                @click="markAsRead(submission)"
+                class="inline-flex items-center px-2 py-1 text-xs font-medium text-text-muted hover:text-action transition-colors group min-h-[44px]"
+                title="Mark as read"
+              >
+                <svg class="h-3 w-3 mr-1 opacity-60 group-hover:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Mark read
+              </button>
+              <button 
+                v-else
+                @click="markAsUnread(submission)"
+                class="inline-flex items-center px-2 py-1 text-xs font-medium text-text-muted hover:text-warning transition-colors group min-h-[44px]"
+                title="Mark as unread"
+              >
+                <svg class="h-3 w-3 mr-1 opacity-60 group-hover:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"></path>
+                </svg>
+                Mark unread
+              </button>
+            </div>
             <button 
               @click="replyToSubmission(submission)"
-              class="inline-flex items-center px-3 py-2 text-sm font-medium text-action border border-action rounded-md hover:bg-action/5 transition-colors"
+              class="w-full sm:w-auto inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-action border border-action rounded-md hover:bg-action/5 transition-colors min-h-[44px]"
             >
               <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path>
@@ -133,7 +161,17 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+
+const authStore = useAuthStore()
+
+// Debug auth state
+console.log('🔍 Submissions.vue: Auth state on mount:', {
+  isAuthenticated: authStore.isAuthenticated,
+  token: authStore.token ? authStore.token.substring(0, 20) + '...' : 'NO TOKEN',
+  user: authStore.userName
+})
 
 // Simple state
 const submissions = ref([])
@@ -143,13 +181,49 @@ const loading = ref(false)
 const loadSubmissions = async () => {
   loading.value = true
   try {
-    const response = await fetch('/api/submissions')
+    // Ensure auth store is initialized
+    if (!authStore.token) {
+      console.log('🔄 Submissions.vue: No token found, initializing auth store')
+      authStore.initializeAuth()
+    }
+    
+    // Fallback: get token directly from localStorage
+    const directToken = localStorage.getItem('ecis_token')
+    const tokenToUse = authStore.token || directToken
+    
+    console.log('🔍 Submissions.vue: Making API request with token:', tokenToUse ? tokenToUse.substring(0, 20) + '...' : 'NO TOKEN')
+    console.log('🔍 Submissions.vue: Full token (first 30 chars):', tokenToUse ? tokenToUse.substring(0, 30) : 'NO TOKEN')
+    console.log('🔍 Submissions.vue: Direct localStorage token:', directToken ? directToken.substring(0, 20) + '...' : 'NO TOKEN')
+    
+    if (!tokenToUse) {
+      console.error('❌ Submissions.vue: No authentication token available')
+      return
+    }
+    
+    const headers = {
+      'Authorization': `Bearer ${tokenToUse}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+    
+    console.log('🔍 Submissions.vue: Request headers:', headers)
+    
+    const response = await fetch('/api/submissions', {
+      headers
+    })
+    
+    console.log('🔍 Submissions.vue: API response status:', response.status)
+    
     if (response.ok) {
       const data = await response.json()
+      console.log('✅ Submissions.vue: API response data:', data)
       submissions.value = data.submissions || []
+    } else {
+      const errorData = await response.text()
+      console.error('❌ Submissions.vue: API Error:', response.status, response.statusText, errorData)
     }
   } catch (error) {
-    console.error('Error loading submissions:', error)
+    console.error('❌ Submissions.vue: Error loading submissions:', error)
   } finally {
     loading.value = false
   }
@@ -161,9 +235,77 @@ const refreshSubmissions = () => {
 }
 
 // Mark submission as read
-const markAsRead = (submission) => {
-  submission.status = 'read'
-  // TODO: Update via API
+const markAsRead = async (submission) => {
+  try {
+    // Update locally first for immediate feedback
+    const originalStatus = submission.status
+    submission.status = 'read'
+    submission.updated_by = authStore.userName
+    submission.updated_at = new Date().toISOString()
+    
+    // Send to API to persist the change
+    const response = await fetch(`/api/submissions/${submission.id}/status`, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${authStore.token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        status: 'read',
+        updated_by: authStore.userName
+      })
+    })
+    
+    if (!response.ok) {
+      throw new Error('Failed to update status')
+    }
+    
+    console.log('✅ Marked as read by:', authStore.userName)
+  } catch (error) {
+    console.error('❌ Error marking as read:', error)
+    // Revert on error
+    submission.status = originalStatus
+    submission.updated_by = null
+    submission.updated_at = null
+  }
+}
+
+// Mark submission as unread
+const markAsUnread = async (submission) => {
+  try {
+    // Update locally first for immediate feedback
+    const originalStatus = submission.status
+    submission.status = 'unread'
+    submission.updated_by = authStore.userName
+    submission.updated_at = new Date().toISOString()
+    
+    // Send to API to persist the change
+    const response = await fetch(`/api/submissions/${submission.id}/status`, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${authStore.token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        status: 'unread',
+        updated_by: authStore.userName
+      })
+    })
+    
+    if (!response.ok) {
+      throw new Error('Failed to update status')
+    }
+    
+    console.log('✅ Marked as unread by:', authStore.userName)
+  } catch (error) {
+    console.error('❌ Error marking as unread:', error)
+    // Revert on error
+    submission.status = originalStatus
+    submission.updated_by = null
+    submission.updated_at = null
+  }
 }
 
 // Reply to submission
@@ -184,7 +326,23 @@ const formatDate = (timestamp) => {
 }
 
 // Load submissions on mount
-onMounted(() => {
+onMounted(async () => {
+    console.log('🔍 Submissions.vue: Component mounted, calling loadSubmissions (AUTOMATED DEPLOYMENT TEST)')
+  console.log('🔍 Submissions.vue: Auth state at mount:', {
+    isAuthenticated: authStore.isAuthenticated,
+    token: authStore.token ? authStore.token.substring(0, 20) + '...' : 'NO TOKEN',
+    user: authStore.userName
+  })
+  
+  // Wait a bit for auth store to be fully initialized
+  await new Promise(resolve => setTimeout(resolve, 100))
+  
+  console.log('🔍 Submissions.vue: After delay, auth state:', {
+    isAuthenticated: authStore.isAuthenticated,
+    token: authStore.token ? authStore.token.substring(0, 20) + '...' : 'NO TOKEN',
+    user: authStore.userName
+  })
+  
   loadSubmissions()
 })
 </script>

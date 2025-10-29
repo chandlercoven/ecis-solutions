@@ -109,7 +109,7 @@ const isLoading = ref(false)
 
 // Check if current route is internal (team portal/authenticated area)
 const isInternalRoute = computed(() => {
-  const internalPaths = ['/login', '/dashboard', '/submissions', '/incidents', '/clients', '/reports', '/users']
+  const internalPaths = ['/login', '/app/login', '/app/dashboard', '/app/submissions', '/app/incidents', '/app/clients', '/app/reports', '/app/users']
   const isInternal = internalPaths.some(path => route.path.startsWith(path))
   
   // Debug logging

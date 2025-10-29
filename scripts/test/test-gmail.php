@@ -30,7 +30,7 @@ echo "=====================================\n";
 $firstName = 'Test';
 $lastName = 'User';
 $email = 'test@example.com';
-$phone = '516-640-8144';
+$phone = '561-249-0897';
 $service = 'Security Assessment';
 $message = 'This is a test email to verify Gmail SMTP is working properly for ECIS Solutions contact forms.';
 

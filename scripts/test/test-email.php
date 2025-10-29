@@ -8,7 +8,7 @@ $testData = [
     'firstName' => 'Test',
     'lastName' => 'User', 
     'email' => 'test@example.com',
-    'phone' => '516-640-8144',
+    'phone' => '561-249-0897',
     'service' => 'Security Assessment',
     'message' => 'This is a test email to verify SMTP is working properly with GoDaddy Email Essentials.'
 ];

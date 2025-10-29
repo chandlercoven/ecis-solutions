@@ -5,7 +5,7 @@
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center h-auto sm:h-16 py-3 sm:py-0">
         <!-- Logo and App Name - Mobile: Full width with menu toggle -->
         <div class="flex items-center w-full sm:w-auto justify-between sm:justify-start">
-          <router-link to="/dashboard" class="flex items-center">
+          <router-link to="/app/dashboard" class="flex items-center">
             <div class="h-8 w-8 sm:h-10 sm:w-10 bg-action/10 rounded-lg flex items-center justify-center mr-2 sm:mr-3 hover:bg-action/20 transition-colors">
               <svg class="h-5 w-5 sm:h-6 sm:w-6 text-action" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -34,16 +34,16 @@
         <!-- Navigation Menu -->
         <nav class="hidden md:flex items-center space-x-1">
           <router-link 
-            to="/dashboard" 
+            to="/app/dashboard" 
             class="px-4 py-2 rounded-md text-sm font-medium text-text-muted hover:text-text hover:bg-surface-2 transition-colors"
-            :class="{ 'bg-surface-2 text-action': $route.path === '/dashboard' }"
+            :class="{ 'bg-surface-2 text-action': $route.path === '/app/dashboard' }"
           >
             Dashboard
           </router-link>
           <router-link 
-            to="/submissions" 
+            to="/app/submissions" 
             class="px-4 py-2 rounded-md text-sm font-medium text-text-muted hover:text-text hover:bg-surface-2 transition-colors relative"
-            :class="{ 'bg-surface-2 text-action': $route.path === '/submissions' }"
+            :class="{ 'bg-surface-2 text-action': $route.path === '/app/submissions' }"
           >
             Submissions
             <span v-if="unreadCount > 0" class="absolute -top-1 -right-1 bg-action text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -51,32 +51,32 @@
             </span>
           </router-link>
           <router-link 
-            to="/clients" 
+            to="/app/clients" 
             class="px-4 py-2 rounded-md text-sm font-medium text-text-muted hover:text-text hover:bg-surface-2 transition-colors"
-            :class="{ 'bg-surface-2 text-action': $route.path === '/clients' }"
+            :class="{ 'bg-surface-2 text-action': $route.path === '/app/clients' }"
           >
             Clients
           </router-link>
           <router-link 
-            to="/incidents" 
+            to="/app/incidents" 
             class="px-4 py-2 rounded-md text-sm font-medium text-text-muted hover:text-text hover:bg-surface-2 transition-colors"
-            :class="{ 'bg-surface-2 text-action': $route.path === '/incidents' }"
+            :class="{ 'bg-surface-2 text-action': $route.path === '/app/incidents' }"
           >
             Incidents
           </router-link>
           <router-link 
             v-if="authStore.canViewReports"
-            to="/reports" 
+            to="/app/reports" 
             class="px-4 py-2 rounded-md text-sm font-medium text-text-muted hover:text-text hover:bg-surface-2 transition-colors"
-            :class="{ 'bg-surface-2 text-action': $route.path === '/reports' }"
+            :class="{ 'bg-surface-2 text-action': $route.path === '/app/reports' }"
           >
             Reports
           </router-link>
           <router-link 
             v-if="authStore.canManageUsers"
-            to="/users" 
+            to="/app/users" 
             class="px-4 py-2 rounded-md text-sm font-medium text-text-muted hover:text-text hover:bg-surface-2 transition-colors"
-            :class="{ 'bg-surface-2 text-action': $route.path === '/users' }"
+            :class="{ 'bg-surface-2 text-action': $route.path === '/app/users' }"
           >
             Users
           </router-link>
@@ -93,6 +93,18 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
             </svg>
             <span v-if="hasNotifications" class="absolute top-1.5 right-1.5 h-2 w-2 bg-action rounded-full"></span>
+          </button>
+
+          <!-- Quick Logout Button -->
+          <button 
+            @click="handleLogout"
+            class="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-text-muted hover:text-danger hover:bg-danger/10 rounded-lg transition-colors"
+            title="Sign Out"
+          >
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            <span class="hidden lg:inline">Sign Out</span>
           </button>
 
           <!-- User Dropdown -->
@@ -130,7 +142,7 @@
                   <p class="text-xs text-accent mt-1">{{ authStore.userRole }}</p>
                 </div>
                 <router-link 
-                  to="/dashboard/profile"
+                  to="/app/dashboard/profile"
                   class="block px-4 py-2 text-sm text-text-muted hover:bg-surface-2 hover:text-text transition-colors"
                 >
                   <div class="flex items-center">
@@ -141,7 +153,7 @@
                   </div>
                 </router-link>
                 <router-link 
-                  to="/dashboard/security"
+                  to="/app/dashboard/security"
                   class="block px-4 py-2 text-sm text-text-muted hover:bg-surface-2 hover:text-text transition-colors"
                 >
                   <div class="flex items-center">
@@ -180,17 +192,17 @@
       >
         <nav v-if="showMobileMenu" class="sm:hidden w-full mt-4 pt-4 border-t border-border">
           <router-link 
-            to="/dashboard" 
+            to="/app/dashboard" 
             class="block px-4 py-2 rounded-md text-sm font-medium text-text-muted hover:text-text hover:bg-surface-2 transition-colors"
-            :class="{ 'bg-surface-2 text-action': $route.path === '/dashboard' }"
+            :class="{ 'bg-surface-2 text-action': $route.path === '/app/dashboard' }"
             @click="showMobileMenu = false"
           >
             Dashboard
           </router-link>
           <router-link 
-            to="/submissions" 
+            to="/app/submissions" 
             class="block px-4 py-2 rounded-md text-sm font-medium text-text-muted hover:text-text hover:bg-surface-2 transition-colors"
-            :class="{ 'bg-surface-2 text-action': $route.path === '/submissions' }"
+            :class="{ 'bg-surface-2 text-action': $route.path === '/app/submissions' }"
             @click="showMobileMenu = false"
           >
             Submissions
@@ -199,39 +211,54 @@
             </span>
           </router-link>
           <router-link 
-            to="/clients" 
+            to="/app/clients" 
             class="block px-4 py-2 rounded-md text-sm font-medium text-text-muted hover:text-text hover:bg-surface-2 transition-colors"
-            :class="{ 'bg-surface-2 text-action': $route.path === '/clients' }"
+            :class="{ 'bg-surface-2 text-action': $route.path === '/app/clients' }"
             @click="showMobileMenu = false"
           >
             Clients
           </router-link>
           <router-link 
-            to="/incidents" 
+            to="/app/incidents" 
             class="block px-4 py-2 rounded-md text-sm font-medium text-text-muted hover:text-text hover:bg-surface-2 transition-colors"
-            :class="{ 'bg-surface-2 text-action': $route.path === '/incidents' }"
+            :class="{ 'bg-surface-2 text-action': $route.path === '/app/incidents' }"
             @click="showMobileMenu = false"
           >
             Incidents
           </router-link>
           <router-link 
             v-if="authStore.canViewReports"
-            to="/reports" 
+            to="/app/reports" 
             class="block px-4 py-2 rounded-md text-sm font-medium text-text-muted hover:text-text hover:bg-surface-2 transition-colors"
-            :class="{ 'bg-surface-2 text-action': $route.path === '/reports' }"
+            :class="{ 'bg-surface-2 text-action': $route.path === '/app/reports' }"
             @click="showMobileMenu = false"
           >
             Reports
           </router-link>
           <router-link 
             v-if="authStore.canManageUsers"
-            to="/users" 
+            to="/app/users" 
             class="block px-4 py-2 rounded-md text-sm font-medium text-text-muted hover:text-text hover:bg-surface-2 transition-colors"
-            :class="{ 'bg-surface-2 text-action': $route.path === '/users' }"
+            :class="{ 'bg-surface-2 text-action': $route.path === '/app/users' }"
             @click="showMobileMenu = false"
           >
             Users
           </router-link>
+          
+          <!-- Mobile Logout Button -->
+          <div class="border-t border-border mt-4 pt-4">
+            <button 
+              @click="handleLogout"
+              class="w-full text-left px-4 py-2 text-sm text-danger hover:bg-danger/10 transition-colors rounded-md"
+            >
+              <div class="flex items-center">
+                <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                Sign Out
+              </div>
+            </button>
+          </div>
         </nav>
       </transition>
     </div>
@@ -263,7 +290,7 @@ const userInitials = computed(() => {
 // Methods
 const handleLogout = () => {
   authStore.logout()
-  router.push('/login')
+  router.push('/app/login')
 }
 
 const toggleNotifications = () => {

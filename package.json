@@ -12,7 +12,7 @@
     "build:prod": "node scripts/build-with-cache-bust.js && docker compose down && docker compose up -d --build",
     "build:force": "node scripts/build-with-cache-bust.js && docker compose down && docker compose up -d --build --force-recreate",
     "build:clean": "docker compose down && docker system prune -f && vite build && docker compose up -d --build",
-    "deploy": "npm run build:prod",
+    "deploy": "npm run build && echo '🚀 Building Docker image...' && docker compose build ecis-solutions && echo '🔄 Restarting container...' && docker compose restart ecis-solutions && echo '✅ Deployment complete!'",
     "preview": "vite preview"
   },
   "dependencies": {
